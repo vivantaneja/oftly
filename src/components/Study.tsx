@@ -185,11 +185,6 @@ export default function Study({
           <h1 ref={completionRef} tabIndex={-1}>
             {completed ? "Session complete" : "Nothing due"}
           </h1>
-          <p>
-            {completed
-              ? `You completed ${completed} review${completed === 1 ? "" : "s"}. Your next steps are saved.`
-              : "There are no cards ready in this session right now."}
-          </p>
           <button className="primary" onClick={() => action(load)}>
             Check for due cards <ArrowRight size={16} />
           </button>

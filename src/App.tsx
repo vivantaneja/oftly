@@ -26,7 +26,6 @@ class ErrorBoundary extends Component<
     return this.state.error ? (
       <div className="empty-inline">
         <h1>Let’s reopen your workspace.</h1>
-        <p>Your collection is saved locally.</p>
         <button className="primary" onClick={() => location.reload()}>
           Reload Oftly
         </button>
@@ -106,7 +105,7 @@ function Preferences({ onChange }: { onChange: () => void }) {
           <div className="setting-row">
             <div>
               <h2>New cards per deck, per day</h2>
-              <p>Start small. New cards add to your future reviews.</p>
+              <p>New cards add to your future reviews.</p>
             </div>
             <input
               aria-label="New cards per deck per day"
@@ -125,8 +124,7 @@ function Preferences({ onChange }: { onChange: () => void }) {
             <div>
               <h2>Target retention</h2>
               <p>
-                90% is a useful starting point. Higher targets mean more
-                reviews, not a guarantee of recall.
+                Higher targets mean more reviews, not a guarantee of recall.
               </p>
             </div>
             <select
@@ -479,10 +477,7 @@ function AppContent() {
           ) : page === "progress" ? (
             <section>
               <div className="page-heading">
-                <div>
-                  <h1>Progress</h1>
-                  <p>Your review history.</p>
-                </div>
+                <h1>Progress</h1>
               </div>
               <div className="progress-summary">
                 <div>
@@ -503,8 +498,7 @@ function AppContent() {
                 </div>
               </div>
               <div className="section-heading">
-                <h2>Your last seven days</h2>
-                <span>Reviews completed</span>
+                <h2>Reviews · last 7 days</h2>
               </div>
               <Week stats={data.stats} large />
               <p className="hint left">
@@ -514,12 +508,7 @@ function AppContent() {
               <details className="learning-note quiet-details">
                 <summary>About spaced repetition</summary>
                 <div>
-                  <h2>Progress is remembering later.</h2>
-                  <p>
-                    Spacing and retrieval support long-term retention. More
-                    flips in one sitting aren’t the goal. Give your memory time,
-                    then come back.
-                  </p>
+                  <p>Spacing and retrieval support long-term retention.</p>
                   <a
                     href="https://pubmed.ncbi.nlm.nih.gov/16719566/"
                     target="_blank"

@@ -79,8 +79,7 @@ export default function Import({ onChange }: { onChange: () => void }) {
             {result.added} cards added
             {result.skipped
               ? `, ${result.skipped} duplicates skipped`
-              : ""}.{" "}
-            {result.message || "They’re ready for your next study session."}
+              : ""}. {result.message}
           </p>
           <button className="primary" onClick={() => navigate("library")}>
             Go to your library <ArrowRight size={17} />
@@ -105,7 +104,6 @@ export default function Import({ onChange }: { onChange: () => void }) {
         <ArrowLeft size={16} /> Decks
       </button>
       <h1>Import cards</h1>
-      <p className="page-description">Imports stay on your device.</p>
       <div className="tabs" role="group" aria-label="Import format">
         {[
           ["anki", browserLocal ? "Anki / backup" : "Anki package"],

@@ -1561,9 +1561,6 @@ button.primary,
   display: grid;
   gap: 22px;
 }
-.star-import .page-description {
-  margin: 0;
-}
 .prompt-builder {
   border-block: 1px solid var(--line);
   padding: 10px 0;
@@ -1820,9 +1817,6 @@ h3 {
   width: 100%;
   justify-content: space-between;
 }
-.library-heading h2 + .library-tools {
-  width: auto;
-}
 .library-symbol {
   background: none;
   width: 22px;
@@ -1952,9 +1946,6 @@ h3 {
   padding: 12px 0;
   background: none;
   margin-top: 24px;
-}
-.learning-note h2 {
-  display: none;
 }
 .settings-form {
   margin-top: 28px;
@@ -2140,9 +2131,6 @@ h3 {
   .library-tools {
     flex-wrap: wrap;
     gap: 8px 16px;
-  }
-  .library-heading h2 + .library-tools {
-    width: 100%;
   }
   .library-symbol {
     width: 18px;

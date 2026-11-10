@@ -35,7 +35,9 @@ test("complete learner journey, native scheduling, and responsive accessibility"
   page.on("pageerror", (e) => errors.push(e.message));
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Decks", exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Decks", exact: true }),
+  ).toBeVisible();
   await page.evaluate(() => {
     window.scrollTo(0, 0);
     (document.activeElement as HTMLElement)?.blur();
@@ -349,7 +351,7 @@ test("Anki Star drafts become structured study cards on desktop and mobile", asy
   await editedAnswer.fill("32");
   await page.getByRole("button", { name: "Import 1 note" }).click();
   await expect(
-    page.getByRole("heading", { name: "Your notes are ready." }),
+    page.getByRole("heading", { name: "Import complete" }),
   ).toBeFocused();
   await page.getByRole("button", { name: "Open deck" }).click();
   await expect(page.getByText("Skip me", { exact: true })).toHaveCount(0);

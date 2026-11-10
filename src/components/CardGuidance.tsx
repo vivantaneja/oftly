@@ -77,10 +77,7 @@ export function SuggestionSettings() {
   return (
     <section className="suggestion-settings">
       <h2>Card suggestions</h2>
-      <p>
-        Lightweight writing hints while you create or edit. Your text stays on
-        this device. Changes save immediately.
-      </p>
+      <p>Changes save immediately.</p>
       {error && (
         <p className="error" role="alert">
           {error}

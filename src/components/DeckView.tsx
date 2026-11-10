@@ -263,11 +263,7 @@ export default function DeckView({
           {!notes.length ? (
             <div className="empty-inline">
               <h3>{query ? "No matching cards." : "No cards yet."}</h3>
-              <p>
-                {query
-                  ? "Try a different word or clear your search."
-                  : "Add your first question and answer to this deck."}
-              </p>
+              {query && <p>Try a different word or clear your search.</p>}
               {!query && (
                 <button className="secondary" onClick={() => edit(null)}>
                   <Plus size={16} /> Add a card

@@ -134,7 +134,6 @@ export default function DeckBrowser({
       aria-label={parentId ? "Folder contents" : "Folders and decks"}
     >
       <div className="section-heading library-heading">
-        {parentId && <h2>Inside this folder</h2>}
         <div className="library-tools">
           <label className="search">
             <Search size={16} />
@@ -172,13 +171,7 @@ export default function DeckBrowser({
                 ? "This folder is empty."
                 : "No decks yet."}
           </h3>
-          <p>
-            {query
-              ? "Try another title."
-              : parentId
-                ? "Create a deck here, or add a subfolder to keep things together."
-                : "Create a deck or import your cards."}
-          </p>
+          {query && <p>Try another title.</p>}
           {!query && !parentId && (
             <button className="secondary" onClick={() => navigate("import")}>
               <Upload size={16} /> Import cards

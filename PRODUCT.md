@@ -27,4 +27,4 @@ Mixed Anki Star JSON import offers selection, editing, preserved sources/explana
 
 ## Quiet interface refinement
 
-The user requested less stimulation and a layout closer to Anki on 10 November 2026. Use a compact light top bar, a deck-list home, plain study content, neutral compact ratings and optional help behind disclosures. Remove the dark rail, motivational dashboard, decorative panels and repeated prompts. The Oftly identity and existing functionality remain.
+The user requested less stimulation and a layout closer to Anki on 10 November 2026. Use a compact light top bar, a deck-list home, plain study content, neutral compact ratings and optional help behind disclosures. Remove the dark rail, motivational dashboard, decorative panels and repeated prompts. The Oftly identity and existing functionality remain. Omit subtitles that merely repeat a page title, motivational copy and repeated completion messages; retain counts, limits and instructions that help the learner act.

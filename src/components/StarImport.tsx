@@ -96,14 +96,12 @@ export default function StarImport({ onChange }: { onChange: () => void }) {
           <Check size={28} />
         </div>
         <h2 ref={resultRef} tabIndex={-1}>
-          Your notes are ready.
+          Import complete
         </h2>
         <p>
           {result.added} {result.added === 1 ? "note" : "notes"} created{" "}
           {result.cards} {result.cards === 1 ? "card" : "cards"}.{" "}
-          {result.skipped
-            ? `${result.skipped} duplicates skipped.`
-            : "Sources and tags came with them."}
+          {result.skipped ? `${result.skipped} duplicates skipped.` : ""}
         </p>
         <button
           className="primary"
@@ -115,10 +113,6 @@ export default function StarImport({ onChange }: { onChange: () => void }) {
     );
   return (
     <div className="star-import" aria-busy={busy}>
-      <p className="page-description">
-        Bring reviewed notes from Anki Star or your assistant. Basic, reversed,
-        typed and cloze cards keep their sources and explanations.
-      </p>
       <details className="prompt-builder">
         <summary>Create a prompt for your assistant</summary>
         <p>
@@ -241,8 +235,9 @@ export default function StarImport({ onChange }: { onChange: () => void }) {
         />
       </label>
       <p className="hint left">
-        Up to 500 notes. Imports use Oftly’s layout. Exact first-field
-        duplicates within an Anki Star note type are skipped across decks.
+        Up to 500 basic, reversed, typed or cloze notes. Imports use Oftly’s
+        layout. Exact first-field duplicates within an Anki Star note type are
+        skipped across decks.
       </p>
       {error && (
         <p ref={errorRef} tabIndex={-1} className="error" role="alert">
