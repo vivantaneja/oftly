@@ -45,3 +45,11 @@ All integration/browser tests use temporary collections. The running app uses it
 - Screenshot timing now waits for font readiness and completes finite animations, so captures show the final marigold recall accent. Public README screenshots contain only synthetic test cards and embedded capture provenance.
 - The finish review identified a clipped retention value at enlarged text size. Its verdict pass marked the fix resolved and returned `ship` at that scope. The browser regression measures room for the selected value plus padding and native arrow.
 - Restarted the updated local service and verified unchanged deck IDs, card count and completed-review count.
+
+
+## Quieter interface — 10 November 2026
+
+- Replaced the dark rail and dashboard hero with a light top navigation and one deck list. Moved weekly activity to Progress; reduced headlines, filled panels and decorative feedback. Study cards use plain question/answer content, compact ratings and an expandable rating guide. Import help and advanced options are collapsed by default.
+- Native and browser production builds passed. All 6 native browser journeys and 7 browser-only journeys passed, covering imports, folders, study, keyboard shortcuts, backup, persistence, offline reload and HTML safety. The scheduling/storage implementations are unchanged.
+- Inspected desktop and mobile screenshots. Additional checks covered Decks, Import, Progress and Settings at 320, 390, 800 and 1360px, with no horizontal overflow. A 320px Settings view with a 30px root font also passed; automated WCAG A/AA checks found no violations in the checked settings view. Existing journey accessibility checks also passed.
+- Updated the design contract and public screenshots to match the quieter interface. Screenshot content is synthetic.

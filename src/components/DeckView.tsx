@@ -92,7 +92,7 @@ export default function DeckView({
   return (
     <section>
       <nav className="breadcrumbs" aria-label="Folder path">
-        <a href="#library">Library</a>
+        <a href="#library">Decks</a>
         {ancestors.map((ancestor) => (
           <span key={ancestor.id}>
             <ChevronRight size={14} aria-hidden="true" />
@@ -257,11 +257,7 @@ export default function DeckView({
           </div>
           {!notes.length ? (
             <div className="empty-inline">
-              <h3>
-                {query
-                  ? "No matching cards."
-                  : "A little knowledge goes a long way."}
-              </h3>
+              <h3>{query ? "No matching cards." : "No cards yet."}</h3>
               <p>
                 {query
                   ? "Try a different word or clear your search."

@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from "react";
-import { ArrowLeft, ArrowRight, Check, RotateCcw, Clock } from "lucide-react";
+import { ArrowLeft, ArrowRight, RotateCcw, Clock } from "lucide-react";
 import { cardHTML } from "../lib/html";
 import { api, navigate, type Stats } from "../lib/api";
 import { deckPath } from "../lib/decks";
@@ -161,11 +161,8 @@ export default function Study({
       )}
       {!session.card ? (
         <div className="session-complete">
-          <div className="done-symbol">
-            <Check size={30} />
-          </div>
           <h1 ref={completionRef} tabIndex={-1}>
-            {completed ? "A good place to pause." : "You’re up to date."}
+            {completed ? "Session complete" : "Nothing due"}
           </h1>
           <p>
             {completed
@@ -186,7 +183,7 @@ export default function Study({
             Check for due cards <ArrowRight size={16} />
           </button>
           <button className="text-button" onClick={() => navigate("today")}>
-            Back to Today
+            Back to decks
           </button>
         </div>
       ) : (
@@ -208,11 +205,6 @@ export default function Study({
             >
               <CardContent html={session.card.question} />
             </div>
-            {!answer && (
-              <div className="recall-prompt">
-                Take a moment. What comes to mind?
-              </div>
-            )}
             {answer && (
               <div
                 className="answer-reveal"
@@ -221,19 +213,7 @@ export default function Study({
                 role="region"
                 aria-label="Answer"
               >
-                <span className="field-label answer-label">
-                  Answer
-                  <svg
-                    className="interval-mark"
-                    viewBox="0 0 70 24"
-                    aria-hidden="true"
-                  >
-                    <circle cx="6" cy="18" r="2.5" fill="currentColor" />
-                    <circle cx="15" cy="17" r="3.5" fill="currentColor" />
-                    <circle cx="29.5" cy="15.5" r="5" fill="currentColor" />
-                    <circle className="final-dot" cx="54" cy="13" r="7.5" />
-                  </svg>
-                </span>
+                <span className="field-label answer-label">Answer</span>
                 <CardContent html={answer.answer} />
                 {answer.extras?.map((entry) => (
                   <div className="card-explanation" key={entry.label}>
@@ -323,11 +303,13 @@ export default function Study({
                     <p>{typed}</p>
                   </div>
                 )}
-                <p className="rating-question">How well did you remember?</p>
+
                 <div className="ratings">
                   {labels.map(([title, description], i) => (
                     <button
                       className={"rating rating-" + i}
+                      title={description}
+                      aria-label={`${title} ${i + 1}: ${description}; ${answer.intervals[i]}`}
                       key={title}
                       disabled={busy}
                       onClick={() => rate(i + 1)}
@@ -336,14 +318,18 @@ export default function Study({
                         <b>{title}</b>
                         <kbd>{i + 1}</kbd>
                       </span>
-                      <small>{description}</small>
+
                       <span className="interval">{answer.intervals[i]}</span>
                     </button>
                   ))}
                 </div>
-                <p className="hint">
-                  Forgot it? Choose Again. Hard means you remembered.
-                </p>
+                <details className="rating-help quiet-details">
+                  <summary>Rating guide</summary>
+                  <p>
+                    Again: forgot. Hard: recalled with effort. Good: recalled.
+                    Easy: recalled effortlessly.
+                  </p>
+                </details>
               </>
             )}
           </div>

@@ -5,20 +5,7 @@ import {
   Component,
   type ReactNode,
 } from "react";
-import {
-  BookOpen,
-  Sun,
-  ChartNoAxesColumnIncreasing,
-  Settings,
-  Plus,
-  ArrowRight,
-  Upload,
-  ArrowUpRight,
-  Check,
-  Download,
-  HardDrive,
-  Leaf,
-} from "lucide-react";
+import { Check, Download, HardDrive } from "lucide-react";
 import { api, navigate, type Dashboard, type Stats } from "./lib/api";
 import Study from "./components/Study";
 import Import from "./components/Import";
@@ -91,10 +78,7 @@ function Preferences({ onChange }: { onChange: () => void }) {
   }, []);
   return (
     <section className="narrow-page">
-      <h1>Keep learning manageable.</h1>
-      <p className="page-description">
-        A few useful settings. FSRS handles the spacing.
-      </p>
+      <h1>Settings</h1>
       {error && (
         <p role="alert" className="error">
           {error}
@@ -180,7 +164,7 @@ function Preferences({ onChange }: { onChange: () => void }) {
       )}
       <SuggestionSettings />
       <div className="data-section">
-        <h2>Your cards belong to you.</h2>
+        <h2>Backups</h2>
         <p>
           {browserLocal
             ? "Cards, review history and media stay in this browser on this device. Download regular backups: clearing site data or using private browsing can erase your collection. Devices and browsers do not sync."
@@ -212,7 +196,7 @@ function Preferences({ onChange }: { onChange: () => void }) {
         <p className="hint left">
           {browserLocal
             ? "Restore an .oftly.zip backup from Import → Anki / backup. Matching notes and schedules are restored from the backup. This backup format is for Oftly; use the local edition for native Anki exports."
-            : "To restore, import the backup from Library. Matching notes are merged by Anki."}
+            : "To restore, open Import and choose the backup. Matching notes are merged by Anki."}
         </p>
       </div>
       <div className="engine-note">
@@ -340,85 +324,41 @@ function AppContent() {
       >
         Skip to content
       </a>
-      <aside className="sidebar">
+      <header className="app-header">
         <a className="brand" href="#today" aria-label="Oftly home">
-          <img
-            className="brand-icon"
-            src="/brand/oftly-icon-paper.svg"
-            alt=""
-          />
+          <img className="brand-icon" src="/brand/oftly-icon.svg" alt="" />
           <img
             className="brand-wordmark"
-            src="/brand/oftly-wordmark-paper.svg"
+            src="/brand/oftly-wordmark-ink.svg"
             alt="oftly"
           />
         </a>
         <nav aria-label="Main navigation">
           {[
-            ["today", "Today", Sun],
-            ["library", "Library", BookOpen],
-            ["progress", "Progress", ChartNoAxesColumnIncreasing],
-          ].map(([target, label, Icon]) => {
-            const Symbol = Icon as typeof Sun;
+            ["today", "Decks"],
+            ["progress", "Progress"],
+            ["settings", "Settings"],
+          ].map(([target, label]) => {
             const selected =
               page === target ||
-              (target === "library" && ["deck", "import"].includes(page));
+              (target === "today" &&
+                ["library", "deck", "import"].includes(page));
             return (
               <a
-                key={target as string}
+                key={target}
                 href={"#" + target}
                 className={selected ? "selected" : ""}
                 aria-current={selected ? "page" : undefined}
               >
-                <Symbol size={19} />
-                <span>{label as string}</span>
-                {target === "today" && ready > 0 && (
-                  <span className="nav-count">{ready}</span>
-                )}
+                {label}
               </a>
             );
           })}
         </nav>
-        <div className="sidebar-bottom">
-          <a
-            href="#settings"
-            className={
-              page === "settings" ? "settings-link selected" : "settings-link"
-            }
-          >
-            <Settings size={18} /> Settings
-          </a>
-          <div className="local-status">
-            <span />
-            <div>
-              On this device<small>Your learning stays yours.</small>
-            </div>
-          </div>
-        </div>
-      </aside>
-      <div className="workspace">
-        <header className="topbar">
-          <a className="mobile-brand" href="#today" aria-label="Oftly home">
-            <img className="brand-icon" src="/brand/oftly-icon.svg" alt="" />
-            <img
-              className="brand-wordmark"
-              src="/brand/oftly-wordmark-ink.svg"
-              alt="oftly"
-            />
-          </a>
-          <span className="topbar-date">
-            {new Intl.DateTimeFormat("en-IE", {
-              weekday: "long",
-              day: "numeric",
-              month: "long",
-            }).format(new Date())}
-          </span>
-          <div className="actions">
-            <button
-              className="text-button import-nav"
-              onClick={() => navigate("import")}
-            >
-              <Upload size={16} /> Import
+        {!study && (
+          <div className="header-actions">
+            <button className="text-button" onClick={() => navigate("import")}>
+              Import
             </button>
             <button
               className="secondary compact"
@@ -437,10 +377,12 @@ function AppContent() {
                 beginCreation("deck", parent?.id);
               }}
             >
-              <Plus size={16} /> New deck
+              New deck
             </button>
           </div>
-        </header>
+        )}
+      </header>
+      <div className="workspace">
         <main id="main" tabIndex={-1} className={study ? "study-main" : ""}>
           {creating && (
             <form className="create-deck" onSubmit={create} key={creating}>
@@ -465,7 +407,7 @@ function AppContent() {
                   value={parentId}
                   onChange={(e) => setParentId(e.target.value)}
                 >
-                  <option value="">Library</option>
+                  <option value="">All decks</option>
                   {data?.decks
                     .filter((d) => isFolder(d, data.decks))
                     .map((d) => (
@@ -527,7 +469,7 @@ function AppContent() {
                   className="secondary"
                   onClick={() => navigate("library")}
                 >
-                  Back to Library
+                  Back to decks
                 </button>
               </div>
             )
@@ -537,8 +479,8 @@ function AppContent() {
             <section>
               <div className="page-heading">
                 <div>
-                  <h1>Small steps add up.</h1>
-                  <p>Your actual practice, without the pressure.</p>
+                  <h1>Progress</h1>
+                  <p>Your review history.</p>
                 </div>
               </div>
               <div className="progress-summary">
@@ -568,8 +510,8 @@ function AppContent() {
                 Recall rate uses {data.stats.recallSample} scheduled review
                 answers, excluding learning steps. A small sample can fluctuate.
               </p>
-              <div className="learning-note">
-                <Leaf size={23} />
+              <details className="learning-note quiet-details">
+                <summary>About spaced repetition</summary>
                 <div>
                   <h2>Progress is remembering later.</h2>
                   <p>
@@ -582,164 +524,44 @@ function AppContent() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Read the spacing research <ArrowUpRight size={14} />
+                    Read the spacing research
                   </a>
                 </div>
-              </div>
-            </section>
-          ) : page === "library" ? (
-            <section>
-              <div className="page-heading">
-                <div>
-                  <h1>A home for your knowledge.</h1>
-                  <p>{data.stats.totalCards} cards, ready to grow with you.</p>
-                </div>
-              </div>
-              <DeckBrowser
-                key={page}
-                decks={data.decks}
-                onNewFolder={newFolder}
-              />
-              <div className="library-footer">
-                <Upload size={18} />
-                <p>Already learning somewhere else?</p>
-                <button
-                  className="text-button"
-                  onClick={() => navigate("import")}
-                >
-                  Import from Anki or Quizlet <ArrowRight size={15} />
-                </button>
-              </div>
+              </details>
             </section>
           ) : (
-            <section>
+            <section className="collection-page">
               <div className="page-heading">
                 <div>
-                  <h1>Your daily practice.</h1>
-                  <p>A little focus today. More to remember tomorrow.</p>
+                  <h1>Decks</h1>
+                  <p>
+                    {ready} ready today · {data.stats.reviewedToday} reviewed
+                  </p>
                 </div>
-              </div>
-              <div className="today-grid">
-                <div className="daily-focus">
-                  {data.stats.totalCards === 0 ? (
-                    <>
-                      <div className="focus-symbol">
-                        <BookOpen size={24} />
-                      </div>
-                      <h2>
-                        Start with something
-                        <br />
-                        you want to remember.
-                      </h2>
-                      <p>
-                        Bring your flashcards over, or create a deck of your
-                        own. We’ll take care of when to review.
-                      </p>
-                      <button
-                        className="primary"
-                        onClick={() => navigate("import")}
-                      >
-                        Import your cards <ArrowRight size={17} />
-                      </button>
-                      <button
-                        className="sample-link"
-                        disabled={busy}
-                        onClick={sample}
-                      >
-                        Or try a 6-card sample deck <ArrowUpRight size={14} />
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <div className="focus-status" aria-hidden="true">
-                        <span />
-                        {ready ? "Your next small step" : "All clear for now"}
-                      </div>
-                      <h2>
-                        {ready ? (
-                          <>
-                            {ready} cards.
-                            <br />A little time well spent.
-                          </>
-                        ) : (
-                          <>
-                            You’ve made space
-                            <br />
-                            for remembering.
-                          </>
-                        )}
-                      </h2>
-                      <p>
-                        {ready
-                          ? "Recall, reveal, and let FSRS find the right time to revisit. Start with what’s ready today."
-                          : "Come back when your cards are due. Your next review will meet you here."}
-                      </p>
-                      {ready ? (
-                        <button
-                          className="primary"
-                          onClick={() => navigate("study")}
-                        >
-                          Start studying <ArrowRight size={17} />
-                        </button>
-                      ) : (
-                        <button
-                          className="secondary"
-                          onClick={() => navigate("library")}
-                        >
-                          Visit your library <ArrowRight size={17} />
-                        </button>
-                      )}
-                      <span className="focus-footnote">
-                        {data.stats.reviewedToday
-                          ? `${data.stats.reviewedToday} review${data.stats.reviewedToday === 1 ? "" : "s"} completed today`
-                          : "One question at a time. At your own pace."}
-                      </span>
-                    </>
-                  )}
-                </div>
-                <aside className="week-panel">
-                  <div className="section-heading">
-                    <h2>This week</h2>
-                    <span>Reviews</span>
-                  </div>
-                  <Week stats={data.stats} />
-                  <div className="week-note">
-                    <span>
-                      {data.stats.days.reduce((n, d) => n + d.count, 0)}{" "}
-                      {data.stats.days.reduce((n, d) => n + d.count, 0) === 1
-                        ? "review"
-                        : "reviews"}
-                    </span>
-                    <p>
-                      {data.stats.days.some((d) => d.count)
-                        ? "Every return is another chance to remember."
-                        : "Your practice will show up here. No streaks to keep alive."}
-                    </p>
-                  </div>
-                  <div className="quiet-tip">
-                    <span className="small-leaf">
-                      <Leaf size={17} />
-                    </span>
-                    <p>Try to recall the answer before you turn the card.</p>
-                  </div>
-                </aside>
+                {data.stats.totalCards > 0 && (
+                  <button
+                    className="primary"
+                    disabled={!ready}
+                    onClick={() => navigate("study")}
+                  >
+                    Start studying
+                  </button>
+                )}
               </div>
               <DeckBrowser
                 key={page}
                 decks={data.decks}
                 onNewFolder={newFolder}
               />
-              <div className="app-footnote">
-                <span>
-                  <HardDrive size={14} /> Saved locally · Powered by Anki
-                </span>
+              {data.stats.totalCards === 0 && (
                 <button
-                  className="text-button"
-                  onClick={() => navigate("settings")}
+                  className="text-button sample-link"
+                  disabled={busy}
+                  onClick={sample}
                 >
-                  Your study preferences <ArrowRight size={14} />
+                  Try a 6-card sample deck
                 </button>
-              </div>
+              )}
             </section>
           )}
         </main>

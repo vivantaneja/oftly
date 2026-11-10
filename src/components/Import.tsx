@@ -1,12 +1,5 @@
 import { useState, useRef } from "react";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Upload,
-  FileText,
-  Check,
-  ExternalLink,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import { api, navigate } from "../lib/api";
 import StarImport from "./StarImport";
 type Preview = {
@@ -19,7 +12,7 @@ type Preview = {
 };
 export default function Import({ onChange }: { onChange: () => void }) {
   const browserLocal = import.meta.env.VITE_STORAGE === "browser";
-  const [tab, setTab] = useState("text");
+  const [tab, setTab] = useState("anki");
   const [text, setText] = useState("");
   const [separator, setSeparator] = useState("auto");
   const [skipHeader, setSkipHeader] = useState(false);
@@ -81,10 +74,7 @@ export default function Import({ onChange }: { onChange: () => void }) {
     return (
       <section className="narrow-page">
         <div className="session-complete">
-          <div className="done-symbol">
-            <Check size={28} />
-          </div>
-          <h1>Your cards are home.</h1>
+          <h1>Import complete</h1>
           <p>
             {result.added} cards added
             {result.skipped
@@ -112,16 +102,14 @@ export default function Import({ onChange }: { onChange: () => void }) {
   return (
     <section className="narrow-page">
       <button className="text-button back" onClick={() => navigate("library")}>
-        <ArrowLeft size={16} /> Library
+        <ArrowLeft size={16} /> Decks
       </button>
-      <h1>Bring your cards with you.</h1>
-      <p className="page-description">
-        A fresh start, without starting over. Imports stay on your device.
-      </p>
+      <h1>Import cards</h1>
+      <p className="page-description">Imports stay on your device.</p>
       <div className="tabs" role="group" aria-label="Import format">
         {[
-          ["text", "Quizlet / text"],
           ["anki", browserLocal ? "Anki / backup" : "Anki package"],
+          ["text", "Quizlet / text"],
           ["star", "Assistant / JSON"],
         ].map(([id, label]) => (
           <button
@@ -141,10 +129,9 @@ export default function Import({ onChange }: { onChange: () => void }) {
         <StarImport onChange={onChange} />
       ) : tab === "text" ? (
         <div className="import-form">
-          <div className="import-instructions">
-            <FileText size={21} />
+          <details className="import-instructions quiet-details">
+            <summary>How to export from Quizlet</summary>
             <div>
-              <strong>From Quizlet to Oftly</strong>
               <p>
                 Open a set you created on Quizlet’s website. Choose{" "}
                 <b>Export</b>, select a tab between terms and definitions, then
@@ -158,7 +145,7 @@ export default function Import({ onChange }: { onChange: () => void }) {
                 Quizlet export guide <ExternalLink size={13} />
               </a>
             </div>
-          </div>
+          </details>
           <label>
             Deck name
             <input
@@ -171,7 +158,7 @@ export default function Import({ onChange }: { onChange: () => void }) {
           <label>
             Paste your cards
             <textarea
-              rows={8}
+              rows={6}
               value={text}
               onChange={(e) => {
                 setText(e.target.value);
@@ -182,34 +169,37 @@ export default function Import({ onChange }: { onChange: () => void }) {
               }
             />
           </label>
-          <div className="form-row">
-            <label>
-              Between question and answer
-              <select
-                value={separator}
-                onChange={(e) => {
-                  setSeparator(e.target.value);
-                  clear();
-                }}
-              >
-                <option value="auto">Detect automatically</option>
-                <option value="tab">Tab</option>
-                <option value="comma">Comma (CSV)</option>
-                <option value="semicolon">Semicolon</option>
-              </select>
-            </label>
-            <label className="checkbox">
-              <input
-                type="checkbox"
-                checked={skipHeader}
-                onChange={(e) => {
-                  setSkipHeader(e.target.checked);
-                  clear();
-                }}
-              />{" "}
-              First row is a heading
-            </label>
-          </div>
+          <details className="import-options quiet-details">
+            <summary>Import options</summary>
+            <div className="form-row">
+              <label>
+                Between question and answer
+                <select
+                  value={separator}
+                  onChange={(e) => {
+                    setSeparator(e.target.value);
+                    clear();
+                  }}
+                >
+                  <option value="auto">Detect automatically</option>
+                  <option value="tab">Tab</option>
+                  <option value="comma">Comma (CSV)</option>
+                  <option value="semicolon">Semicolon</option>
+                </select>
+              </label>
+              <label className="checkbox">
+                <input
+                  type="checkbox"
+                  checked={skipHeader}
+                  onChange={(e) => {
+                    setSkipHeader(e.target.checked);
+                    clear();
+                  }}
+                />{" "}
+                First row is a heading
+              </label>
+            </div>
+          </details>
           <label className="file-link">
             Or choose a .txt, .csv or .tsv file
             <input
@@ -238,7 +228,6 @@ export default function Import({ onChange }: { onChange: () => void }) {
       ) : (
         <div className="import-form">
           <label className="upload-zone">
-            <Upload size={30} />
             <strong>
               {file?.name ||
                 (browserLocal
@@ -266,11 +255,14 @@ export default function Import({ onChange }: { onChange: () => void }) {
             />{" "}
             Keep my review history and schedule
           </label>
-          <p className="hint left">
-            {browserLocal
-              ? "Read entirely in your browser. Standard basic, reversed, typed and cloze cards, sources, IDs and supported media come with you. Custom templates and add-ons may need editing. Anki due dates can be kept; future FSRS intervals may differ. Oftly backups also restore your preferences."
-              : "Read by the official Anki engine. Deck names, note types, and supported media come with you. Your existing Anki profile stays separate."}
-          </p>
+          <details className="quiet-details">
+            <summary>What is imported?</summary>
+            <p className="hint left">
+              {browserLocal
+                ? "Read entirely in your browser. Standard basic, reversed, typed and cloze cards, sources, IDs and supported media come with you. Custom templates and add-ons may need editing. Anki due dates can be kept; future FSRS intervals may differ. Oftly backups also restore your preferences."
+                : "Read by the official Anki engine. Deck names, note types, and supported media come with you. Your existing Anki profile stays separate."}
+            </p>
+          </details>
         </div>
       )}
       {tab !== "star" && error && (

@@ -24,13 +24,16 @@ async function state(page: Page) {
 async function importText(page: Page, name: string, text: string) {
   await page.goto("/#import");
   await page
+    .getByRole("button", { name: "Quizlet / text", exact: true })
+    .click();
+  await page
     .getByRole("textbox", { name: "Deck name", exact: true })
     .fill(name);
   await page.getByRole("textbox", { name: "Paste your cards" }).fill(text);
   await page.getByRole("button", { name: "Preview import" }).click();
   await page.getByRole("button", { name: /^Import \d+ cards$/ }).click();
   await expect(
-    page.getByRole("heading", { name: "Your cards are home." }),
+    page.getByRole("heading", { name: "Import complete" }),
   ).toBeVisible();
 }
 async function packagePreview(
@@ -54,9 +57,7 @@ test("local scheduling, daily limits, undo, persistence, backup restore and no u
       network.push(r.url());
   });
   await page.goto("/");
-  await page
-    .getByRole("button", { name: "Or try a 6-card sample deck" })
-    .click();
+  await page.getByRole("button", { name: "Try a 6-card sample deck" }).click();
   await page.getByRole("link", { name: "Settings", exact: true }).click();
   await page
     .getByRole("spinbutton", { name: "New cards per deck per day" })
@@ -69,7 +70,7 @@ test("local scheduling, daily limits, undo, persistence, backup restore and no u
   await expect
     .poll(async () => (await state(page)).suggestions.split)
     .toBe(false);
-  await page.getByRole("link", { name: /^Today/ }).click();
+  await page.getByRole("link", { name: /^Decks/ }).click();
   await page.getByRole("button", { name: "Start studying" }).click();
   const question = await page
     .getByRole("region", { name: "Question", exact: true })
@@ -77,7 +78,7 @@ test("local scheduling, daily limits, undo, persistence, backup restore and no u
   await page.getByRole("button", { name: "Show answer" }).click();
   await page.getByRole("button", { name: /Good 3/ }).click();
   await expect(
-    page.getByRole("heading", { name: "A good place to pause." }),
+    page.getByRole("heading", { name: "Session complete" }),
   ).toBeVisible();
   let s = await state(page);
   expect(s.reviews).toHaveLength(1);
@@ -113,7 +114,7 @@ test("local scheduling, daily limits, undo, persistence, backup restore and no u
   ).toBeVisible();
   await restored.getByRole("button", { name: "Import 6 cards" }).click();
   await expect(
-    restored.getByRole("heading", { name: "Your cards are home." }),
+    restored.getByRole("heading", { name: "Import complete" }),
   ).toBeVisible();
   s = await state(restored);
   expect(s.cards).toHaveLength(6);
@@ -163,7 +164,7 @@ for (const format of ["legacy", "modern"])
     await packagePreview(page, `.impeccable/review/security/${format}.apkg`);
     await page.getByRole("button", { name: "Import 2 cards" }).click();
     await expect(
-      page.getByRole("heading", { name: "Your cards are home." }),
+      page.getByRole("heading", { name: "Import complete" }),
     ).toBeVisible();
     expect((await state(page)).cards.map((c: any) => c.id)).toEqual(
       before.cards.map((c: any) => c.id),
@@ -253,17 +254,15 @@ test("mixed assistant notes, sibling separation, compact accessibility and offli
   await expect(page.locator(".answer-reveal .cloze")).toHaveText("heart");
   await page.getByRole("button", { name: /Easy 4/ }).click();
   await expect(
-    page.getByRole("heading", { name: "A good place to pause." }),
+    page.getByRole("heading", { name: "Session complete" }),
   ).toBeVisible();
   await page.goto("/#settings");
-  await expect(
-    page.getByRole("heading", { name: "Keep learning manageable." }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Settings" })).toBeVisible();
   await page.setViewportSize({ width: 320, height: 844 });
   await expect
     .poll(() =>
       page
-        .locator(".sidebar nav a")
+        .locator(".app-header nav a")
         .first()
         .evaluate((el) => getComputedStyle(el).color),
     )
@@ -290,13 +289,9 @@ test("mixed assistant notes, sibling separation, compact accessibility and offli
     .toBe(true);
   await context.setOffline(true);
   await page.reload();
-  await expect(
-    page.getByRole("heading", { name: "Keep learning manageable." }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Settings" })).toBeVisible();
   await page.goto("/#today");
-  await expect(
-    page.getByRole("heading", { name: "Your daily practice." }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Decks", exact: true })).toBeVisible();
   expect((await state(page)).reviews).toHaveLength(2);
   await context.setOffline(false);
 });
@@ -304,9 +299,7 @@ test("malformed archives and backups fail without altering collection", async ({
   page,
 }) => {
   await page.goto("/");
-  await page
-    .getByRole("button", { name: "Or try a 6-card sample deck" })
-    .click();
+  await page.getByRole("button", { name: "Try a 6-card sample deck" }).click();
   await expect(
     page.getByRole("button", { name: "Start studying" }),
   ).toBeVisible();

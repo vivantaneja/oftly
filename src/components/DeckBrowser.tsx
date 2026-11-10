@@ -95,7 +95,6 @@ export default function DeckBrowser({
               >
                 {deck.ready || "—"}
               </span>
-              <ChevronRight size={16} className="library-open" />
             </button>
           </div>
           {children.length > 0 && (
@@ -118,7 +117,7 @@ export default function DeckBrowser({
       aria-label={parentId ? "Folder contents" : "Folders and decks"}
     >
       <div className="section-heading library-heading">
-        <h2>{parentId ? "Inside this folder" : "Folders and decks"}</h2>
+        {parentId && <h2>Inside this folder</h2>}
         <div className="library-tools">
           <label className="search">
             <Search size={16} />
@@ -145,20 +144,19 @@ export default function DeckBrowser({
         </>
       ) : (
         <div className="empty-inline">
-          <Folder size={26} />
           <h3>
             {query
               ? "No folders or decks match."
               : parentId
-                ? "Make room for your next subject."
-                : "Your library is ready for its first deck."}
+                ? "This folder is empty."
+                : "No decks yet."}
           </h3>
           <p>
             {query
               ? "Try another title."
               : parentId
                 ? "Create a deck here, or add a subfolder to keep things together."
-                : "Bring over your cards or start with one good question."}
+                : "Create a deck or import your cards."}
           </p>
           {!query && !parentId && (
             <button className="secondary" onClick={() => navigate("import")}>

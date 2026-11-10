@@ -24,3 +24,7 @@ Research synthesis in docs/LEARNING-RESEARCH.md. No user card data or brand asse
 ## Implemented authoring extension
 
 Mixed Anki Star JSON import offers selection, editing, preserved sources/explanations/tags and an optional manual assistant prompt builder. Structured Anki field mapping keeps IDs out of study text. Optional local writing suggestions can be disabled globally or by kind. Timing is native FSRS locally and FSRS-6 in the public browser build; newer research candidates and evaluation are documented in docs/ENGINE-COMPARISON.md.
+
+## Quiet interface refinement
+
+The user requested less stimulation and a layout closer to Anki on 10 November 2026. Use a compact light top bar, a deck-list home, plain study content, neutral compact ratings and optional help behind disclosures. Remove the dark rail, motivational dashboard, decorative panels and repeated prompts. The Oftly identity and existing functionality remain.

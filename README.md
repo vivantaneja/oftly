@@ -8,7 +8,7 @@ We built Oftly during our study period because we were fed up with how difficult
 
 Oftly is a local-first React web app. The **public browser edition** uses FSRS-6 and stores cards, review history and media in IndexedDB on each device. The **local native edition** uses the official Anki engine and a real Anki collection. Neither needs an account, analytics or an AI API key.
 
-![Daily study view with a demonstration deck](docs/images/today.png)
+![Minimal deck list with a demonstration deck](docs/images/today.png)
 
 ## Features
 

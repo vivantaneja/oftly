@@ -35,9 +35,7 @@ test("complete learner journey, native scheduling, and responsive accessibility"
   page.on("pageerror", (e) => errors.push(e.message));
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/");
-  await expect(
-    page.getByRole("heading", { name: "Your daily practice." }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Decks", exact: true })).toBeVisible();
   await page.evaluate(() => {
     window.scrollTo(0, 0);
     (document.activeElement as HTMLElement)?.blur();
@@ -48,9 +46,7 @@ test("complete learner journey, native scheduling, and responsive accessibility"
     fullPage: true,
     animations: "disabled",
   });
-  await page
-    .getByRole("button", { name: "Or try a 6-card sample deck" })
-    .click();
+  await page.getByRole("button", { name: "Try a 6-card sample deck" }).click();
   await expect(
     page.getByRole("button", { name: "Start studying" }),
   ).toBeVisible();
@@ -130,6 +126,9 @@ test("complete learner journey, native scheduling, and responsive accessibility"
   await page.getByRole("button", { name: "Finish for now" }).click();
   await page.getByRole("button", { name: "Import", exact: true }).click();
   await page
+    .getByRole("button", { name: "Quizlet / text", exact: true })
+    .click();
+  await page
     .getByRole("textbox", { name: "Deck name" })
     .fill("Biology · sample");
   await page
@@ -184,7 +183,7 @@ test("complete learner journey, native scheduling, and responsive accessibility"
   await page.getByRole("link", { name: "Download Anki backup" }).click();
   const download = await downloadPromise;
   expect(download.suggestedFilename()).toMatch(/\.apkg$/);
-  await page.getByRole("link", { name: /^Today/ }).click();
+  await page.getByRole("link", { name: /^Decks/ }).click();
   await page.setViewportSize({ width: 390, height: 844 });
   await page.evaluate(() => {
     window.scrollTo(0, 0);
@@ -281,7 +280,7 @@ test("study focus, keyboard ratings and question position survive a long answer"
   }
   await page.keyboard.press("4");
   await expect(
-    page.getByRole("heading", { name: "A good place to pause." }),
+    page.getByRole("heading", { name: "Session complete" }),
   ).toBeFocused();
   await page.goto("/#import");
   const anki = page.getByRole("button", { name: "Anki package", exact: true });
@@ -648,7 +647,7 @@ test("nested folders, native imports, creation, search, and breadcrumbs", async 
   ).toBeVisible();
   await page.reload();
   await expect(
-    page.getByRole("heading", { name: "Make room for your next subject." }),
+    page.getByRole("heading", { name: "This folder is empty." }),
   ).toBeVisible();
   await page.getByRole("button", { name: "New deck", exact: true }).click();
   await expect(
