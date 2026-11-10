@@ -18,6 +18,7 @@ Recall is a local-first React web app backed by the **official Anki engine**. No
 - **Optional writing guidance:** suggestions for splitting cards, long targets, vague cues, cloze structure and missing sources. Turn off any kind or all suggestions. Nothing is rewritten automatically.
 - **Anki Star integration:** review, edit and select mixed-note JSON; preserve sources, explanations and tags; save selected drafts back to JSON.
 - **Manual assistant handoff:** prepare source-grounded prompts, including explanation, comparison and application questions. Paste into your assistant and review the response. The app never sends coursework automatically.
+- **Folders and subfolders:** Anki deck paths become an expandable hierarchy. Create folders, choose a location for new decks, search across nested decks and study an entire folder.
 - **A complete local library:** create, search, edit, pause and delete notes; see actual review activity; export an Anki backup with supported media and scheduling.
 
 ![Study card with explanation, source and compact rating buttons](docs/images/study.png)

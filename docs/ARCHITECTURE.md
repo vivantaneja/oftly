@@ -78,3 +78,10 @@ A future desktop wrapper can manage the local service lifecycle. A future multi-
 `server/vendor/anki_star/` pins two unmodified MIT modules. JSON drafts are validated before preview and after editing, then imported through native note APIs with duplicate checks and rollback. React supplies the editable, selectable draft review and manual prompt handoff. There is no Qt or automatic AI connection.
 
 Recall Basic notes now include Question, Answer, Extra and Source. Existing two-field models are extended on use without changing note IDs. Older clients sending two edited fields preserve the stored extra/source fields. Suggestion preferences live in the collection’s `recall_suggestions` configuration. A global switch preserves individual category choices. UI-only heuristic analysis never sends card text to an external service. APKG backups transfer learning content/history/media; app-specific preference restoration is not promised.
+
+
+## Folder hierarchy
+
+Anki remains the source of truth: names retain native `::` hierarchy and existing deck/card IDs. The dashboard adds a folder flag for parent decks and explicitly created empty folders (IDs recorded in collection config `recall_folders`). Creating a deck or folder accepts a parent ID; the server resolves its native path and rejects missing parents and duplicate names.
+
+The browser projects names into a nested list with expandable branches, short titles and navigable breadcrumbs. Folder totals sum direct card counts through descendants; ready counts use Anki’s existing aggregate, avoiding double-counting. A folder may contain cards of its own as well as child decks. Search reveals matching ancestors without changing saved deck paths or review history. No separate database or filesystem folders are introduced.

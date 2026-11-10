@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import {
-  ArrowLeft,
+  ChevronRight,
   Plus,
   Search,
   Pencil,
@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import { api, navigate, cleanText, type Deck } from "../lib/api";
 import CardGuidance from "./CardGuidance";
+import DeckBrowser from "./DeckBrowser";
+import { deckTitle, deckTree, findDeckNode } from "../lib/decks";
 type Note = {
   id: string;
   fields: string[];
@@ -31,11 +33,19 @@ function fieldIndex(
 }
 export default function DeckView({
   deck,
+  decks,
+  onNewFolder,
   onChange,
 }: {
   deck: Deck;
+  decks: Deck[];
+  onNewFolder: (parentId?: string) => void;
   onChange: () => void;
 }) {
+  const node = findDeckNode(deckTree(decks), deck.id)!;
+  const ancestors = deck.name.split("::").slice(0, -1).map((_, i, parts) =>
+    decks.find((d) => d.name === parts.slice(0, i + 1).join("::")),
+  ).filter((d): d is Deck => !!d);
   const [notes, setNotes] = useState<Note[]>([]);
   const [total, setTotal] = useState(0);
   const [query, setQuery] = useState("");
@@ -77,14 +87,15 @@ export default function DeckView({
   }
   return (
     <section>
-      <button className="text-button back" onClick={() => navigate("library")}>
-        <ArrowLeft size={16} /> Library
-      </button>
+      <nav className="breadcrumbs" aria-label="Folder path">
+        <a href="#library">Library</a>
+        {ancestors.map((ancestor) => <span key={ancestor.id}><ChevronRight size={14} aria-hidden="true" /><a href={"#deck/" + ancestor.id}>{deckTitle(ancestor.name)}</a></span>)}
+      </nav>
       <div className="page-heading">
         <div>
-          <h1>{deck.name}</h1>
+          <h1>{deckTitle(deck.name)}</h1>
           <p>
-            {deck.total} cards · {deck.ready} ready today
+            {node.total} cards{node.folder ? " in this folder" : ""} · {deck.ready} ready today
           </p>
         </div>
         <div className="actions">
@@ -96,10 +107,11 @@ export default function DeckView({
             disabled={!deck.ready}
             onClick={() => navigate("study/" + deck.id)}
           >
-            Study deck <ArrowRight size={16} />
+            {node.folder ? "Study folder" : "Study deck"} <ArrowRight size={16} />
           </button>
         </div>
       </div>
+      {node.folder && <DeckBrowser decks={decks} parentId={deck.id} onNewFolder={onNewFolder} />}
       {error && (
         <p className="error" role="alert">
           {error}
@@ -209,8 +221,9 @@ export default function DeckView({
           </button>
         </form>
       )}
+      {(!node.folder || deck.total > 0 || editing !== undefined) && <>
       <div className="section-heading">
-        <h2>Cards</h2>
+        <h2>{node.folder ? "Cards in this folder" : "Cards"}</h2>
         <label className="search">
           <Search size={16} />
           <input
@@ -337,6 +350,7 @@ export default function DeckView({
           </button>
         </div>
       )}
+      </>}
     </section>
   );
 }

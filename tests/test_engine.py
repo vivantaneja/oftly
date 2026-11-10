@@ -78,6 +78,37 @@ def test_edit_pause_delete(client):
     assert client.delete('/api/notes/'+note['id']).status_code==200
     assert client.get(f'/api/decks/{deck}/notes').json()['total']==1
 
+def test_nested_folders_preserve_native_decks_and_review_history(client):
+    root=client.post('/api/decks',json={'name':'School','folder':True}).json()['id']
+    child=client.post('/api/decks',json={'name':'Science','parentId':root,'folder':True}).json()['id']
+    leaf=client.post('/api/decks',json={'name':'Biology','parentId':child}).json()['id']
+    client.post('/api/notes',json={'deckId':leaf,'fields':['Cell?','Basic unit of life']})
+    # A folder may also contain its own cards; native Anki studies both levels.
+    client.post('/api/notes',json={'deckId':child,'fields':['Matter?','Has mass and volume']})
+    decks={d['id']:d for d in client.get('/api/dashboard').json()['decks']}
+    assert decks[leaf]['name']=='School::Science::Biology'
+    assert decks[root]['folder'] and decks[child]['folder'] and not decks[leaf]['folder']
+    assert decks[root]['total']==0 and decks[child]['total']==1 and decks[leaf]['total']==1
+    assert decks[root]['ready']==2
+    card=client.get('/api/study/next',params={'deck':root}).json()['card']
+    assert card is not None
+    client.post('/api/study/reveal',json={'token':card['token']})
+    assert client.post('/api/study/answer',json={'token':card['token'],'rating':4}).status_code==200
+    card_id=card['id']
+    engine=client.app.state.engine
+    before=engine.col.db.all('select id,cid,ease from revlog')
+    empty=client.post('/api/decks',json={'name':'Languages','parentId':root,'folder':True}).json()['id']
+    assert client.post('/api/decks',json={'name':'Languages','parentId':root}).status_code==409
+    assert client.post('/api/decks',json={'name':'Invalid','parentId':'missing'}).status_code==404
+    assert client.post('/api/decks',json={'name':'School::::Invalid'}).status_code==422
+    engine.close()
+    client.app.state.engine=module.Engine(module.DATA)
+    reopened=client.app.state.engine
+    assert reopened.col.db.all('select id,cid,ease from revlog')==before
+    assert reopened.col.get_card(int(card_id)).reps==1
+    decks={d['id']:d for d in client.get('/api/dashboard').json()['decks']}
+    assert decks[empty]['folder'] and decks[empty]['total']==0
+
 def test_modern_anki_package_cloze_media_and_backup_roundtrip(client,tmp_path):
     source=Collection(str(tmp_path/'source.anki2'))
     did=source.decks.id('Languages::Cloze')

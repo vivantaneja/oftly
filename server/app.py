@@ -142,12 +142,15 @@ class Engine:
                 walk(child)
         walk(self.col.sched.deck_due_tree())
         result = []
-        for deck in self.col.decks.all_names_and_ids():
+        decks = self.col.decks.all_names_and_ids()
+        folders = set(self.col.get_config('recall_folders', []))
+        for deck in decks:
             total = self.col.db.scalar('select count(*) from cards where did=?', deck.id)
-            if deck.id == 1 and total == 0:
+            folder = str(deck.id) in folders or any(d.name.startswith(deck.name + '::') for d in decks)
+            if deck.id == 1 and total == 0 and not folder:
                 continue
             cnt = counts.get(deck.id, {'new':0,'learning':0,'review':0})
-            result.append({'id':str(deck.id), 'name':deck.name, 'total':total, **cnt, 'ready':sum(cnt.values())})
+            result.append({'id':str(deck.id), 'name':deck.name, 'total':total, 'folder':folder, **cnt, 'ready':sum(cnt.values())})
         return result
 
     def stats(self):
@@ -261,6 +264,8 @@ def engine(request):
 
 class DeckInput(BaseModel):
     name: str = Field(min_length=1,max_length=120)
+    parentId: str | None = None
+    folder: bool = False
 
 class NoteInput(BaseModel):
     deckId: str
@@ -293,10 +298,22 @@ async def dashboard(request: Request):
 @app.post('/api/decks')
 async def create_deck(data: DeckInput,request: Request):
     name=data.name.strip()
-    if not name:
-        raise HTTPException(422,'Give your deck a name.')
-    e=engine(request); e.invalidate()
-    return {'id':str(e.col.decks.id(name))}
+    if not name or any(not part.strip() for part in name.split('::')):
+        raise HTTPException(422,'Give each folder or deck a name.')
+    e=engine(request)
+    if data.parentId is not None:
+        parent=next((d for d in e.col.decks.all_names_and_ids() if str(d.id)==data.parentId),None)
+        if parent is None:
+            raise HTTPException(404,'That folder no longer exists. Choose another location.')
+        name=parent.name+'::'+name
+    if e.col.decks.by_name(name):
+        raise HTTPException(409,'A folder or deck with that name already exists here. Choose another name.')
+    e.invalidate()
+    did=str(e.col.decks.id(name))
+    if data.folder:
+        folders=e.col.get_config('recall_folders',[])
+        e.col.set_config('recall_folders',list(dict.fromkeys([*folders,did])))
+    return {'id':did}
 
 @app.get('/api/decks/{did}/notes')
 async def notes(did: int, request: Request, q: str='', offset: int=0):

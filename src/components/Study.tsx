@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Clock } from "lucide-react";
 import DOMPurify from "dompurify";
 import { api, navigate, type Stats } from "../lib/api";
+import { deckPath } from "../lib/decks";
 type Card = {
   token: string;
   id: string;
@@ -194,7 +195,7 @@ export default function Study({
       ) : (
         <>
           <div className="study-context">
-            <span className="deck-label">{session.card.deck}</span>
+            <span className="deck-label">{deckPath(session.card.deck)}</span>
             <span>
               {session.card.isNew ? "New card" : "Review"} ·{" "}
               {session.card.remaining} ready in this deck

@@ -22,3 +22,14 @@ All integration/browser tests use temporary collections. The running app uses it
 - Impeccable’s scoped finish review marked both material fixes resolved and returned ship. Apple Design Skill review and limits are recorded separately.
 - The running collection retained its card and completed-review counts across the service/layout migration. No learner collection, media, backups or private coursework is included in the public source repository.
 - GitHub Actions will run the same build/native/browser checks on Ubuntu. Local results above are macOS evidence; hosted CI status is tracked separately.
+
+
+## Folder hierarchy extension — 10 November 2026
+
+- Production build, 13 native integration tests and 6 browser journeys passed.
+- New native coverage checks nested creation, folder aggregate counts, parent-folder study, duplicate/missing-parent errors, persistent empty folders and unchanged card identities/review logs after reopening the collection.
+- New browser coverage imports a four-level native path, expands/collapses with keyboard and pointer, searches through collapsed ancestors, opens breadcrumbs, creates a subfolder and a deck in it, verifies persistence, and recovers from a duplicate-name error. A folder with both direct cards and child decks is included.
+- Desktop (1440px), mobile folder contents (390px) and mobile creation captures inspected. No horizontal overflow in the tested mobile states; axe WCAG A/AA and WCAG 2.1 AA checks passed on the tested folder views.
+- The Impeccable detector ran for this extension; it reported typography/palette advisories, including existing stylesheet values. Existing design tokens and system files are preserved for this ordinary extension.
+- Local service update verified all 39 cards, 39 notes and 8 review records unchanged using full-row digests while the collection was closed, then restarted the service successfully.
+- Independent Impeccable review returned `ship` for the folder extension with no material fixes. Advisory: indentation is capped after four levels to protect narrow layouts; opening a folder resets the visible depth and breadcrumbs preserve its ancestry.

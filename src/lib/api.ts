@@ -6,6 +6,7 @@ export type Deck = {
   review: number;
   learning: number;
   ready: number;
+  folder?: boolean;
 };
 export type Stats = {
   reviewedToday: number;

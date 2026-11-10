@@ -14,24 +14,22 @@ import {
   ArrowRight,
   Upload,
   ArrowUpRight,
-  Search,
-  ChevronRight,
   Check,
   Download,
   HardDrive,
   Leaf,
-  ArrowLeft,
 } from "lucide-react";
 import {
   api,
   navigate,
   type Dashboard,
-  type Deck,
   type Stats,
 } from "./lib/api";
 import Study from "./components/Study";
 import Import from "./components/Import";
 import DeckView from "./components/DeckView";
+import DeckBrowser from "./components/DeckBrowser";
+import { deckPath, isFolder } from "./lib/decks";
 import { SuggestionSettings } from "./components/CardGuidance";
 class ErrorBoundary extends Component<
   { children: ReactNode },
@@ -79,95 +77,6 @@ function Week({ stats, large = false }: { stats: Stats; large?: boolean }) {
         </div>
       ))}
     </div>
-  );
-}
-function Decks({
-  decks,
-  search,
-  onSearch,
-}: {
-  decks: Deck[];
-  search: string;
-  onSearch: (q: string) => void;
-}) {
-  const visible = decks.filter((d) =>
-    d.name.toLowerCase().includes(search.toLowerCase()),
-  );
-  return (
-    <>
-      <div className="section-heading">
-        <h2>
-          Your decks <span className="count">{decks.length}</span>
-        </h2>
-        <label className="search">
-          <Search size={16} />
-          <input
-            aria-label="Search decks"
-            placeholder="Find a deck"
-            value={search}
-            onChange={(e) => onSearch(e.target.value)}
-          />
-        </label>
-      </div>
-      {visible.length ? (
-        <div className="deck-table">
-          <div className="deck-table-head">
-            <span>Deck</span>
-            <span>Cards</span>
-            <span>Ready</span>
-            <span />
-          </div>
-          {visible.map((deck, i) => (
-            <button
-              key={deck.id}
-              className="deck-row"
-              onClick={() => navigate("deck/" + deck.id)}
-            >
-              <span className="deck-name">
-                <span className={"deck-icon tone-" + (i % 3)}>
-                  <BookOpen size={20} />
-                </span>
-                <span>
-                  <strong>{deck.name}</strong>
-                  <small>
-                    {deck.new ? `${deck.new} new` : "No new cards"}
-                    {deck.review + deck.learning
-                      ? ` · ${deck.review + deck.learning} to revisit`
-                      : ""}
-                  </small>
-                </span>
-              </span>
-              <span className="deck-total">{deck.total}</span>
-              <span>
-                <span className={deck.ready ? "due-count" : "quiet-count"}>
-                  {deck.ready || "—"}
-                </span>
-              </span>
-              <ChevronRight size={16} />
-            </button>
-          ))}
-        </div>
-      ) : (
-        <div className="empty-inline">
-          <BookOpen size={26} />
-          <h3>
-            {search
-              ? "No decks match that search."
-              : "Your library is ready for its first deck."}
-          </h3>
-          <p>
-            {search
-              ? "Try another title."
-              : "Bring over your cards or start with one good question."}
-          </p>
-          {!search && (
-            <button className="secondary" onClick={() => navigate("import")}>
-              <Upload size={16} /> Import cards
-            </button>
-          )}
-        </div>
-      )}
-    </>
   );
 }
 function Preferences({ onChange }: { onChange: () => void }) {
@@ -303,9 +212,10 @@ function AppContent() {
   const [route, setRoute] = useState(location.hash.slice(1) || "today");
   const [data, setData] = useState<Dashboard>();
   const [error, setError] = useState("");
-  const [search, setSearch] = useState("");
   const [name, setName] = useState("");
-  const [creating, setCreating] = useState(false);
+  const [creating, setCreating] = useState<"deck" | "folder" | null>(null);
+  const [parentId, setParentId] = useState("");
+  const [createError, setCreateError] = useState("");
   const [busy, setBusy] = useState(false);
   const refresh = useCallback(() => {
     api<Dashboard>("/dashboard")
@@ -319,8 +229,7 @@ function AppContent() {
     refresh();
     const handler = () => {
       setRoute(location.hash.slice(1) || "today");
-      setCreating(false);
-      setSearch("");
+      setCreating(null);
       window.scrollTo(0, 0);
     };
     window.addEventListener("hashchange", handler);
@@ -346,18 +255,31 @@ function AppContent() {
           !data.decks.some((parent) => d.name.startsWith(parent.name + "::")),
       )
       .reduce((n, d) => n + d.ready, 0) ?? 0;
+  function beginCreation(kind: "deck" | "folder", parent?: string) {
+    setCreating(kind);
+    setParentId(parent ?? "");
+    setName("");
+    setCreateError("");
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }
+  function newFolder(parent?: string) {
+    beginCreation("folder", parent);
+  }
   async function create(e: React.FormEvent) {
     e.preventDefault();
     if (busy) return;
     setBusy(true);
     try {
-      const result = await api<{ id: string }>("/decks", { name });
-      refresh();
-      setCreating(false);
+      if (name.includes("::")) throw new Error("Choose a location below instead of using :: in the name.");
+      const result = await api<{ id: string }>("/decks", {
+        name, parentId: parentId || null, folder: creating === "folder",
+      });
+      setData(await api<Dashboard>("/dashboard"));
+      setCreating(null);
       setName("");
       navigate("deck/" + result.id);
     } catch (e) {
-      setError((e as Error).message);
+      setCreateError((e as Error).message);
     } finally {
       setBusy(false);
     }
@@ -454,8 +376,11 @@ function AppContent() {
             <button
               className="secondary compact"
               onClick={() => {
-                setCreating((v) => !v);
-                setName("");
+                const current = data?.decks.find((d) => d.id === id);
+                const parent = current && data
+                  ? isFolder(current, data.decks) ? current : data.decks.find((d) => d.name === current.name.split("::").slice(0, -1).join("::"))
+                  : undefined;
+                beginCreation("deck", parent?.id);
               }}
             >
               <Plus size={16} /> New deck
@@ -464,30 +389,40 @@ function AppContent() {
         </header>
         <main id="main" tabIndex={-1} className={study ? "study-main" : ""}>
           {creating && (
-            <form className="create-deck" onSubmit={create}>
+            <form className="create-deck" onSubmit={create} key={creating}>
               <label>
-                Name your new deck
+                Name your new {creating}
                 <input
                   autoFocus
                   required
                   maxLength={120}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="What are you learning?"
+                  placeholder={creating === "folder" ? "e.g. School subjects" : "What are you learning?"}
                 />
+              </label>
+              <label>
+                Location
+                <select value={parentId} onChange={(e) => setParentId(e.target.value)}>
+                  <option value="">Library</option>
+                  {data?.decks.filter((d) => isFolder(d, data.decks)).map((d) => (
+                    <option key={d.id} value={d.id}>{deckPath(d.name)}</option>
+                  ))}
+                </select>
               </label>
               <div className="actions">
                 <button className="primary" disabled={busy || !name.trim()}>
-                  Create deck
+                  {busy ? "Creating…" : `Create ${creating}`}
                 </button>
                 <button
                   type="button"
                   className="text-button"
-                  onClick={() => setCreating(false)}
+                  onClick={() => setCreating(null)}
                 >
                   Cancel
                 </button>
               </div>
+              {createError && <p className="error create-error" role="alert">{createError}</p>}
             </form>
           )}
           {error && (
@@ -510,6 +445,8 @@ function AppContent() {
               <DeckView
                 key={id}
                 deck={data.decks.find((d) => d.id === id)!}
+                decks={data.decks}
+                onNewFolder={newFolder}
                 onChange={refresh}
               />
             ) : (
@@ -587,7 +524,7 @@ function AppContent() {
                   <p>{data.stats.totalCards} cards, ready to grow with you.</p>
                 </div>
               </div>
-              <Decks decks={data.decks} search={search} onSearch={setSearch} />
+              <DeckBrowser key={page} decks={data.decks} onNewFolder={newFolder} />
               <div className="library-footer">
                 <Upload size={18} />
                 <p>Already learning somewhere else?</p>
@@ -709,7 +646,7 @@ function AppContent() {
                   </div>
                 </aside>
               </div>
-              <Decks decks={data.decks} search={search} onSearch={setSearch} />
+              <DeckBrowser key={page} decks={data.decks} onNewFolder={newFolder} />
               <div className="app-footnote">
                 <span>
                   <HardDrive size={14} /> Saved locally · Powered by Anki
