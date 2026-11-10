@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  background: #fcfaf6;
+  color: #1f2a44;
+  font:
+    1rem/1.7 system-ui,
+    sans-serif;
+}
+main,
+footer {
+  max-width: 680px;
+  padding: 32px 24px;
+  margin: auto;
+}
+h1 {
+  font-size: 2rem;
+}
+h2 {
+  font-size: 1.25rem;
+  margin-top: 32px;
+}
+a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+footer {
+  border-top: 1px solid #ded9ce;
+  font-size: 0.9rem;
+}
+:focus-visible {
+  outline: 2px solid #2f7a5f;
+  outline-offset: 4px;
+}

@@ -19,3 +19,7 @@ Browser data is origin-specific. Preview URLs and the final custom domain have s
 Offline caching holds public assets only; the collection lives in IndexedDB. Close existing tabs to permit an updated service worker to activate. Keep regular backups: browsers may refuse persistent-storage requests and may erase local data.
 
 If using an older Vercel CLI, update it with `npm i -g vercel@latest` before linking and deploying.
+
+## Optional accounts
+
+The browser build now supports Google/email accounts and private cross-device sync through Supabase. The Oftly installation includes only its public project URL and publishable key; secret SMTP/OAuth credentials live in the backend. A fork should use its own project and exact redirect allowlist. Follow [account setup and operations](ACCOUNTS-AND-SYNC.md). The native Python service remains localhost-only and must not be deployed as the account backend.

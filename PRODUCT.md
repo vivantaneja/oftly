@@ -3,7 +3,7 @@
 ## Platform
 web
 ## Stack
-Delegated by user: React + TypeScript + Vite, matching neighboring projects. The native local edition embeds the official Anki engine in Python. On 10 November 2026 the user also authorized a public browser-local edition using FSRS and no accounts; it uses IndexedDB and explicitly selects FSRS-6. Hosting serves public assets only.
+Delegated by user: React + TypeScript + Vite, matching neighboring projects. The native local edition embeds the official Anki engine in Python. On 10 November 2026 the user also authorized a public browser-local edition using FSRS with optional accounts added later that day; it uses IndexedDB and explicitly selects FSRS-6. The static frontend uses Supabase authentication and private storage for optional cross-device sync. Google and email-link sign-in are supported; guests can still study without signing in.
 ## Users
 Learners who want Anki's spaced repetition with Quizlet's approachable daily workflow. Specific subjects and age groups are undecided.
 ## Product Purpose
@@ -28,3 +28,9 @@ Mixed Anki Star JSON import offers selection, editing, preserved sources/explana
 ## Quiet interface refinement
 
 The user requested less stimulation and a layout closer to Anki on 10 November 2026. Use a compact light top bar, a deck-list home, plain study content, neutral compact ratings and optional help behind disclosures. Remove the dark rail, motivational dashboard, decorative panels and repeated prompts. The Oftly identity and existing functionality remain. Omit subtitles that merely repeat a page title, motivational copy and repeated completion messages; retain counts, limits and instructions that help the learner act.
+
+## Public introduction and optional accounts
+
+The user selected a combined single-card journey and memory-curve introduction. This public landing is a Persuade surface, with larger Bricolage type and scroll-driven demonstrations scoped to it. It must not introduce decorative dashboards or animation into the study application. Respect reduced motion and offer direct access to the planner, sign-in and guest study.
+
+Four planner questions produce a transparent time budget based on stated assumptions; no recall, mastery, grade or time-saving prediction is claimed. Optional Google and email-link accounts synchronize cards, scheduling, history, media, preferences and the saved plan. Account libraries are separate from guest storage. Same-record conflicts require a choice and preserve recovery copies. Account deletion and export are available. The native Anki edition remains a separate localhost application.

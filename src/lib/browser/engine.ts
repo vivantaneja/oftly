@@ -33,6 +33,10 @@ type Active = {
   at: Date;
 };
 let active: Active | undefined;
+window.addEventListener("oftly-scope", () => {
+  active = undefined;
+  undo = undefined;
+});
 let undo: { card: LocalCard; reviewId: string; revision: number } | undefined;
 const pending = new Map<
   string,

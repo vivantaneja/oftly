@@ -197,3 +197,9 @@ Buttons provide immediate pressed-state color feedback without movement. Queue c
 - Use disclosure for help and optional settings, not essential questions or answers.
 - Keep scheduling, imports, IDs and learner data behavior unchanged.
 - Do not add motivational dashboards, large numerals, decorative panels, bright rating fills, status pills or unsolicited tips.
+
+## Public landing and account extension
+
+The public introduction is an explicit, user-requested exception to the quiet Operate surface. Preserve the same Oftly palette, assets and fonts. Larger Bricolage headings (up to 5.6rem desktop, 2.9rem phone) and a single ink-background chapter may explain the review cycle. Follow one clearly labeled sample card through retrieval, rating and return; tie scroll motion to that sequence and the illustrative curve. No automatic looping animation, decorative badges or invented metrics. Reduced motion presents the complete diagram and manually selectable stages. Labels remain readable independently of SVG scaling.
+
+The planner uses ordinary grouped form controls and flat separators. Its numbers describe a disclosed time budget, not measured learning outcomes. Account forms use the incumbent control language, with Google/email sign-in, a guest option and visible error states. Sync status is factual text linked to Account; no account dashboard or new colored status badges. Preserve the study app's type scale, compact ratings and motion-free reveal. Keep the existing design tokens unchanged.

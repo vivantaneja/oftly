@@ -1,6 +1,10 @@
 import DOMPurify from "dompurify";
 
 const media = new Map<string, string>();
+export function clearMedia() {
+  for (const url of media.values()) URL.revokeObjectURL(url);
+  media.clear();
+}
 export function registerMedia(name: string, blob: Blob) {
   // Browser media names contain a content hash, so existing URLs stay valid.
   if (media.has(name)) return;

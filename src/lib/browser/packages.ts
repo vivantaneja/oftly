@@ -40,21 +40,35 @@ export function readPackage(file: File): Promise<ImportedPackage> {
       });
   });
 }
-export async function downloadBackup(collection: Collection) {
+export async function backupBytes(
+  collection: Collection,
+  mediaItems:
+    | Promise<{ name: string; blob: Blob }[]>
+    | { name: string; blob: Blob }[] = allMedia(),
+) {
   const files: Record<string, Uint8Array> = Object.create(null),
     manifest: Record<string, string> = Object.create(null);
   files["oftly.json"] = strToU8(JSON.stringify(collection));
-  for (const [i, item] of (await allMedia()).entries()) {
+  for (const [i, item] of (await mediaItems).entries()) {
     files[String(i)] = new Uint8Array(await item.blob.arrayBuffer());
     manifest[String(i)] = item.name;
   }
   files.media = strToU8(JSON.stringify(manifest));
-  const url = URL.createObjectURL(
-    new Blob([new Uint8Array(zipSync(files))], { type: "application/zip" }),
-  );
+  return zipSync(files);
+}
+export function downloadBlob(blob: Blob, name: string) {
+  const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = `oftly-${new Date().toISOString().slice(0, 10)}.oftly.zip`;
+  link.download = name;
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+export async function downloadBackup(collection: Collection) {
+  downloadBlob(
+    new Blob([new Uint8Array(await backupBytes(collection))], {
+      type: "application/zip",
+    }),
+    `oftly-${new Date().toISOString().slice(0, 10)}.oftly.zip`,
+  );
 }

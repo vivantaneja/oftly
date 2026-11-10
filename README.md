@@ -6,12 +6,14 @@ Built by [Vivan Taneja](https://github.com/vivantaneja) and [Ashvant (@MilesatAs
 
 We built Oftly during our study period because we were fed up with how difficult Anki was to navigate, while Quizlet’s repetition didn’t feel rigorous enough for the way we wanted to learn. We wanted Anki’s memory scheduling in an interface that made sense immediately, with room to rethink how good flashcards are made.
 
-Oftly is a local-first React web app. The **public browser edition** uses FSRS-6 and stores cards, review history and media in IndexedDB on each device. The **local native edition** uses the official Anki engine and a real Anki collection. Neither needs an account, analytics or an AI API key.
+Oftly is a local-first React web app. The **public browser edition** uses FSRS-6 and stores cards, review history and media in IndexedDB on each device. The **local native edition** uses the official Anki engine and a real Anki collection. Guest study needs no account. Optional Google or email-link accounts sync the browser library across devices. There are no advertising trackers, analytics or AI API keys.
 
 ![Minimal deck list with a demonstration deck](docs/images/today.png)
 
 ## Features
 
+- **A guided introduction:** follow one card through recall and return, then answer four questions for a transparent study-time budget. Motion respects reduced-motion preferences.
+- **Optional accounts and sync:** Google and email-link sign-in; private decks, progress, media and preferences across devices. Offline edits sync when connected. Conflicting changes retain both versions for recovery.
 - **FSRS scheduling:** retrieve, reveal, compare and rate. New / Learning / Due counts, a missed-answer tally and countdown to the next repeat. Real interval previews, compact Again/Hard/Good/Easy buttons, keyboard shortcuts and undo.
 - **Anki and Quizlet imports:** preview modern/legacy APKG packages, or paste/upload Quizlet exports and CSV/TSV/text. Optionally keep Anki review history.
 - **Structured cards:** question, answer, explanation, source and IDs stay distinct. Imported custom template CSS and scripts are removed from the app’s copy. Cloze, reversed and typed-answer cards use a consistent layout.
@@ -25,11 +27,11 @@ Oftly is a local-first React web app. The **public browser edition** uses FSRS-6
 
 ## Browser edition and Vercel
 
-Use Node.js 24, run `npm ci`, then `npm run dev:browser`. For production, `npm run build:web` creates the static `dist-web/` folder. No Python server, database service or secret environment variables are required.
+Use Node.js 24, run `npm ci`, then `npm run dev:browser`. For production, `npm run build:web` creates the static `dist-web/` folder. No Python server or secret frontend environment variables are required. The optional account features connect to a configured Supabase project; a fork should use its own backend. [Account setup and security](docs/ACCOUNTS-AND-SYNC.md).
 
 Import this repository into Vercel. The included configuration selects **Vite**, `npm ci`, `npm run build:web`, and `dist-web`. If an earlier attempt selected Python/FastAPI, clear those dashboard overrides. [Deployment instructions](docs/DEPLOYMENT.md).
 
-The browser edition works offline after its first successful load. Data belongs to the exact browser profile and site origin; changing domains does not move it. Download regular **Oftly backups** and restore them through **Import → Anki / backup**. Clearing site data, private browsing and browser eviction can erase local data. There is no cross-device sync. A collection is limited to 45 MB so its backup remains within the 50 MB restore limit.
+The browser edition works offline after its first successful load. Data belongs to the exact browser profile and site origin; changing domains does not move it. Download regular **Oftly backups** and restore them through **Import → Anki / backup**. Clearing site data, private browsing and browser eviction can erase local data. Sign in to synchronize across devices, or continue with a device-only guest library. A collection is limited to 45 MB so its backup remains within the 50 MB restore limit.
 
 ## Run the native edition locally
 
@@ -63,7 +65,7 @@ The learning layer adds source-grounded explanation/application prompts, correct
 
 In the native edition, data lives under `.data/`, ignored by Git and excluded from deployment. Oftly owns a separate collection and does not open your installed Anki profile. Use **Settings → Download Anki backup** and keep a copy outside this project. Importing a native backup merges matching notes. `RECALL_DATA_DIR` selects another app-owned directory. Browser backups use `.oftly.zip`, preserve browser scheduling and media, and are restored in Oftly; they are not Anki packages.
 
-Run one service per collection; exchange APKG files with Anki instead of opening the same database in two applications. The clean-layout migration saves `.data/before-clean-layout.apkg` before changing existing template designs. The server binds to `127.0.0.1`; this is a local app, not a public multi-user service. There is no AnkiWeb or cross-device sync.
+Run one service per collection; exchange APKG files with Anki instead of opening the same database in two applications. The clean-layout migration saves `.data/before-clean-layout.apkg` before changing existing template designs. The server binds to `127.0.0.1`; this is a local app, not a public multi-user service. The native edition has no AnkiWeb or account sync.
 
 | Format | Support and limits |
 | --- | --- |
@@ -83,6 +85,8 @@ npm run test:e2e
 npm run build:web
 .venv/bin/python -m tests.web.make_fixtures
 npm run test:web
+# With the disposable local Supabase stack configured (see account guide):
+npm run test:cloud
 ```
 
 Tests use disposable Anki collections, never the learner’s `.data`. Browser journeys cover import, study, undo, editing, backup, mixed note types, suggestion preferences, error recovery, field order, large text, responsive layout and automated accessibility checks. Tests use Google Chrome; install it or run `npx playwright install --with-deps chrome` in a suitable CI environment.

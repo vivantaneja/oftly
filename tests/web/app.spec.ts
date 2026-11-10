@@ -171,7 +171,7 @@ test("local scheduling, daily limits, undo, persistence, backup restore and no u
     if (r.method() !== "GET" || new URL(r.url()).pathname.startsWith("/api"))
       network.push(r.url());
   });
-  await page.goto("/");
+  await page.goto("/#today");
   await page.getByRole("button", { name: "Try a 6-card sample deck" }).click();
   await page.getByRole("link", { name: "Settings", exact: true }).click();
   await page
@@ -415,7 +415,7 @@ test("mixed assistant notes, sibling separation, compact accessibility and offli
 test("malformed archives and backups fail without altering collection", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/#today");
   await page.getByRole("button", { name: "Try a 6-card sample deck" }).click();
   await expect(
     page.getByRole("button", { name: "Start studying" }),

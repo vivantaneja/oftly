@@ -166,7 +166,7 @@ function Preferences({ onChange }: { onChange: () => void }) {
         <h2>Backups</h2>
         <p>
           {browserLocal
-            ? "Cards, review history and media stay in this browser on this device. Download regular backups: clearing site data or using private browsing can erase your collection. Devices and browsers do not sync."
+            ? "This browser keeps an offline copy of your cards and progress. Sign in to sync across devices. Download regular backups before clearing site data or using a shared device."
             : "Cards, review history, and media are stored in a separate local Anki collection. Export a backup to keep elsewhere or open in Anki."}
         </p>
         {browserLocal ? (
@@ -205,7 +205,9 @@ function Preferences({ onChange }: { onChange: () => void }) {
             ? "FSRS-6 scheduling · saved in your browser."
             : `Powered by Anki ${values?.engine ?? ""} · native FSRS scheduling.`}
           <br />
-          No account, analytics, or cloud uploads.
+          {browserLocal
+            ? "Guest study stays on this device. Account sync is optional. No analytics."
+            : "No account, analytics, or cloud uploads."}
           <br />
           <a
             href="https://github.com/vivantaneja/oftly"
@@ -219,7 +221,7 @@ function Preferences({ onChange }: { onChange: () => void }) {
     </section>
   );
 }
-function AppContent() {
+function AppContent({ account }: { account?: ReactNode }) {
   const [route, setRoute] = useState(location.hash.slice(1) || "today");
   const [data, setData] = useState<Dashboard>();
   const [error, setError] = useState("");
@@ -251,9 +253,11 @@ function AppContent() {
       if (document.visibilityState === "visible") refresh();
     };
     document.addEventListener("visibilitychange", update);
+    window.addEventListener("oftly-remote", update);
     const timer = window.setInterval(update, 60000);
     return () => {
       document.removeEventListener("visibilitychange", update);
+      window.removeEventListener("oftly-remote", update);
       clearInterval(timer);
     };
   }, [refresh]);
@@ -337,6 +341,7 @@ function AppContent() {
             ["today", "Decks"],
             ["progress", "Progress"],
             ["settings", "Settings"],
+            ...(account ? [["account", "Account"]] : []),
           ].map(([target, label]) => {
             const selected =
               page === target ||
@@ -448,6 +453,8 @@ function AppContent() {
                   : "Open the local service with npm run dev to reconnect."
                 : "Opening your workspace…"}
             </div>
+          ) : page === "account" && account ? (
+            account
           ) : page === "study" ? (
             <Study key={id ?? "all"} deck={id} onChange={refresh} />
           ) : page === "import" ? (
@@ -560,10 +567,10 @@ function AppContent() {
     </div>
   );
 }
-export default function App() {
+export default function App({ account }: { account?: ReactNode }) {
   return (
     <ErrorBoundary>
-      <AppContent />
+      <AppContent account={account} />
     </ErrorBoundary>
   );
 }

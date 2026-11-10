@@ -39,3 +39,24 @@ jobs:
         run: npm run test:web
       - name: Frontend dependency audit
         run: npm audit --audit-level=moderate
+  accounts-and-sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chrome
+      - name: Start disposable Supabase
+        run: |
+          npx supabase start --runtime native --exclude realtime,studio,analytics,pooler --eager
+          npx supabase migration up
+          mkdir -p supabase/.temp
+          npx supabase status --output-format json > supabase/.temp/local-status.json
+      - run: npm run test:cloud
+      - run: npx supabase db lint --schema public --fail-on warning
+      - if: always()
+        run: npx supabase stop

@@ -72,9 +72,9 @@ Native FSRS state adapts with each answer, but its parameter vector remains the 
 
 ## Delivery scope and next steps
 
-Delivered: installable local web app, responsive UI, working native data flow, research, code, tests, portable backup. Not delivered: cloud deployment, accounts/sync, AnkiWeb login, deck sharing, AI generation, games, image-occlusion interaction or custom add-on execution. Those would require additional product decisions and are intentionally outside this local-first build.
+Delivered: installable local web app, responsive UI, working native data flow, research, code, tests, portable backup. The browser edition now includes optional accounts/sync as described below. Not delivered: AnkiWeb login, deck sharing, AI generation, games, image-occlusion interaction or custom add-on execution. Those would require additional product decisions and are intentionally outside this local-first build.
 
-A future desktop wrapper can manage the local service lifecycle. A future multi-device version needs authentication, backups, migrations, conflict resolution and review-log merging before exposing this service to a network. Keep the native engine adapter boundary so UI work does not alter scheduling semantics.
+A future desktop wrapper can manage the local service lifecycle. The multi-device browser edition is separate from this native service; never expose the native process to a network. Keep the native engine adapter boundary so UI work does not alter scheduling semantics.
 
 
 ## Structured presentation and authoring
@@ -91,3 +91,11 @@ Recall Basic notes now include Question, Answer, Extra and Source. Existing two-
 Anki remains the source of truth: names retain native `::` hierarchy and existing deck/card IDs. The dashboard adds a folder flag for parent decks and explicitly created empty folders (IDs recorded in collection config `recall_folders`). Creating a deck or folder accepts a parent ID; the server resolves its native path and rejects missing parents and duplicate names.
 
 The browser projects names into a nested list with expandable branches, short titles and navigable breadcrumbs. Folder totals sum direct card counts through descendants; ready counts use Anki’s existing aggregate, avoiding double-counting. A folder may contain cards of its own as well as child decks. Search reveals matching ancestors without changing saved deck paths or review history. No separate database or filesystem folders are introduced.
+
+## Browser accounts and synchronization
+
+`CloudRoot` loads the public introduction for a new guest, with direct study and sign-in routes. `AccountProvider` controls identity transitions and storage scope. Each account gets its own IndexedDB database; the old guest database is preserved and only copied into an empty account on an explicit action. The planner stores answers locally until the learner continues or signs in.
+
+`cloud/model.ts` flattens the collection into individually versioned records. `cloud/sync.ts` snapshots local state under a Web Lock, pulls server changes after a revision, performs a three-way merge and pushes changes with an expected server revision. Network operations run outside the local lock. A final rebase protects edits made while the network was in flight. Same-record conflicts and structurally invalid merges wait for a user decision; both versions are saved for recovery. Review history entries and each card's FSRS state travel together in the collection records.
+
+Media is SHA-256 addressed, uploaded once to a private caller-owned bucket prefix, checked again on download and installed atomically with the collection. The service worker caches only public frontend assets. Supabase migrations define row-level access and transactional RPCs; the authenticated deletion function removes the account's objects then its identity. See [account setup](ACCOUNTS-AND-SYNC.md).
