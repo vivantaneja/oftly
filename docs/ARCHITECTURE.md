@@ -2,6 +2,12 @@
 
 ## What runs where
 
+The public build is selected by `npm run build:web` (`VITE_STORAGE=browser`). `src/lib/api.ts` dispatches into the local browser engine instead of making HTTP API requests. React, ts-fsrs 6.0.0 with explicit FSRS-6, IndexedDB, a bounded package-import worker and an offline asset cache run entirely on the visitor's device. Web Locks serialize tabs; IndexedDB revisions reject stale writes and reviews. Collection and media commits are atomic. See [deployment](DEPLOYMENT.md) and [security review](SECURITY-REVIEW.md).
+
+The browser edition uses local calendar days, 1/10-minute learning steps, a 10-minute relearning step, a 90% target, reviews before new cards and sibling separation. It preserves imported available memory state and dates but does not reproduce every Anki scheduler policy or fitted parameter set. Browser backups are `.oftly.zip`; Anki package export remains a native-edition feature. No browser data is transferred to the server.
+
+The remainder of this document describes the native local edition:
+
 ```text
 React + TypeScript (Vite build)
         │ same-origin JSON requests; no external services
@@ -14,7 +20,7 @@ Official anki 26.9.4 Python API → native Rust backend
         └── .data/collection.media/
 ```
 
-The actual Anki engine, requested explicitly by the user, owns scheduling, generated cards, note types, review logs, package imports/exports and undo. No JavaScript recreation of SM-2 or FSRS is used. We omit Anki's Qt desktop frontend; the browser is the interface. Python dependencies are isolated in `.venv`, with a locked frontend dependency tree in `package-lock.json`.
+The actual Anki engine owns scheduling, generated cards, note types, review logs, package imports/exports and undo in the native edition. We omit Anki's Qt desktop frontend; the browser is the interface. Python dependencies are isolated in `.venv`, with a locked frontend dependency tree in `package-lock.json`.
 
 ## Review lifecycle
 
@@ -33,11 +39,11 @@ Cards and history survive browser reload and server restart. Active review token
 ## Import transaction boundaries
 
 1. Text parsing is non-mutating. It reports malformed rows and ignored extra columns; quoted delimiters and multiline quoted fields use Python's CSV parser. Preview produces a token.
-2. Anki package preview writes an upload to a temporary directory, checks declared ZIP expansion, then imports it into a temporary native collection. The active collection is untouched.
+2. Anki package preview writes an upload to a temporary directory, bounds ZIP and inner Zstandard expansion and decoder windows, then imports it into a temporary native collection. The active collection is untouched.
 3. Confirmed import calls the native importer on the active collection. Package deck names are retained. `with_scheduling` follows the checkbox; `with_deck_configs` is false to protect app study settings. Import warnings explain renderer limitations.
 4. Successful package commits delete their temporary upload. Remaining previews are cleaned up on service shutdown. Tokens expire after an hour; a later preview is required after expiry. A service interrupted forcibly can leave temporary directories in the OS temp location.
 
-The ZIP size check limits declared ZIP expansion, not all possible nested compression behavior. The native library handles Anki's formats. This app is intended for user-selected deck files on a local machine, not hostile public uploads.
+The package guard streams through modern Anki's inner compression before passing it to the native library. This edition is intended for user-selected deck files on a local machine, not public uploads.
 
 ## Rendering boundary
 

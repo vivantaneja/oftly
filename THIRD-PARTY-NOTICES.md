@@ -1,6 +1,6 @@
 # Third-party notices
 
-Recall is an independent interface. Anki and Quizlet names identify compatibility; no endorsement is claimed. No upstream logo assets are bundled.
+Oftly is an independent interface. Anki and Quizlet names identify compatibility; no endorsement is claimed. No upstream logo assets are bundled.
 
 - Anki Python/Rust engine 26.9.4: AGPL-3.0-or-later with upstream exceptions; [source and license](https://github.com/ankitects/anki/blob/main/LICENSE).
 - React / React DOM: MIT; [license](https://github.com/facebook/react/blob/main/LICENSE).
@@ -25,3 +25,12 @@ Oftly self-hosts Bricolage Grotesque and Atkinson Hyperlegible from the Google F
 - [Bricolage Grotesque licence](public/fonts/bricolagegrotesque-OFL.txt)
 - [Atkinson Hyperlegible licence](public/fonts/atkinsonhyperlegible-OFL.txt)
 - [Exact source URLs](public/fonts/SOURCES.json)
+
+## Browser scheduling and imports
+
+- ts-fsrs 6.0.0: MIT; https://github.com/open-spaced-repetition/ts-fsrs
+- sql.js 1.16.0: MIT; https://github.com/sql-js/sql.js (SQLite is public domain).
+- fflate 0.8.3 and fzstd 0.1.1: MIT; https://github.com/101arrowz/fflate and https://github.com/101arrowz/fzstd
+- python-zstandard 0.25.0: BSD; https://github.com/indygreg/python-zstandard
+
+Dependency packages retain their full upstream licence notices.

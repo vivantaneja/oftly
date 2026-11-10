@@ -69,6 +69,26 @@ def test_safe_rendering_and_local_request_boundary(client):
     assert client.post('/api/decks',json={'name':'Blocked'},headers={'origin':'https://untrusted.example'}).status_code==403
     assert client.get('/api/dashboard',headers={'host':'untrusted.example'}).status_code==400
 
+def test_imported_html_cannot_style_app_or_load_remote_media():
+    cleaned=module.safe_html('<div class="sidebar" style="position:fixed">Fake navigation</div><span class="cloze">Answer</span><img src=https://example.com/tracker.png><audio src="//example.com/tracker.mp3"></audio><img src="diagram.png"><a href="javascript:alert(1)">Source</a>')
+    assert 'sidebar' not in cleaned and 'style=' not in cleaned
+    assert 'example.com' not in cleaned and 'javascript:' not in cleaned
+    assert '<span class="cloze">Answer</span>' in cleaned
+    assert 'src="/media/diagram.png"' in cleaned
+
+def test_inner_compression_limits_and_media_storage(tmp_path,monkeypatch):
+    import zipfile
+    import zstandard
+    from server import package_guard
+    assert 'src="diagram.png"' in module.stored_html('<img src="diagram.png">')
+    assert 'src="/media/diagram.png"' in module.safe_html(module.stored_html('<img src="diagram.png">'))
+    package=tmp_path/'compressed.apkg'
+    with zipfile.ZipFile(package,'w') as archive:
+        archive.writestr('collection.anki21b',zstandard.ZstdCompressor().compress(b'x'*10000))
+    monkeypatch.setattr(package_guard,'MAX_EXPANDED',1000)
+    with pytest.raises(ValueError,match='Expanded package'):
+        package_guard.validate_package(package)
+
 def test_edit_pause_delete(client):
     deck=imported(client)['deckId']
     notes=client.get(f'/api/decks/{deck}/notes').json()['notes'];note=notes[0]

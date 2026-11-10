@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Clock } from "lucide-react";
-import DOMPurify from "dompurify";
+import { cardHTML } from "../lib/html";
 import { api, navigate, type Stats } from "../lib/api";
 import { deckPath } from "../lib/decks";
 type Card = {
@@ -24,10 +24,7 @@ export function CardContent({ html }: { html: string }) {
     <div
       className="card-content"
       dangerouslySetInnerHTML={{
-        __html: DOMPurify.sanitize(html, {
-          FORBID_TAGS: ["style", "script", "iframe", "object", "embed"],
-          FORBID_ATTR: ["style"],
-        }),
+        __html: cardHTML(html, true),
       }}
     />
   );

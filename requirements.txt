@@ -1,7 +1,9 @@
 anki==26.9.4
-fastapi==0.121.1
+fastapi==0.162.3
+starlette==1.10.0
 uvicorn==0.38.0
-python-multipart==0.0.22
-bleach==6.3.0
-pytest==9.0.0
+python-multipart==0.0.33
+bleach==6.4.0
+pytest==9.2.0
 httpx==0.28.1
+zstandard==0.25.0

@@ -22,7 +22,7 @@ jobs:
       - name: Install local engine
         run: |
           python -m venv .venv
-          .venv/bin/python -m pip install -r requirements.txt
+          .venv/bin/python -m pip install -r requirements.lock.txt
       - name: Build
         run: npm run build
       - name: Native engine tests
@@ -31,3 +31,11 @@ jobs:
         run: npx playwright install --with-deps chrome
       - name: Browser journeys
         run: npm run test:e2e
+      - name: Browser-only production build
+        run: npm run build:web
+      - name: Synthetic Anki packages
+        run: .venv/bin/python -m tests.web.make_fixtures
+      - name: Browser storage, import security and offline journeys
+        run: npm run test:web
+      - name: Frontend dependency audit
+        run: npm audit --audit-level=moderate

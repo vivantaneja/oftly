@@ -24,6 +24,10 @@ export async function api<T>(
   body?: unknown,
   method?: string,
 ): Promise<T> {
+  if (import.meta.env.VITE_STORAGE === "browser") {
+    const { browserAPI } = await import("./browser/engine");
+    return browserAPI(path, body, method) as Promise<T>;
+  }
   const form = body instanceof FormData;
   let response: Response;
   try {

@@ -18,6 +18,7 @@ type Preview = {
   warningCount: number;
 };
 export default function Import({ onChange }: { onChange: () => void }) {
+  const browserLocal = import.meta.env.VITE_STORAGE === "browser";
   const [tab, setTab] = useState("text");
   const [text, setText] = useState("");
   const [separator, setSeparator] = useState("auto");
@@ -120,7 +121,7 @@ export default function Import({ onChange }: { onChange: () => void }) {
       <div className="tabs" role="group" aria-label="Import format">
         {[
           ["text", "Quizlet / text"],
-          ["anki", "Anki package"],
+          ["anki", browserLocal ? "Anki / backup" : "Anki package"],
           ["star", "Assistant / JSON"],
         ].map(([id, label]) => (
           <button
@@ -238,11 +239,18 @@ export default function Import({ onChange }: { onChange: () => void }) {
         <div className="import-form">
           <label className="upload-zone">
             <Upload size={30} />
-            <strong>{file?.name || "Choose an Anki package"}</strong>
-            <span>.apkg · up to 50 MB</span>
+            <strong>
+              {file?.name ||
+                (browserLocal
+                  ? "Choose an Anki package or Oftly backup"
+                  : "Choose an Anki package")}
+            </strong>
+            <span>
+              {browserLocal ? ".apkg or .oftly.zip" : ".apkg"} · up to 50 MB
+            </span>
             <input
               type="file"
-              accept=".apkg"
+              accept={browserLocal ? ".apkg,.zip" : ".apkg"}
               disabled={busy}
               onChange={(e) => {
                 setFile(e.target.files?.[0]);
@@ -259,9 +267,9 @@ export default function Import({ onChange }: { onChange: () => void }) {
             Keep my review history and schedule
           </label>
           <p className="hint left">
-            Read by the official Anki engine. Deck names, note types, and
-            supported media come with you. Your existing Anki profile stays
-            separate.
+            {browserLocal
+              ? "Read entirely in your browser. Standard basic, reversed, typed and cloze cards, sources, IDs and supported media come with you. Custom templates and add-ons may need editing. Anki due dates can be kept; future FSRS intervals may differ. Oftly backups also restore your preferences."
+              : "Read by the official Anki engine. Deck names, note types, and supported media come with you. Your existing Anki profile stays separate."}
           </p>
         </div>
       )}

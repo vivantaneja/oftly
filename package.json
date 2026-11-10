@@ -7,15 +7,22 @@
     "dev": "node scripts/dev.mjs",
     "dev:web": "vite --host 127.0.0.1",
     "build": "tsc -b && vite build",
+    "build:web": "tsc -b && VITE_STORAGE=browser vite build --outDir dist-web && node scripts/build-offline.mjs",
+    "dev:browser": "VITE_STORAGE=browser vite --host 127.0.0.1 --port 5174",
+    "test:web": "playwright test -c playwright.web.config.ts",
     "start": ".venv/bin/python -m uvicorn server.app:app --host 127.0.0.1 --port 8766",
     "test": ".venv/bin/python -m pytest -q",
     "test:e2e": "playwright test"
   },
   "dependencies": {
     "dompurify": "^3.3.0",
+    "fflate": "^0.8.3",
+    "fzstd": "^0.1.1",
     "lucide-react": "^0.468.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "sql.js": "^1.16.0",
+    "ts-fsrs": "^6.0.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
@@ -23,18 +30,19 @@
     "@types/node": "^24.0.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "@types/sql.js": "^1.4.11",
     "@vitejs/plugin-react": "^5.1.0",
     "prettier": "^3.9.10",
     "typescript": "~5.9.3",
     "vite": "^7.2.0"
   },
-  "description": "Local-first flashcards with native Anki scheduling, clear study flows and optional card-writing guidance.",
+  "description": "Local-first flashcards with FSRS scheduling, Anki and Quizlet imports, and a calm study experience.",
   "license": "AGPL-3.0-or-later",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vivantaneja/recall.git"
+    "url": "https://github.com/vivantaneja/oftly.git"
   },
   "engines": {
-    "node": ">=22.12.0"
+    "node": "24.x"
   }
 }

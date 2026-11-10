@@ -75,6 +75,7 @@ function Week({ stats, large = false }: { stats: Stats; large?: boolean }) {
   );
 }
 function Preferences({ onChange }: { onChange: () => void }) {
+  const browserLocal = import.meta.env.VITE_STORAGE === "browser";
   const [values, setValues] = useState<{
     newPerDay: number;
     retention: number;
@@ -92,7 +93,7 @@ function Preferences({ onChange }: { onChange: () => void }) {
     <section className="narrow-page">
       <h1>Keep learning manageable.</h1>
       <p className="page-description">
-        A few useful settings. Anki handles the rest.
+        A few useful settings. FSRS handles the spacing.
       </p>
       {error && (
         <p role="alert" className="error">
@@ -163,7 +164,7 @@ function Preferences({ onChange }: { onChange: () => void }) {
           </div>
           <p className="hint left">
             Applies to all deck presets on future reviews. Existing due dates
-            stay in place. Anki’s sibling burying is enabled.
+            stay in place. Related cards are separated until the next day.
           </p>
           <div className="actions">
             <button className="primary" disabled={busy}>
@@ -181,23 +182,55 @@ function Preferences({ onChange }: { onChange: () => void }) {
       <div className="data-section">
         <h2>Your cards belong to you.</h2>
         <p>
-          Cards, review history, and media are stored in a separate local Anki
-          collection. Export a backup to keep elsewhere or open in Anki.
+          {browserLocal
+            ? "Cards, review history and media stay in this browser on this device. Download regular backups: clearing site data or using private browsing can erase your collection. Devices and browsers do not sync."
+            : "Cards, review history, and media are stored in a separate local Anki collection. Export a backup to keep elsewhere or open in Anki."}
         </p>
-        <a className="secondary" href="/api/export" download>
-          <Download size={16} /> Download Anki backup
-        </a>
+        {browserLocal ? (
+          <button
+            className="secondary"
+            disabled={busy}
+            onClick={async () => {
+              setBusy(true);
+              setError("");
+              try {
+                await api("/export");
+              } catch (e) {
+                setError((e as Error).message);
+              } finally {
+                setBusy(false);
+              }
+            }}
+          >
+            <Download size={16} /> Download Oftly backup
+          </button>
+        ) : (
+          <a className="secondary" href="/api/export" download>
+            <Download size={16} /> Download Anki backup
+          </a>
+        )}
         <p className="hint left">
-          To restore, import the backup from Library. Matching notes are merged
-          by Anki.
+          {browserLocal
+            ? "Restore an .oftly.zip backup from Import → Anki / backup. Matching notes and schedules are restored from the backup. This backup format is for Oftly; use the local edition for native Anki exports."
+            : "To restore, import the backup from Library. Matching notes are merged by Anki."}
         </p>
       </div>
       <div className="engine-note">
         <HardDrive size={19} />
         <p>
-          Powered by Anki {values?.engine ?? ""} · native FSRS scheduling.
+          {browserLocal
+            ? "FSRS-6 scheduling · saved in your browser."
+            : `Powered by Anki ${values?.engine ?? ""} · native FSRS scheduling.`}
           <br />
           No account, analytics, or cloud uploads.
+          <br />
+          <a
+            href="https://github.com/vivantaneja/oftly"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Source code and project information
+          </a>
         </p>
       </div>
     </section>
@@ -469,7 +502,9 @@ function AppContent() {
           {!data ? (
             <div className="loading" role="status">
               {error
-                ? "Open the local service with npm run dev to reconnect."
+                ? import.meta.env.VITE_STORAGE === "browser"
+                  ? "Your browser could not open this collection. Check site-storage permissions and try again."
+                  : "Open the local service with npm run dev to reconnect."
                 : "Opening your workspace…"}
             </div>
           ) : page === "study" ? (
@@ -636,7 +671,7 @@ function AppContent() {
                       </h2>
                       <p>
                         {ready
-                          ? "Recall, reveal, and let Anki find the right time to revisit. Start with what’s ready today."
+                          ? "Recall, reveal, and let FSRS find the right time to revisit. Start with what’s ready today."
                           : "Come back when your cards are due. Your next review will meet you here."}
                       </p>
                       {ready ? (

@@ -28,6 +28,7 @@ from pydantic import BaseModel, Field
 from .vendor.anki_star.core import parse_notes as parse_star, validate_note as validate_star, build_prompt as star_prompt, FormatError
 from .vendor.anki_star.collection import import_notes as import_star
 from .presentation import present, preview_fields, normalize_designs
+from .package_guard import validate_package
 from starlette.background import BackgroundTask
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
@@ -38,6 +39,11 @@ MAX_UPLOAD = 50 * 1024 * 1024
 
 def plain(value: str) -> str:
     return html.unescape(bleach.clean(value, tags=[], strip=True)).strip()
+
+
+def stored_html(value: str) -> str:
+    # Anki packages reference media by basename; /media/ is only a web route.
+    return re.sub(r'src="/media/([^\"]*)"', lambda m: 'src="'+html.escape(unquote(m.group(1)),quote=True)+'"', safe_html(value))
 
 
 def safe_html(value: str) -> str:
@@ -54,7 +60,17 @@ def safe_html(value: str) -> str:
             return 'src=""'
         return f'src="/media/{quote(name, safe="")}"'
     value = re.sub(r'\bsrc\s*=\s*([\"\'])(.*?)\1', src, value, flags=re.I)
-    return bleach.clean(value, tags=['p','br','div','span','b','strong','i','em','u','s','sub','sup','ul','ol','li','blockquote','pre','code','hr','img','audio','a','table','thead','tbody','tr','td','th'], attributes={'*':['class','dir'], 'img':['src','alt','width','height'], 'audio':['src','controls'], 'a':['href','title']}, protocols=['http','https','mailto'], strip=True)
+    def attribute(tag: str, name: str, value: str) -> bool:
+        # Imported classes must not activate application chrome (e.g. .sidebar).
+        if name == 'class':
+            return tag == 'span' and value == 'cloze'
+        if name == 'dir':
+            return value in {'ltr','rtl','auto'}
+        if name == 'src':
+            # Also covers unquoted attributes normalized by the HTML parser.
+            return tag in {'img','audio'} and value.startswith('/media/')
+        return name in {'img':{'alt','width','height'},'audio':{'controls'},'a':{'href','title'}}.get(tag,set())
+    return bleach.clean(value, tags=['p','br','div','span','b','strong','i','em','u','s','sub','sup','ul','ol','li','blockquote','pre','code','hr','img','audio','a','table','thead','tbody','tr','td','th'], attributes=attribute, protocols=['http','https','mailto'], strip=True)
 
 
 def parse_text(text: str, separator: str = 'auto', skip_header: bool = False):
@@ -226,7 +242,7 @@ class Engine:
             if key in existing:
                 continue
             note = self.col.new_note(model)
-            note.fields = [safe_html(row['front']),safe_html(row['back']),safe_html(row.get('extra','')),safe_html(row.get('source',''))]
+            note.fields = [stored_html(row['front']),stored_html(row['back']),stored_html(row.get('extra','')),stored_html(row.get('source',''))]
             self.col.add_note(note,did)
             existing.add(key)
             added += 1
@@ -253,7 +269,7 @@ async def protect_local_api(request: Request, call_next):
     response = await call_next(request)
     response.headers['X-Content-Type-Options'] = 'nosniff'
     response.headers['Referrer-Policy'] = 'no-referrer'
-    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'"
+    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
     if request.url.path.startswith('/api'):
         response.headers['Cache-Control'] = 'no-store'
     return response
@@ -343,7 +359,7 @@ async def edit_note(nid: int,data: NoteInput,request: Request):
         data.fields += note.fields[2:]
     if len(data.fields)!=len(note.fields) or not plain(data.fields[0]):
         raise HTTPException(422,'Keep all note fields and a non-empty first field.')
-    note.fields=[safe_html(v) for v in data.fields]
+    note.fields=[stored_html(v) for v in data.fields]
     e.col.update_note(note);e.invalidate()
     return {'saved':True}
 
@@ -459,9 +475,7 @@ async def preview_anki(request: Request,file: UploadFile=File(...)):
     package=directory/'import.apkg';package.write_bytes(content)
     preview=None
     try:
-        with zipfile.ZipFile(package) as archive:
-            if sum(item.file_size for item in archive.infolist())>250*1024*1024:
-                raise ValueError('Expanded package exceeds 250 MB.')
+        validate_package(package)
         preview=Collection(str(directory/'preview.anki2'))
         preview.import_anki_package(imex.ImportAnkiPackageRequest(package_path=str(package),options=imex.ImportAnkiPackageOptions(with_scheduling=True,with_deck_configs=True)))
         count=preview.card_count()
