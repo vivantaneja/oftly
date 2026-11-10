@@ -47,6 +47,121 @@ async function packagePreview(
   await page.locator("input[type=file]").setInputFiles(file);
   await page.getByRole("button", { name: "Preview import" }).click();
 }
+test("queue counts keep missed cards visible, respect scope, undo and repeat time", async ({
+  page,
+}) => {
+  await importText(
+    page,
+    "Course::Topic",
+    "First cue\tFirst answer\nSecond cue\tSecond answer",
+  );
+  await page.goto("/#today");
+  await expect(
+    page.getByRole("heading", { name: "Decks", exact: true }),
+  ).toBeVisible();
+  await importText(page, "Other", "Other cue\tOther answer");
+  const collection = await state(page);
+  const parent = collection.decks.find(
+    (d: { name: string }) => d.name === "Course",
+  );
+  const other = collection.decks.find(
+    (d: { name: string }) => d.name === "Other",
+  );
+  await page.clock.install({ time: new Date("2026-11-10T12:00:00") });
+  await page.goto("/#study/" + parent.id);
+  const queue = page.getByRole("group", { name: "Study queue" });
+  await expect(queue.locator(".queue-new strong")).toHaveText("2");
+  await expect(queue.locator(".queue-learning strong")).toHaveText("0");
+  const question = await page
+    .getByRole("region", { name: "Question", exact: true })
+    .innerText();
+  await page.getByRole("button", { name: "Show answer" }).click();
+  await page.getByRole("button", { name: /Again 1/ }).click();
+  await expect(queue.locator(".queue-new strong")).toHaveText("1");
+  await expect(queue.locator(".queue-learning strong")).toHaveText("1");
+  await expect(page.locator(".session-tally")).toContainText("1 missed");
+  await expect(page.getByRole("timer")).toContainText("Next repeat in");
+  await page.evaluate(() => document.fonts.ready);
+  await page.screenshot({
+    path: ".impeccable/review/queue-waiting-desktop.png",
+    fullPage: false,
+  });
+  await page.setViewportSize({ width: 320, height: 800 });
+  await expect(page.locator(".session-tally")).toBeVisible();
+  await expect(page.locator(".study-toolbar")).toHaveCount(1);
+  await page.evaluate(
+    () =>
+      new Promise((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(resolve)),
+      ),
+  );
+  await page.screenshot({
+    path: ".impeccable/review/queue-waiting-mobile.png",
+    fullPage: false,
+  });
+  await page.evaluate(() => (document.documentElement.style.fontSize = "30px"));
+  await expect
+    .poll(() =>
+      page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+    )
+    .toBe(true);
+  await page.evaluate(() => (document.documentElement.style.fontSize = ""));
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.getByRole("button", { name: "Undo", exact: true }).click();
+  await expect(queue.locator(".queue-new strong")).toHaveText("2");
+  await expect(queue.locator(".queue-learning strong")).toHaveText("0");
+  await expect(page.locator(".session-tally")).toContainText("0 missed");
+  await expect(page.getByRole("timer")).toHaveCount(0);
+  await page.getByRole("button", { name: "Show answer" }).click();
+  await page.getByRole("button", { name: /Again 1/ }).click();
+  await expect(queue.locator(".queue-learning strong")).toHaveText("1");
+  await page.goto("/#study/" + other.id);
+  await expect(queue.locator(".queue-learning strong")).toHaveText("0");
+  await expect(page.getByRole("timer")).toHaveCount(0);
+  await page.goto("/#study/" + parent.id);
+  await page.getByRole("button", { name: "Show answer" }).click();
+  await page.getByRole("button", { name: /Easy 4/ }).click();
+  await expect(
+    page.getByRole("heading", { name: "Session complete" }),
+  ).toBeVisible();
+  await expect(queue.locator(".queue-learning strong")).toHaveText("1");
+  await page.clock.fastForward(61000);
+  await expect(page.getByRole("timer")).toHaveText("Repeat ready");
+  await page.getByRole("button", { name: "Check for due cards" }).click();
+  await expect(
+    page.getByRole("region", { name: "Question", exact: true }),
+  ).toHaveText(question);
+  await expect(queue.locator(".queue-learning strong")).toHaveText("1");
+  await expect(page.getByRole("timer")).toHaveCount(0);
+  // The overview unlocks studying when a waiting step becomes due, without a reload.
+  await page.getByRole("button", { name: "Show answer" }).click();
+  await page.getByRole("button", { name: /Again 1/ }).click();
+  await expect(
+    page.getByRole("heading", { name: "Session complete" }),
+  ).toBeVisible();
+  await page.goto("/#deck/" + parent.id);
+  await expect(
+    page.getByRole("button", { name: "Study folder" }),
+  ).toBeDisabled();
+  await page.clock.fastForward(61000);
+  await expect(
+    page.getByRole("button", { name: "Study folder" }),
+  ).toBeEnabled();
+  await page.getByRole("button", { name: "Study folder" }).click();
+  await expect(
+    page.getByRole("region", { name: "Question", exact: true }),
+  ).toHaveText(question);
+  await page.setViewportSize({ width: 320, height: 800 });
+  await expect
+    .poll(() =>
+      page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+    )
+    .toBe(true);
+  const audit = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+    .analyze();
+  expect(audit.violations.map((v) => v.id)).toEqual([]);
+});
 test("local scheduling, daily limits, undo, persistence, backup restore and no uploads", async ({
   page,
   browser,
@@ -291,7 +406,9 @@ test("mixed assistant notes, sibling separation, compact accessibility and offli
   await page.reload();
   await expect(page.getByRole("heading", { name: "Settings" })).toBeVisible();
   await page.goto("/#today");
-  await expect(page.getByRole("heading", { name: "Decks", exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Decks", exact: true }),
+  ).toBeVisible();
   expect((await state(page)).reviews).toHaveLength(2);
   await context.setOffline(false);
 });

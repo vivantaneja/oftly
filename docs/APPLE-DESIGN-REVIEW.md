@@ -28,3 +28,14 @@ Automated accessibility checks cover exercised Today, Study and Settings states.
 Read references: accessibility, layout, typography, color, designing-for-iOS, cross-platform, entering-data, feedback, buttons, settings and code-audit. Source and rendered desktop/mobile evidence were reviewed. Native VoiceOver/Switch Control were not manually tested. Dark appearance is not implemented; the light study palette is the current design. Imported audio/images may need author-supplied transcripts or alternative text. No complete accessibility conformance or Apple certification is claimed.
 
 Measured contrast on white: muted #53685b 6.00:1; pine #174c3c 9.83:1. Other surfaces were covered by the automated checks.
+
+
+## Supplied Apple Design skill — queue refinement, 10 November 2026
+
+Applied the user's supplied Apple Design skill to the current Oftly interface. The earlier review above describes the pre-brand version. The current brief remains a quiet, Anki-like study tool.
+
+- Immediate pressed-state color feedback for study controls, deck rows and navigation actions; actions still commit on release and keyboard behavior remains native.
+- Relative root text size respects browser font preferences. Queue spacing scales with text, numbers use tabular figures, and zero counts remain muted. Labels carry the meaning alongside color.
+- A missed-answer tally remains visible on phones. Countdown updates are not announced every second by assistive technology. Deck study actions refresh when a repeat becomes due.
+- Undo remains available, including across native deck-selection changes. Answer position stays stable and the existing reduced-motion behavior remains in place.
+- Desktop, 320px mobile, enlarged-text and automated accessibility checks were exercised with synthetic cards. No motion library, gesture dependency or translucent surface was needed for this task. This is an implementation review, not an Apple endorsement or certification.

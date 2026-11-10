@@ -53,3 +53,11 @@ All integration/browser tests use temporary collections. The running app uses it
 - Native and browser production builds passed. All 6 native browser journeys and 7 browser-only journeys passed, covering imports, folders, study, keyboard shortcuts, backup, persistence, offline reload and HTML safety. The scheduling/storage implementations are unchanged.
 - Inspected desktop and mobile screenshots. Additional checks covered Decks, Import, Progress and Settings at 320, 390, 800 and 1360px, with no horizontal overflow. A 320px Settings view with a 30px root font also passed; automated WCAG A/AA checks found no violations in the checked settings view. Existing journey accessibility checks also passed.
 - Updated the design contract and public screenshots to match the quieter interface. Screenshot content is synthetic.
+
+
+## Queue counts and repeat countdown — 10 November 2026
+
+- Added New / Learning / Due counts to deck rows, deck/folder summaries and study. Learning includes pending intraday steps without making them available early. The session tally counts answers marked Again; undo removes the reverted answer. The countdown uses the selected deck/folder's actual next learning time.
+- Native regression covers parent/child aggregation, waiting vs ready, unrelated decks, due reviews, suspension and undo. It exposed and fixed native deck-selection operations displacing the answer targeted by Undo.
+- Browser regression covers Again, undo, scoped counts, the live countdown reaching zero, reopening the repeat, visible mobile session totals and enlarged text. All 16 native tests, 6 native browser journeys and 8 browser-only journeys passed. Final checks also cover mobile tally visibility, larger text and automatic study-button availability when a repeat becomes due.
+- Queue terminology follows the [Anki study overview](https://docs.ankiweb.net/manual/studying). Counts are cards, not remaining repetitions or a claim of mastery.

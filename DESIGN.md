@@ -112,11 +112,12 @@ components:
     textColor: "{colors.ink}"
     rounded: "{rounded.flat}"
     padding: "0"
-  due-count:
-    backgroundColor: "transparent"
+  queue-count:
     textColor: "{colors.ink}"
-    rounded: "{rounded.flat}"
-    padding: "4px 8px"
+  queue-learning:
+    textColor: "{colors.danger}"
+  queue-due:
+    textColor: "{colors.leaf}"
   flashcard:
     backgroundColor: "transparent"
     rounded: "{rounded.flat}"
@@ -150,11 +151,11 @@ components:
 
 Ink carries readable text and the single primary action. Warm canvas is the dominant surface; paper is reserved for subtle hover and selected-rating states. Leaf remains the focus/success color. Marigold remains in the brand mark and text selection, not large study buttons. Semantic error colors remain distinct.
 
-There is no dark navigation rail, filled dashboard panel or colored numeric badge. Counts use ordinary aligned ink text. Avoid adding category colors.
+There is no dark navigation rail, filled dashboard panel or colored numeric badge. Queue counts use aligned numerals: ink for New, muted red for Learning and leaf for Due, always with labels. Avoid decorative category colors.
 
 ## Typography
 
-Atkinson Hyperlegible carries interface headings, navigation, labels, answers and controls. The outlined Bricolage wordmark and Bricolage study questions retain the identity. Fonts remain self-hosted.
+Atkinson Hyperlegible carries interface headings, navigation, labels, answers and controls. The outlined Bricolage wordmark and Bricolage study questions retain the identity. Fonts remain self-hosted. Root text size follows the browser default, and queue spacing uses relative units.
 
 Page headings use 1.55rem (1.4rem on phones); supporting text is 0.9rem. Questions use 1.45rem (1.25rem on phones), answers 1rem. Keep a small, readable hierarchy; avoid motivational display headlines. Main product copy names the task: Decks, Import cards, Progress, Settings.
 
@@ -175,6 +176,8 @@ Flat surfaces, whitespace and 1px rules define structure. Study content has no p
 Buttons and rating controls use 5px corners. Fields retain their existing 7px corners. The wordmark and 32px app icon are unchanged. Touch controls remain at least 44px where needed; compact desktop controls may be 38px.
 
 ## Components
+
+Buttons provide immediate pressed-state color feedback without movement. Queue counts are compact text, never panels or badges. Deck rows show New / Learning / Due columns; phones put labeled counts beneath each deck name. Study shows the same counts, underlines the current queue, and adds a session missed-answer tally and a quiet next-repeat countdown. Learning includes steps waiting until later today; it does not mean every card was answered incorrectly.
 
 **Navigation:** one compact text navigation bar. The old Today and Library URLs both lead to the deck-list home. The product uses Decks as the main navigation label; Library remains a location label in existing breadcrumbs.
 

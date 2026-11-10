@@ -86,14 +86,31 @@ export default function DeckBrowser({
                 <small>
                   {folder
                     ? `${children.length} ${children.length === 1 ? "item" : "items"} · ${node.total} ${node.total === 1 ? "card" : "cards"}`
-                    : `${deck.total} ${deck.total === 1 ? "card" : "cards"}${deck.new ? ` · ${deck.new} new` : ""}`}
+                    : `${deck.total} ${deck.total === 1 ? "card" : "cards"}`}
                 </small>
               </span>
               <span
-                className={deck.ready ? "due-count" : "quiet-count"}
-                aria-label={`${deck.ready} ready`}
+                className="deck-queue"
+                aria-label={`${deck.new} new, ${deck.learning + deck.waiting} learning, ${deck.review} due`}
               >
-                {deck.ready || "—"}
+                <span
+                  data-label="New"
+                  className={`queue-new${deck.new ? "" : " zero-count"}`}
+                >
+                  {deck.new}
+                </span>
+                <span
+                  data-label="Learning"
+                  className={`queue-learning${deck.learning + deck.waiting ? "" : " zero-count"}`}
+                >
+                  {deck.learning + deck.waiting}
+                </span>
+                <span
+                  data-label="Due"
+                  className={`queue-review${deck.review ? "" : " zero-count"}`}
+                >
+                  {deck.review}
+                </span>
               </span>
             </button>
           </div>
@@ -138,7 +155,11 @@ export default function DeckBrowser({
         <>
           <div className="library-columns" aria-hidden="true">
             <span>Name</span>
-            <span>Ready</span>
+            <span className="deck-queue queue-headings">
+              <span>New</span>
+              <span>Learning</span>
+              <span>Due</span>
+            </span>
           </div>
           <ul className="library-tree">{rows(nodes)}</ul>
         </>

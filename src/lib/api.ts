@@ -1,10 +1,14 @@
-export type Deck = {
-  id: string;
-  name: string;
-  total: number;
+export type QueueCounts = {
   new: number;
   review: number;
   learning: number;
+  waiting: number;
+  nextLearningAt: number | null;
+};
+export type Deck = QueueCounts & {
+  id: string;
+  name: string;
+  total: number;
   ready: number;
   folder?: boolean;
 };

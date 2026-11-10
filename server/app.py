@@ -159,6 +159,9 @@ class Engine:
         walk(self.col.sched.deck_due_tree())
         result = []
         decks = self.col.decks.all_names_and_ids()
+        names = {d.id: d.name for d in decks}
+        # Pending intraday steps remain visible, but never count as ready early.
+        waiting = self.col.db.all('select did, count(*), min(due) from cards where queue=1 and due>? and due<? group by did', time.time(), self.col.sched.day_cutoff)
         folders = set(self.col.get_config('recall_folders', []))
         for deck in decks:
             total = self.col.db.scalar('select count(*) from cards where did=?', deck.id)
@@ -166,7 +169,15 @@ class Engine:
             if deck.id == 1 and total == 0 and not folder:
                 continue
             cnt = counts.get(deck.id, {'new':0,'learning':0,'review':0})
-            result.append({'id':str(deck.id), 'name':deck.name, 'total':total, 'folder':folder, **cnt, 'ready':sum(cnt.values())})
+            pending = [(count, due) for did, count, due in waiting if did == deck.id or names.get(did, '').startswith(deck.name + '::')]
+            result.append({'id':str(deck.id), 'name':deck.name, 'total':total, 'folder':folder, **cnt, 'ready':sum(cnt.values()), 'waiting':sum(count for count, _ in pending), 'nextLearningAt':min((due for _, due in pending), default=None)})
+        return result
+
+    def queue_counts(self, deck_id):
+        decks = self.decks()
+        roots = [d for d in decks if d['id'] == deck_id] if deck_id else [d for d in decks if not any(d['name'].startswith(parent['name'] + '::') for parent in decks)]
+        result = {key: sum(d[key] for d in roots) for key in ('new', 'learning', 'review', 'waiting')}
+        result['nextLearningAt'] = min((d['nextLearningAt'] for d in roots if d['nextLearningAt'] is not None), default=None)
         return result
 
     def stats(self):
@@ -198,8 +209,12 @@ class Engine:
             # Due reviews take precedence across decks.
             ids = [int(d['id']) for d in sorted(decks, key=lambda d:(not(d['review'] or d['learning']), d['name']))]
         for did in ids:
+            undo_step = self.col.undo_status().last_step if self.undo_available else None
             self.col.decks.select(did)
             queue = self.col.sched.get_queued_cards()
+            if undo_step is not None:
+                # Navigation must not replace the answer targeted by Undo.
+                self.col.merge_undo_entries(undo_step)
             if not queue.cards:
                 continue
             queued = queue.cards[0]
@@ -207,7 +222,7 @@ class Engine:
             card.start_timer()
             token = uuid.uuid4().hex
             view = present(card, safe_html)
-            public = {'token':token,'id':str(card.id),'deck':self.col.decks.name(card.did),'question':view['question'],'requiresTypedAnswer':view['requiresTypedAnswer'],'remaining':queue.new_count+queue.learning_count+queue.review_count,'isNew':card.type==0}
+            public = {'token':token,'id':str(card.id),'deck':self.col.decks.name(card.did),'question':view['question'],'requiresTypedAnswer':view['requiresTypedAnswer'],'remaining':queue.new_count+queue.learning_count+queue.review_count,'isNew':card.type==0,'state':'new' if card.type==0 else 'learning' if card.type in (1,3) else 'review'}
             self.active = {'card':card,'states':queued.states,'scope':deck_id,'public':public,'revealed':False,'view':view}
             return public
         return None
@@ -380,7 +395,7 @@ async def suspend(nid: int,request: Request):
 @app.get('/api/study/next')
 async def study_next(request: Request,deck: str | None=None):
     e=engine(request)
-    return {'card':e.next_card(deck),'canUndo':e.undo_available,'stats':e.stats()}
+    return {'card':e.next_card(deck),'canUndo':e.undo_available,'stats':e.stats(),'queue':e.queue_counts(deck)}
 
 @app.post('/api/study/reveal')
 async def reveal(data: TokenInput,request: Request):

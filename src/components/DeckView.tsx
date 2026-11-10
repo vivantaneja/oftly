@@ -13,6 +13,7 @@ import {
 import { api, navigate, cleanText, type Deck } from "../lib/api";
 import CardGuidance from "./CardGuidance";
 import DeckBrowser from "./DeckBrowser";
+import { QueueCounts, NextRepeat } from "./QueueCounts";
 import { deckTitle, deckTree, findDeckNode } from "../lib/decks";
 type Note = {
   id: string;
@@ -107,6 +108,10 @@ export default function DeckView({
             {node.total} cards{node.folder ? " in this folder" : ""} ·{" "}
             {deck.ready} ready today
           </p>
+          <div className="deck-queue-line">
+            <QueueCounts counts={deck} />
+            <NextRepeat at={deck.nextLearningAt} onDue={onChange} />
+          </div>
         </div>
         <div className="actions">
           <button className="secondary" onClick={() => edit(null)}>

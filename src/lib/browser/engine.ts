@@ -79,7 +79,7 @@ function scopeCards(s: Collection, scope: string | null) {
   );
   return s.cards.filter((c) => dids.has(c.did));
 }
-function eligible(s: Collection, scope: string | null) {
+function eligible(s: Collection, scope: string | null, includeWaiting = false) {
   const today = day(),
     now = Date.now();
   const reviews = s.reviews.filter((r) => day(new Date(r.at)) === today);
@@ -108,13 +108,35 @@ function eligible(s: Collection, scope: string | null) {
         newCount.set(c.did, (newCount.get(c.did) ?? 0) + 1);
         return true;
       }
-      return new Date(c.memory.dueAt).getTime() <= now;
+      const due = new Date(c.memory.dueAt);
+      return (
+        due.getTime() <= now ||
+        (includeWaiting &&
+          [1, 3].includes(c.memory.state) &&
+          day(due) === today)
+      );
     })
     .sort(
       (a, b) =>
         (a.memory.state === 0 ? 1 : 0) - (b.memory.state === 0 ? 1 : 0) ||
         new Date(a.memory.dueAt).getTime() - new Date(b.memory.dueAt).getTime(),
     );
+}
+function queueCounts(ready: LocalCard[], waiting: LocalCard[]) {
+  return {
+    new: ready.filter((c) => c.memory.state === 0).length,
+    review: ready.filter((c) => c.memory.state === 2).length,
+    learning: ready.filter((c) => [1, 3].includes(c.memory.state)).length,
+    waiting: waiting.length,
+    nextLearningAt: waiting.length
+      ? Math.min(...waiting.map((c) => new Date(c.memory.dueAt).getTime())) /
+        1000
+      : null,
+  };
+}
+function waitingCards(s: Collection, scope: string | null, ready: LocalCard[]) {
+  const readyIds = new Set(ready.map((c) => c.id));
+  return eligible(s, scope, true).filter((c) => !readyIds.has(c.id));
 }
 function stats(s: Collection) {
   const now = Date.now(),
@@ -158,6 +180,7 @@ function stats(s: Collection) {
 }
 function dashboard(s: Collection) {
   const ready = eligible(s, null),
+    waiting = waitingCards(s, null, ready),
     decks = s.decks.map((d) => {
       const direct = s.cards.filter((c) => c.did === d.id),
         ids = new Set(
@@ -169,9 +192,10 @@ function dashboard(s: Collection) {
       return {
         ...d,
         total: direct.length,
-        new: due.filter((c) => c.memory.state === 0).length,
-        review: due.filter((c) => c.memory.state === 2).length,
-        learning: due.filter((c) => [1, 3].includes(c.memory.state)).length,
+        ...queueCounts(
+          due,
+          waiting.filter((c) => ids.has(c.did)),
+        ),
         ready: due.length,
       };
     });
@@ -523,12 +547,13 @@ async function dispatch(path: string, body: unknown, method: string) {
   }
   if (route === "/study/next") {
     const scope = url.searchParams.get("deck");
+    const ready = eligible(s, scope);
     let card: LocalCard | undefined;
     if (active && active.scope === scope && active.revision === s.revision)
       card = s.cards.find((c) => c.id === active!.cardId);
     else active = undefined;
     if (!card) {
-      card = eligible(s, scope)[0];
+      card = ready[0];
       if (card)
         active = {
           token: id(),
@@ -553,11 +578,18 @@ async function dispatch(path: string, body: unknown, method: string) {
               ).question,
               requiresTypedAnswer:
                 s.notes.find((n) => n.id === card!.nid)!.kind === "typing",
-              remaining: eligible(s, scope).length,
+              remaining: ready.length,
               isNew: card.memory.state === 0,
+              state:
+                card.memory.state === 0
+                  ? "new"
+                  : card.memory.state === 2
+                    ? "review"
+                    : "learning",
             }
           : null,
       canUndo: !!undo && undo.revision === s.revision,
+      queue: queueCounts(ready, waitingCards(s, scope, ready)),
       stats: stats(s),
     };
   }

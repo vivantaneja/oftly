@@ -11,6 +11,7 @@ import Study from "./components/Study";
 import Import from "./components/Import";
 import DeckView from "./components/DeckView";
 import DeckBrowser from "./components/DeckBrowser";
+import { NextRepeat } from "./components/QueueCounts";
 import { deckPath, isFolder } from "./lib/decks";
 import { SuggestionSettings } from "./components/CardGuidance";
 class ErrorBoundary extends Component<
@@ -537,6 +538,7 @@ function AppContent() {
                   <p>
                     {ready} ready today · {data.stats.reviewedToday} reviewed
                   </p>
+                  <NextRepeat at={data.stats.nextLearningAt} onDue={refresh} />
                 </div>
                 {data.stats.totalCards > 0 && (
                   <button

@@ -1,8 +1,14 @@
 import { useEffect, useState, useCallback, useRef } from "react";
-import { ArrowLeft, ArrowRight, RotateCcw, Clock } from "lucide-react";
+import { ArrowLeft, ArrowRight, RotateCcw } from "lucide-react";
 import { cardHTML } from "../lib/html";
-import { api, navigate, type Stats } from "../lib/api";
+import {
+  api,
+  navigate,
+  type Stats,
+  type QueueCounts as Counts,
+} from "../lib/api";
 import { deckPath } from "../lib/decks";
+import { QueueCounts, NextRepeat } from "./QueueCounts";
 type Card = {
   token: string;
   id: string;
@@ -10,9 +16,15 @@ type Card = {
   question: string;
   remaining: number;
   isNew: boolean;
+  state: "new" | "learning" | "review";
   requiresTypedAnswer?: boolean;
 };
-type Session = { card: Card | null; canUndo: boolean; stats: Stats };
+type Session = {
+  card: Card | null;
+  canUndo: boolean;
+  stats: Stats;
+  queue: Counts;
+};
 const labels = [
   ["Again", "Forgot"],
   ["Hard", "Recalled with effort"],
@@ -50,7 +62,9 @@ export default function Study({
   const [busy, setBusy] = useState(false);
   const [typed, setTyped] = useState("");
   const [writing, setWriting] = useState(false);
-  const [completed, setCompleted] = useState(0);
+  const [ratings, setRatings] = useState<number[]>([]);
+  const completed = ratings.length;
+  const missed = ratings.filter((rating) => rating === 1).length;
   const lock = useRef(false);
   const questionRef = useRef<HTMLDivElement>(null);
   const answerRef = useRef<HTMLDivElement>(null);
@@ -97,14 +111,14 @@ export default function Study({
     action(async () => {
       if (!session?.card || !answer) return;
       await api("/study/answer", { token: session.card.token, rating });
-      setCompleted((v) => v + 1);
+      setRatings((v) => [...v, rating]);
       await load();
       onChange();
     });
   const undo = () =>
     action(async () => {
       await api("/study/undo", {});
-      setCompleted((v) => Math.max(0, v - 1));
+      setRatings((v) => v.slice(0, -1));
       await load();
       onChange();
     });
@@ -145,7 +159,10 @@ export default function Study({
         <button className="text-button" onClick={() => navigate("today")}>
           <ArrowLeft size={17} /> Finish for now
         </button>
-        <span>{completed} reviewed this session</span>
+        <span className="session-tally">
+          {completed} reviewed this session ·{" "}
+          <span title="Answers marked Again this session">{missed} missed</span>
+        </span>
         <button
           className="text-button"
           disabled={!session.canUndo || busy}
@@ -159,6 +176,10 @@ export default function Study({
           {error} <button onClick={() => action(load)}>Reload session</button>
         </p>
       )}
+      <div className="study-queue-line">
+        <QueueCounts counts={session.queue} active={session.card?.state} />
+        <NextRepeat at={session.queue.nextLearningAt} />
+      </div>
       {!session.card ? (
         <div className="session-complete">
           <h1 ref={completionRef} tabIndex={-1}>
@@ -169,16 +190,6 @@ export default function Study({
               ? `You completed ${completed} review${completed === 1 ? "" : "s"}. Your next steps are saved.`
               : "There are no cards ready in this session right now."}
           </p>
-          {session.stats.nextLearningAt && (
-            <p className="next-review">
-              <Clock size={16} /> A learning card returns at{" "}
-              {new Date(session.stats.nextLearningAt * 1000).toLocaleTimeString(
-                [],
-                { hour: "2-digit", minute: "2-digit" },
-              )}
-              .
-            </p>
-          )}
           <button className="primary" onClick={() => action(load)}>
             Check for due cards <ArrowRight size={16} />
           </button>
@@ -191,8 +202,11 @@ export default function Study({
           <div className="study-context">
             <span className="deck-label">{deckPath(session.card.deck)}</span>
             <span>
-              {session.card.isNew ? "New card" : "Review"} ·{" "}
-              {session.card.remaining} ready in this deck
+              {session.card.state === "new"
+                ? "New card"
+                : session.card.state === "learning"
+                  ? "Learning"
+                  : "Review"}
             </span>
           </div>
           <article className="flashcard">

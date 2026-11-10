@@ -52,6 +52,39 @@ def test_no_early_learning_and_daily_limit(client):
     assert client.get('/api/study/next').json()['card'] is None
     assert client.get('/api/dashboard').json()['stats']['nextLearningAt'] is not None
 
+def test_queue_counts_waiting_scope_due_and_undo(client):
+    result = imported(client, name='Course::Topic')
+    other = imported(client, name='Other')
+    e = client.app.state.engine
+    parent = str(e.col.decks.id('Course'))
+    route = '/api/study/next?deck=' + parent
+    session = client.get(route).json()
+    assert session['queue'] == {'new':2, 'learning':0, 'review':0, 'waiting':0, 'nextLearningAt':None}
+    card = session['card']
+    client.post('/api/study/reveal', json={'token':card['token']})
+    client.post('/api/study/answer', json={'token':card['token'], 'rating':1})
+    queue = client.get(route).json()['queue']
+    assert (queue['new'], queue['learning'], queue['waiting'], queue['review']) == (1,0,1,0)
+    assert queue['nextLearningAt'] > module.time.time()
+    decks = client.get('/api/dashboard').json()['decks']
+    assert next(d for d in decks if d['id'] == parent)['waiting'] == 1
+    assert next(d for d in decks if d['id'] == result['deckId'])['ready'] == 1
+    elsewhere = client.get('/api/study/next?deck=' + other['deckId']).json()['queue']
+    assert elsewhere['waiting'] == 0 and elsewhere['nextLearningAt'] is None
+    # Aggregated parent counts must not double-count the child deck.
+    assert client.get('/api/study/next').json()['queue']['new'] == 3
+    client.post('/api/study/undo', json={})
+    assert client.get(route).json()['queue']['waiting'] == 0
+    assert client.get(route).json()['queue']['new'] == 2
+    # A genuinely due review belongs in Due, not New or Learning.
+    review = e.col.get_card(int(card['id']))
+    review.type = 2; review.queue = 2; review.due = e.col.sched.today
+    review.ivl = 1; e.col.update_card(review); e.invalidate()
+    queue = client.get(route).json()['queue']
+    assert (queue['new'], queue['learning'], queue['review']) == (1,0,1)
+    e.col.sched.suspend_cards([review.id]); e.invalidate()
+    assert client.get(route).json()['queue']['review'] == 0
+
 def test_text_csv_unicode_duplicates_and_errors(client):
     preview=client.post('/api/import/text/preview',json={'text':'Question,Answer\n"Dia duit","Hello, friend"\n"Dia duit","Hello, friend"\nmissing','skipHeader':True}).json()
     assert preview['count']==1 and preview['warningCount']==2

@@ -43,7 +43,7 @@
   color: #1f2a44;
   background: #fcfaf6;
   font-synthesis: none;
-  font-size: 16px;
+  font-size: 100%;
   --action: #1f2a44;
   --action-hover: #131c30;
   --ink: #1f2a44;
@@ -1309,7 +1309,7 @@ button.primary,
 }
 @media (max-width: 600px) {
   :root {
-    font-size: 16px;
+    font-size: 100%;
   }
   .topbar-date {
     display: none;
@@ -2190,5 +2190,130 @@ h3 {
   .tabs button {
     padding: 9px 8px;
     font-size: 0.8rem;
+  }
+}
+
+/* Small queue counts, using labels as well as color. */
+.deck-queue {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: 11.5rem;
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+.library-columns {
+  padding-right: 8px;
+}
+.queue-headings {
+  font-size: 0.75rem;
+}
+.queue-new {
+  color: var(--ink);
+}
+.queue-learning {
+  color: var(--danger);
+}
+.queue-review {
+  color: var(--leaf);
+}
+.zero-count {
+  color: var(--muted);
+}
+.queue-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+.queue-count {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.375rem;
+}
+.queue-count > span {
+  color: var(--muted);
+}
+.current-queue strong {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.study-queue-line,
+.deck-queue-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.625rem 1.5rem;
+  margin-top: 1rem;
+}
+.study-queue-line {
+  justify-content: space-between;
+  min-height: 1.5rem;
+}
+.next-repeat {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+.study-queue-line .next-repeat,
+.deck-queue-line .next-repeat {
+  margin-top: 0;
+}
+.study-context {
+  margin-top: 20px;
+}
+.session-tally {
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.primary:active:not(:disabled) {
+  background: var(--action-hover);
+  transition: none;
+}
+.secondary:active:not(:disabled),
+.rating:active:not(:disabled),
+.text-button:active:not(:disabled),
+.library-item:active:not(:disabled),
+.folder-toggle:active:not(:disabled) {
+  background: var(--soft);
+  transition: none;
+}
+@media (max-width: 600px) {
+  .library-columns {
+    display: none;
+  }
+  .library-item {
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 5px 10px;
+  }
+  .library-name {
+    grid-column: 2;
+  }
+  .library-item .deck-queue {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    width: auto;
+    font-size: 0.8rem;
+    text-align: left;
+  }
+  .deck-queue [data-label]::before {
+    content: attr(data-label) " ";
+    color: var(--muted);
+  }
+  .study-queue-line {
+    gap: 8px 16px;
+  }
+  .study-toolbar > .session-tally {
+    display: block;
+    flex-basis: 100%;
+    order: 1;
+    text-align: left;
   }
 }

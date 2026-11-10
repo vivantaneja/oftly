@@ -12,7 +12,7 @@ Oftly is a local-first React web app. The **public browser edition** uses FSRS-6
 
 ## Features
 
-- **FSRS scheduling:** retrieve, reveal, compare and rate. Real interval previews, compact Again/Hard/Good/Easy buttons, keyboard shortcuts and undo.
+- **FSRS scheduling:** retrieve, reveal, compare and rate. New / Learning / Due counts, a missed-answer tally and countdown to the next repeat. Real interval previews, compact Again/Hard/Good/Easy buttons, keyboard shortcuts and undo.
 - **Anki and Quizlet imports:** preview modern/legacy APKG packages, or paste/upload Quizlet exports and CSV/TSV/text. Optionally keep Anki review history.
 - **Structured cards:** question, answer, explanation, source and IDs stay distinct. Imported custom template CSS and scripts are removed from the app’s copy. Cloze, reversed and typed-answer cards use a consistent layout.
 - **Optional writing guidance:** suggestions for splitting cards, long targets, vague cues, cloze structure and missing sources. Turn off any kind or all suggestions. Nothing is rewritten automatically.
