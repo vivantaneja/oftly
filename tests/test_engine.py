@@ -1,0 +1,235 @@
+import io
+import sqlite3
+import tempfile
+from pathlib import Path
+import pytest
+from fastapi.testclient import TestClient
+from anki.collection import Collection
+from anki import import_export_pb2 as imex
+import server.app as module
+
+HEADERS={'X-Recall-Request':'1'}
+@pytest.fixture
+def client(tmp_path,monkeypatch):
+    monkeypatch.setattr(module,'DATA',tmp_path/'data')
+    with TestClient(module.app,headers=HEADERS) as client:
+        yield client
+
+def imported(client,name='Biology',text='Cell\tBasic unit of life\nNucleus\tContains DNA'):
+    preview=client.post('/api/import/text/preview',json={'text':text}).json()
+    assert preview['count']==2
+    response=client.post('/api/import/commit',json={'token':preview['token'],'name':name})
+    assert response.status_code==200,response.text
+    return response.json()
+
+def test_native_fsrs_review_undo_and_persistence(client):
+    imported(client)
+    settings=client.get('/api/settings').json()
+    assert settings['fsrs'] is True
+    response=client.get('/api/study/next').json()
+    card=response['card']; assert 'answer' not in card
+    assert client.post('/api/study/answer',json={'token':card['token'],'rating':4}).status_code==409
+    revealed=client.post('/api/study/reveal',json={'token':card['token']}).json()
+    assert len(revealed['intervals'])==4
+    assert client.post('/api/study/answer',json={'token':card['token'],'rating':4}).status_code==200
+    assert client.post('/api/study/answer',json={'token':card['token'],'rating':4}).status_code==409
+    assert client.get('/api/dashboard').json()['stats']['reviewedToday']==1
+    # Reads the actual SQLite state written by the native engine.
+    with sqlite3.connect(module.DATA/'collection.anki2') as db:
+        state=db.execute('select reps,ivl,data from cards where id=?',(card['id'],)).fetchone()
+        assert state[0]==1 and state[1]>0 and 's' in state[2]
+    assert client.post('/api/study/undo',json={}).status_code==200
+    assert client.get('/api/dashboard').json()['stats']['reviewedToday']==0
+    restored=client.get('/api/study/next').json()['card']
+    assert restored['id']==card['id']
+
+def test_no_early_learning_and_daily_limit(client):
+    result=imported(client)
+    assert client.put('/api/settings',json={'newPerDay':1,'retention':.9}).status_code==200
+    card=client.get('/api/study/next').json()['card']
+    client.post('/api/study/reveal',json={'token':card['token']})
+    assert client.post('/api/study/answer',json={'token':card['token'],'rating':1}).status_code==200
+    assert client.get('/api/study/next').json()['card'] is None
+    assert client.get('/api/dashboard').json()['stats']['nextLearningAt'] is not None
+
+def test_text_csv_unicode_duplicates_and_errors(client):
+    preview=client.post('/api/import/text/preview',json={'text':'Question,Answer\n"Dia duit","Hello, friend"\n"Dia duit","Hello, friend"\nmissing','skipHeader':True}).json()
+    assert preview['count']==1 and preview['warningCount']==2
+    response=client.post('/api/import/commit',json={'token':preview['token'],'name':'Gaeilge'})
+    assert response.json()['added']==1
+    assert client.post('/api/import/text/preview',json={'text':'no delimiter'}).status_code==422
+    first=imported(client);second=imported(client)
+    assert first['added']==2 and second['added']==0 and second['skipped']==2
+
+def test_safe_rendering_and_local_request_boundary(client):
+    imported(client,text='One\t<img src="https://example.com/tracker" onerror="alert(1)"><script>alert(2)</script>Answer\nTwo\tSecond')
+    card=client.get('/api/study/next').json()['card']
+    answer=client.post('/api/study/reveal',json={'token':card['token']}).json()['answer']
+    assert '<script' not in answer and 'onerror' not in answer and 'https://' not in answer
+    assert client.post('/api/decks',json={'name':'Blocked'},headers={'origin':'https://untrusted.example'}).status_code==403
+    assert client.get('/api/dashboard',headers={'host':'untrusted.example'}).status_code==400
+
+def test_edit_pause_delete(client):
+    deck=imported(client)['deckId']
+    notes=client.get(f'/api/decks/{deck}/notes').json()['notes'];note=notes[0]
+    assert client.put('/api/notes/'+note['id'],json={'deckId':deck,'fields':['Edited','Answer']}).status_code==200
+    assert client.post('/api/notes/'+note['id']+'/suspend',json={}).status_code==200
+    assert client.get(f'/api/decks/{deck}/notes?q=Edited').json()['notes'][0]['suspended'] is True
+    assert client.delete('/api/notes/'+note['id']).status_code==200
+    assert client.get(f'/api/decks/{deck}/notes').json()['total']==1
+
+def test_modern_anki_package_cloze_media_and_backup_roundtrip(client,tmp_path):
+    source=Collection(str(tmp_path/'source.anki2'))
+    did=source.decks.id('Languages::Cloze')
+    model=source.models.by_name('Cloze'); note=source.new_note(model)
+    note.fields=['The {{c1::mitochondrion}} produces ATP.','<img src="tiny.png">']
+    source.add_note(note,did)
+    (Path(source.media.dir())/'tiny.png').write_bytes(b'fixture-image')
+    package=tmp_path/'native.apkg'
+    source.export_anki_package(out_path=str(package),options=imex.ExportAnkiPackageOptions(with_media=True,with_scheduling=True,with_deck_configs=True,legacy=False),limit=None)
+    source.close()
+    preview=client.post('/api/import/anki/preview',files={'file':('native.apkg',package.read_bytes())})
+    assert preview.status_code==200,preview.text
+    assert preview.json()['count']==1
+    assert client.get('/api/dashboard').json()['stats']['totalCards']==0
+    committed=client.post('/api/import/commit',json={'token':preview.json()['token'],'name':'Native','scheduling':True})
+    assert committed.status_code==200,committed.text
+    card=client.get('/api/study/next').json()['card'];assert 'mitochondrion' not in card['question'] and '[...]' in card['question']
+    answer=client.post('/api/study/reveal',json={'token':card['token']}).json()['answer'];assert 'mitochondrion' in answer
+    assert client.get('/media/tiny.png').content==b'fixture-image'
+    response=client.get('/api/export');assert response.status_code==200,response.text
+    backup=tmp_path/'backup.apkg';backup.write_bytes(response.content)
+    restored=Collection(str(tmp_path/'restored.anki2'))
+    restored.import_anki_package(imex.ImportAnkiPackageRequest(package_path=str(backup),options=imex.ImportAnkiPackageOptions(with_scheduling=True,with_deck_configs=True)))
+    assert restored.card_count()==1
+    assert (Path(restored.media.dir())/'tiny.png').read_bytes()==b'fixture-image'
+    restored.close()
+
+def test_bad_package_is_recoverable(client):
+    response=client.post('/api/import/anki/preview',files={'file':('bad.apkg',b'not a zip')})
+    assert response.status_code==422
+    assert client.get('/api/dashboard').status_code==200
+
+
+def test_star_mixed_notes_typed_answer_sources_and_duplicates(client, tmp_path):
+    batch = {'notes':[
+        {'type':'basic','front':'What is RAM?','back':'Random-access memory','source':'Lecture 1','extra':'Working memory','tags':['hardware']},
+        {'type':'reversed','front':'bonjour','back':'hello'},
+        {'type':'typing','front':'2^5?','back':'32','source':'Lecture 2'},
+        {'type':'cloze','front':'{{c1::A}} plus {{c2::B}}','extra':'Two separate targets'}
+    ]}
+    import json
+    response = client.post('/api/import/star/preview',json={'text':json.dumps(batch)})
+    assert response.status_code == 200, response.text
+    assert response.json()['cards'] == 6
+    assert client.get('/api/dashboard').json()['stats']['totalCards'] == 0
+    committed = client.post('/api/import/star/commit',json={'name':'Mixed','notes':response.json()['notes']})
+    assert committed.status_code == 200, committed.text
+    assert committed.json()['cards'] == 6 and committed.json()['added'] == 4
+    e = client.app.state.engine
+    from server.presentation import present
+    typed_id = e.col.find_cards('note:"Anki Star · Type Answer"')[0]
+    typed = present(e.col.get_card(typed_id), module.safe_html)
+    assert typed['requiresTypedAnswer'] and '32' not in typed['question'] and '[[type:' not in typed['question']
+    assert typed['answer'] == '32' and typed['sources'][0]['html'] == 'Lecture 2'
+    for cid in e.col.find_cards('note:"Anki Star · Cloze"'):
+        view=present(e.col.get_card(cid),module.safe_html)
+        assert '[...]' in view['question'] and 'data-cloze=' not in view['question']
+        assert view['extras'][0]['html']=='Two separate targets'
+    again = client.post('/api/import/star/commit',json={'name':'Another deck','notes':batch['notes']})
+    assert again.json()['added'] == 0 and again.json()['skipped'] == 4
+    # The native package round-trip retains four fields, note identities, tags and types.
+    backup=tmp_path/'star.apkg'; backup.write_bytes(client.get('/api/export').content)
+    restored=Collection(str(tmp_path/'star-restored.anki2'))
+    restored.import_anki_package(imex.ImportAnkiPackageRequest(package_path=str(backup),options=imex.ImportAnkiPackageOptions(with_scheduling=True)))
+    assert restored.card_count()==6
+    note=restored.get_note(restored.find_notes('note:"Anki Star · Basic"')[0])
+    assert note['Source']=='Lecture 1' and 'hardware' in note.tags
+    restored.close()
+
+
+def test_structured_anki_metadata_and_clean_design_roundtrip(client,tmp_path):
+    source=Collection(str(tmp_path/'structured.anki2'))
+    model=source.models.new('Senior Cycle CS - Theory Q&A')
+    for name in ['ID','Module','Kind','Question','Answer','Extra','Source']:
+        source.models.add_field(model,source.models.new_field(name))
+    template=source.models.new_template('Theory')
+    template['qfmt']='<style>.question{font-size:80px}</style><script>alert(1)</script><div style="color:red">{{ID}} {{Module}} {{Question}}</div>'
+    template['afmt']='{{FrontSide}}<hr id=answer>{{Answer}}<div>{{Extra}}</div>{{Source}}'
+    source.models.add_template(model,template); model['css']='.card{background:red}'
+    source.models.add(model)
+    note=source.new_note(model)
+    note.fields=['CS-012','Databases','Explain','Why normalise?','Reduce redundancy.','Separate dependent facts.','<a href="https://example.com/lecture">Lecture 3, p. 5</a>']
+    source.add_note(note,source.decks.id('Structured'))
+    nid=note.id; cid=note.card_ids()[0]
+    package=tmp_path/'structured.apkg'
+    source.export_anki_package(out_path=str(package),options=imex.ExportAnkiPackageOptions(with_scheduling=True,with_deck_configs=True),limit=None)
+    source.close()
+    preview=client.post('/api/import/anki/preview',files={'file':('structured.apkg',package.read_bytes())}).json()
+    assert preview['preview'][0]['front']=='Why normalise?'
+    assert preview['preview'][0]['back']=='Reduce redundancy.'
+    assert client.post('/api/import/commit',json={'token':preview['token'],'name':'Structured'}).status_code==200
+    card=client.get('/api/study/next').json()['card']
+    assert card['question']=='Why normalise?'
+    assert 'CS-012' not in card['question'] and 'answer' not in card
+    answer=client.post('/api/study/reveal',json={'token':card['token']}).json()
+    assert answer['answer']=='Reduce redundancy.'
+    assert answer['extras'][0]['html']=='Separate dependent facts.'
+    assert 'href="https://example.com/lecture"' in answer['sources'][0]['html']
+    assert answer['identity']['noteId']==str(nid) and answer['identity']['cardId']==str(cid)
+    assert next(x['html'] for x in answer['details'] if x['label']=='ID')=='CS-012'
+    e=client.app.state.engine; imported_model=e.col.models.by_name('Senior Cycle CS - Theory Q&A')
+    assert imported_model['css']=='' and '<script' not in imported_model['tmpls'][0]['qfmt'] and 'style=' not in imported_model['tmpls'][0]['qfmt']
+    assert e.col.get_note(nid).fields[0]=='CS-012'
+    assert client.post('/api/study/answer',json={'token':card['token'],'rating':4}).status_code==200
+    assert client.post('/api/study/undo',json={}).status_code==200
+    assert e.col.get_note(nid).fields[0]=='CS-012'
+
+
+def test_star_invalid_batch_is_atomic_and_plain_text_stays_inert(client):
+    bad=[{'front':'Valid','back':'Answer'},{'type':'cloze','front':'broken'}]
+    assert client.post('/api/import/star/commit',json={'name':'Bad','notes':bad}).status_code==422
+    assert client.get('/api/dashboard').json()['stats']['totalCards']==0
+    assert client.post('/api/import/star/commit',json={'name':'Literal','notes':[{'front':'<img src=x onerror=alert(1)>','back':'<script>alert(1)</script>[sound:bad.mp3]'}]}).status_code==200
+    card=client.get('/api/study/next').json()['card']
+    assert '<img ' not in card['question']
+    answer=client.post('/api/study/reveal',json={'token':card['token']}).json()['answer']
+    assert '<script' not in answer and '<audio' not in answer
+    assert client.post('/api/import/star/prompt',json={'context':'Source facts','understanding':True}).json()['prompt'].count('recall::apply')==1
+
+
+def test_star_rollback_on_collection_failure(client,monkeypatch):
+    e=client.app.state.engine
+    original=e.col.add_note
+    count=0
+    def failing(note,did):
+        nonlocal count
+        count+=1
+        if count==2:
+            raise RuntimeError('injected failure')
+        return original(note,did)
+    monkeypatch.setattr(e.col,'add_note',failing)
+    with pytest.raises(RuntimeError,match='injected failure'):
+        client.post('/api/import/star/commit',json={'name':'Rollback','notes':[{'front':'One','back':'1'},{'front':'Two','back':'2'}]})
+    assert e.col.card_count()==0 and e.col.models.by_name('Anki Star · Basic') is None
+
+
+def test_suggestion_preferences_keep_per_kind_choices_and_card_metadata(client):
+    defaults=client.get('/api/suggestions').json()
+    assert all(defaults.values())
+    preferences={**defaults,'split':False}
+    assert client.put('/api/suggestions',json=preferences).json()==preferences
+    disabled={**preferences,'enabled':False}
+    assert client.put('/api/suggestions',json=disabled).status_code==200
+    enabled={**disabled,'enabled':True}
+    client.put('/api/suggestions',json=enabled)
+    assert client.get('/api/suggestions').json()==preferences
+    deck=client.post('/api/decks',json={'name':'Authored'}).json()['id']
+    added=client.post('/api/notes',json={'deckId':deck,'fields':['Why normalise?','Reduce redundancy.','Separate dependent facts.','Course notes p. 4']})
+    assert added.status_code==200,added.text
+    note=client.get(f'/api/decks/{deck}/notes').json()['notes'][0]
+    assert note['fieldNames']==['Question','Answer','Extra','Source']
+    # Older clients editing two fields cannot erase explanation/source metadata.
+    assert client.put('/api/notes/'+note['id'],json={'deckId':deck,'fields':['Edited question?','Edited answer.']}).status_code==200
+    saved=client.get(f'/api/decks/{deck}/notes').json()['notes'][0]
+    assert saved['fields'][2:]==['Separate dependent facts.','Course notes p. 4']

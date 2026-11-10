@@ -1,0 +1,549 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-10T16:23:47.354Z",
+  "title": "Design System: Recall",
+  "extensions": {
+    "colorMeta": {
+      "pine": {
+        "role": "primary",
+        "displayName": "Pine",
+        "tonalRamp": [
+          "oklch(15% 0.0283 169.5)",
+          "oklch(25% 0.0441 169.5)",
+          "oklch(36% 0.0564 169.5)",
+          "oklch(48% 0.0622 169.5)",
+          "oklch(60% 0.0593 169.5)",
+          "oklch(73% 0.0468 169.5)",
+          "oklch(85% 0.0283 169.5)",
+          "oklch(95% 0.0098 169.5)"
+        ]
+      },
+      "pine-hover": {
+        "role": "primary",
+        "displayName": "Pine Hover",
+        "tonalRamp": [
+          "oklch(15% 0.0249 168.7)",
+          "oklch(25% 0.0388 168.7)",
+          "oklch(36% 0.0497 168.7)",
+          "oklch(48% 0.0548 168.7)",
+          "oklch(60% 0.0522 168.7)",
+          "oklch(73% 0.0412 168.7)",
+          "oklch(85% 0.0249 168.7)",
+          "oklch(95% 0.0086 168.7)"
+        ]
+      },
+      "eucalyptus": {
+        "role": "primary",
+        "displayName": "Eucalyptus",
+        "tonalRamp": [
+          "oklch(15% 0.0043 140.5)",
+          "oklch(25% 0.0067 140.5)",
+          "oklch(36% 0.0086 140.5)",
+          "oklch(48% 0.0095 140.5)",
+          "oklch(60% 0.0091 140.5)",
+          "oklch(73% 0.0071 140.5)",
+          "oklch(85% 0.0043 140.5)",
+          "oklch(95% 0.0015 140.5)"
+        ]
+      },
+      "eucalyptus-selected": {
+        "role": "primary",
+        "displayName": "Eucalyptus Selected",
+        "tonalRamp": [
+          "oklch(15% 0.0100 139.0)",
+          "oklch(25% 0.0156 139.0)",
+          "oklch(36% 0.0200 139.0)",
+          "oklch(48% 0.0220 139.0)",
+          "oklch(60% 0.0210 139.0)",
+          "oklch(73% 0.0165 139.0)",
+          "oklch(85% 0.0100 139.0)",
+          "oklch(95% 0.0034 139.0)"
+        ]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Canvas",
+        "tonalRamp": [
+          "oklch(15% 0.0008 145.6)",
+          "oklch(25% 0.0012 145.6)",
+          "oklch(36% 0.0015 145.6)",
+          "oklch(48% 0.0017 145.6)",
+          "oklch(60% 0.0016 145.6)",
+          "oklch(73% 0.0013 145.6)",
+          "oklch(85% 0.0008 145.6)",
+          "oklch(95% 0.0003 145.6)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "tonalRamp": [
+          "oklch(15% 0.0000 0.0)",
+          "oklch(25% 0.0000 0.0)",
+          "oklch(36% 0.0000 0.0)",
+          "oklch(48% 0.0000 0.0)",
+          "oklch(60% 0.0000 0.0)",
+          "oklch(73% 0.0000 0.0)",
+          "oklch(85% 0.0000 0.0)",
+          "oklch(95% 0.0000 0.0)"
+        ]
+      },
+      "soft": {
+        "role": "neutral",
+        "displayName": "Soft",
+        "tonalRamp": [
+          "oklch(15% 0.0038 145.5)",
+          "oklch(25% 0.0060 145.5)",
+          "oklch(36% 0.0077 145.5)",
+          "oklch(48% 0.0084 145.5)",
+          "oklch(60% 0.0080 145.5)",
+          "oklch(73% 0.0063 145.5)",
+          "oklch(85% 0.0038 145.5)",
+          "oklch(95% 0.0013 145.5)"
+        ]
+      },
+      "body-ink": {
+        "role": "neutral",
+        "displayName": "Body Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0133 167.8)",
+          "oklch(25% 0.0207 167.8)",
+          "oklch(36% 0.0265 167.8)",
+          "oklch(48% 0.0292 167.8)",
+          "oklch(60% 0.0278 167.8)",
+          "oklch(73% 0.0220 167.8)",
+          "oklch(85% 0.0133 167.8)",
+          "oklch(95% 0.0046 167.8)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0151 164.3)",
+          "oklch(25% 0.0235 164.3)",
+          "oklch(36% 0.0301 164.3)",
+          "oklch(48% 0.0331 164.3)",
+          "oklch(60% 0.0316 164.3)",
+          "oklch(73% 0.0249 164.3)",
+          "oklch(85% 0.0151 164.3)",
+          "oklch(95% 0.0052 164.3)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "tonalRamp": [
+          "oklch(15% 0.0148 157.8)",
+          "oklch(25% 0.0230 157.8)",
+          "oklch(36% 0.0295 157.8)",
+          "oklch(48% 0.0325 157.8)",
+          "oklch(60% 0.0310 157.8)",
+          "oklch(73% 0.0244 157.8)",
+          "oklch(85% 0.0148 157.8)",
+          "oklch(95% 0.0051 157.8)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "tonalRamp": [
+          "oklch(15% 0.0042 150.7)",
+          "oklch(25% 0.0065 150.7)",
+          "oklch(36% 0.0084 150.7)",
+          "oklch(48% 0.0092 150.7)",
+          "oklch(60% 0.0088 150.7)",
+          "oklch(73% 0.0069 150.7)",
+          "oklch(85% 0.0042 150.7)",
+          "oklch(95% 0.0014 150.7)"
+        ]
+      },
+      "field-border": {
+        "role": "neutral",
+        "displayName": "Field Border",
+        "tonalRamp": [
+          "oklch(15% 0.0189 150.9)",
+          "oklch(25% 0.0294 150.9)",
+          "oklch(36% 0.0376 150.9)",
+          "oklch(48% 0.0415 150.9)",
+          "oklch(60% 0.0395 150.9)",
+          "oklch(73% 0.0312 150.9)",
+          "oklch(85% 0.0189 150.9)",
+          "oklch(95% 0.0065 150.9)"
+        ]
+      },
+      "focus": {
+        "role": "primary",
+        "displayName": "Focus",
+        "tonalRamp": [
+          "oklch(15% 0.0338 150.2)",
+          "oklch(25% 0.0526 150.2)",
+          "oklch(36% 0.0673 150.2)",
+          "oklch(48% 0.0743 150.2)",
+          "oklch(60% 0.0708 150.2)",
+          "oklch(73% 0.0558 150.2)",
+          "oklch(85% 0.0338 150.2)",
+          "oklch(95% 0.0116 150.2)"
+        ]
+      },
+      "button-border": {
+        "role": "neutral",
+        "displayName": "Button Border",
+        "tonalRamp": [
+          "oklch(15% 0.0077 151.1)",
+          "oklch(25% 0.0120 151.1)",
+          "oklch(36% 0.0154 151.1)",
+          "oklch(48% 0.0170 151.1)",
+          "oklch(60% 0.0162 151.1)",
+          "oklch(73% 0.0128 151.1)",
+          "oklch(85% 0.0077 151.1)",
+          "oklch(95% 0.0027 151.1)"
+        ]
+      },
+      "focus-panel": {
+        "role": "primary",
+        "displayName": "Focus Panel",
+        "tonalRamp": [
+          "oklch(15% 0.0051 141.3)",
+          "oklch(25% 0.0079 141.3)",
+          "oklch(36% 0.0102 141.3)",
+          "oklch(48% 0.0112 141.3)",
+          "oklch(60% 0.0107 141.3)",
+          "oklch(73% 0.0084 141.3)",
+          "oklch(85% 0.0051 141.3)",
+          "oklch(95% 0.0018 141.3)"
+        ]
+      },
+      "card-border": {
+        "role": "neutral",
+        "displayName": "Card Border",
+        "tonalRamp": [
+          "oklch(15% 0.0075 142.6)",
+          "oklch(25% 0.0117 142.6)",
+          "oklch(36% 0.0149 142.6)",
+          "oklch(48% 0.0165 142.6)",
+          "oklch(60% 0.0157 142.6)",
+          "oklch(73% 0.0124 142.6)",
+          "oklch(85% 0.0075 142.6)",
+          "oklch(95% 0.0026 142.6)"
+        ]
+      },
+      "rating-border": {
+        "role": "neutral",
+        "displayName": "Rating Border",
+        "tonalRamp": [
+          "oklch(15% 0.0075 142.6)",
+          "oklch(25% 0.0117 142.6)",
+          "oklch(36% 0.0150 142.6)",
+          "oklch(48% 0.0165 142.6)",
+          "oklch(60% 0.0157 142.6)",
+          "oklch(73% 0.0124 142.6)",
+          "oklch(85% 0.0075 142.6)",
+          "oklch(95% 0.0026 142.6)"
+        ]
+      },
+      "good": {
+        "role": "primary",
+        "displayName": "Good",
+        "tonalRamp": [
+          "oklch(15% 0.0074 133.8)",
+          "oklch(25% 0.0115 133.8)",
+          "oklch(36% 0.0148 133.8)",
+          "oklch(48% 0.0163 133.8)",
+          "oklch(60% 0.0155 133.8)",
+          "oklch(73% 0.0122 133.8)",
+          "oklch(85% 0.0074 133.8)",
+          "oklch(95% 0.0026 133.8)"
+        ]
+      },
+      "due-soft": {
+        "role": "primary",
+        "displayName": "Due Soft",
+        "tonalRamp": [
+          "oklch(15% 0.0072 130.4)",
+          "oklch(25% 0.0112 130.4)",
+          "oklch(36% 0.0144 130.4)",
+          "oklch(48% 0.0158 130.4)",
+          "oklch(60% 0.0151 130.4)",
+          "oklch(73% 0.0119 130.4)",
+          "oklch(85% 0.0072 130.4)",
+          "oklch(95% 0.0025 130.4)"
+        ]
+      },
+      "due-ink": {
+        "role": "primary",
+        "displayName": "Due Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0395 134.1)",
+          "oklch(25% 0.0615 134.1)",
+          "oklch(36% 0.0788 134.1)",
+          "oklch(48% 0.0869 134.1)",
+          "oklch(60% 0.0828 134.1)",
+          "oklch(73% 0.0653 134.1)",
+          "oklch(85% 0.0395 134.1)",
+          "oklch(95% 0.0136 134.1)"
+        ]
+      },
+      "danger": {
+        "role": "secondary",
+        "displayName": "Danger",
+        "tonalRamp": [
+          "oklch(15% 0.0627 27.6)",
+          "oklch(25% 0.0977 27.6)",
+          "oklch(36% 0.1250 27.6)",
+          "oklch(48% 0.1379 27.6)",
+          "oklch(60% 0.1314 27.6)",
+          "oklch(73% 0.1036 27.6)",
+          "oklch(85% 0.0627 27.6)",
+          "oklch(95% 0.0216 27.6)"
+        ]
+      },
+      "danger-soft": {
+        "role": "secondary",
+        "displayName": "Danger Soft",
+        "tonalRamp": [
+          "oklch(15% 0.0083 34.3)",
+          "oklch(25% 0.0129 34.3)",
+          "oklch(36% 0.0165 34.3)",
+          "oklch(48% 0.0182 34.3)",
+          "oklch(60% 0.0174 34.3)",
+          "oklch(73% 0.0137 34.3)",
+          "oklch(85% 0.0083 34.3)",
+          "oklch(95% 0.0029 34.3)"
+        ]
+      },
+      "error-soft": {
+        "role": "secondary",
+        "displayName": "Error Soft",
+        "tonalRamp": [
+          "oklch(15% 0.0076 31.1)",
+          "oklch(25% 0.0119 31.1)",
+          "oklch(36% 0.0152 31.1)",
+          "oklch(48% 0.0167 31.1)",
+          "oklch(60% 0.0160 31.1)",
+          "oklch(73% 0.0126 31.1)",
+          "oklch(85% 0.0076 31.1)",
+          "oklch(95% 0.0026 31.1)"
+        ]
+      },
+      "error-ink": {
+        "role": "secondary",
+        "displayName": "Error Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0553 27.6)",
+          "oklch(25% 0.0861 27.6)",
+          "oklch(36% 0.1101 27.6)",
+          "oklch(48% 0.1215 27.6)",
+          "oklch(60% 0.1158 27.6)",
+          "oklch(73% 0.0913 27.6)",
+          "oklch(85% 0.0553 27.6)",
+          "oklch(95% 0.0190 27.6)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page titles; 1.7rem on phones."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Default reading size and paragraph rhythm; supporting UI uses contextual smaller sizes."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Persistent form labels."
+      },
+      "control": {
+        "displayName": "Control",
+        "purpose": "Primary and secondary action labels."
+      },
+      "study-question": {
+        "displayName": "Study Question",
+        "purpose": "Centered retrieval prompt; 1.4rem on phones."
+      },
+      "study-answer": {
+        "displayName": "Study Answer",
+        "purpose": "Answer beneath the stable question; 1rem on phones."
+      }
+    },
+    "shadows": [
+      {
+        "name": "study-card",
+        "value": "0 9px 25px -16px #1b402925",
+        "purpose": "Faint lift on the study card; other main interface surfaces stay flat."
+      }
+    ],
+    "motion": [
+      {
+        "name": "control-color-transition",
+        "value": "background-color 0.16s, color 0.16s, border-color 0.16s",
+        "purpose": "Button/link state feedback; disabled under prefers-reduced-motion."
+      },
+      {
+        "name": "answer-reveal",
+        "value": "0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Opacity 0.75 and translateY(5px) to full opacity at rest; disabled under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone-max",
+        "value": "600px"
+      },
+      {
+        "name": "narrow-max",
+        "value": "800px"
+      },
+      {
+        "name": "compact-desktop-max",
+        "value": "1100px"
+      },
+      {
+        "name": "wide-desktop-min",
+        "value": "1500px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The next meaningful action.",
+      "html": "<button class=\"ds-primary\">Start studying <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button>",
+      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:7px;padding:12px 19px;min-height:44px;font-size:13.5px;font-weight:560;white-space:nowrap;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;transition:background-color .16s,color .16s,border-color .16s;border:1px solid var(--pine,#174c3c);background:var(--pine,#174c3c);color:#fff;}.ds-primary:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-primary:disabled{opacity:.5;cursor:not-allowed;}.ds-primary:hover:not(:disabled){background:var(--pine-hover,#103d2f);}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none;animation:none;}}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A supporting action with a quiet border.",
+      "html": "<button class=\"ds-secondary\">Add cards</button>",
+      "css": ".ds-secondary{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:7px;padding:12px 19px;min-height:44px;font-size:13.5px;font-weight:560;white-space:nowrap;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;transition:background-color .16s,color .16s,border-color .16s;border:1px solid #ced9d0;background:#fff;color:var(--ink,#243a30);}.ds-secondary:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-secondary:disabled{opacity:.5;cursor:not-allowed;}.ds-secondary:hover:not(:disabled){background:#eef3ef;border-color:#abbfb0;}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none;animation:none;}}"
+    },
+    {
+      "name": "Text Button",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "Inline navigation or an optional action.",
+      "html": "<button class=\"ds-text\">Write an answer first</button>",
+      "css": ".ds-text{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 3px;min-height:36px;border:0;background:none;color:var(--pine,#174c3c);font-size:12.9px;font-weight:500;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;transition:background-color .16s,color .16s,border-color .16s;}.ds-text:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-text:disabled{opacity:.5;cursor:not-allowed;}.ds-text:hover:not(:disabled){color:#0a2e20;text-decoration:underline;text-underline-offset:4px;}@media(prefers-reduced-motion:reduce){.ds-text{transition:none;animation:none;}}"
+    },
+    {
+      "name": "Icon Button",
+      "kind": "button",
+      "refersTo": "button-icon",
+      "description": "Compact named row action.",
+      "html": "<button class=\"ds-icon\" aria-label=\"Edit note\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m16 3 5 5M4 16 16 4a3.5 3.5 0 0 1 5 5L9 21l-6 1 1-6Z\"/></svg></button>",
+      "css": ".ds-icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:0;border-radius:5px;background:none;color:var(--muted,#53685b);cursor:pointer;transition:background-color .16s,color .16s,border-color .16s;}.ds-icon:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-icon:disabled{opacity:.5;cursor:not-allowed;}.ds-icon:hover:not(:disabled){background:var(--soft,#f0f5f0);color:var(--pine,#174c3c);}@media(prefers-reduced-motion:reduce){.ds-icon{transition:none;animation:none;}}"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Explicit destructive action in inline confirmation; the source adds no special hover transformation.",
+      "html": "<button class=\"ds-danger\">Delete</button>",
+      "css": ".ds-danger{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:7px;padding:12px 19px;min-height:44px;font-size:13.5px;font-weight:560;white-space:nowrap;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;transition:background-color .16s,color .16s,border-color .16s;padding:8px 12px;min-height:36px;border:1px solid #edcbc3;background:#fcece8;color:var(--danger,#a33c34);}.ds-danger:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-danger:disabled{opacity:.5;cursor:not-allowed;}@media(prefers-reduced-motion:reduce){.ds-danger{transition:none;animation:none;}}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Persistent label, corrected field boundary, and visible focus.",
+      "html": "<label class=\"ds-label\">Deck name<input class=\"ds-field\" placeholder=\"e.g. Biology · Cell structure\"></label>",
+      "css": ".ds-label{display:flex;flex-direction:column;gap:9px;font-size:13.5px;font-weight:550;color:var(--ink,#243a30);font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;}.ds-field{background:#fff;border:1px solid #6f8874;border-radius:7px;padding:12px 13px;min-width:0;color:var(--ink,#243a30);font:400 15px -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;caret-color:var(--pine,#174c3c);}.ds-field::placeholder{color:#617467;}.ds-field:focus-visible{outline:3px solid #477451;outline-offset:3px;}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "navigation-selected",
+      "description": "Rail item styling adapts to icon-over-label navigation at 600px.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Example navigation\"><a class=\"ds-nav-link ds-selected\" aria-current=\"page\" href=\"#library\"><svg width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 7v14m0-14C9 4 6 4 2 4v16c4 0 7 0 10 1m0-14c3-3 6-3 10-3v16c-4 0-7 0-10 1\"/></svg><span>Library</span></a><a class=\"ds-nav-link\" href=\"#progress\"><svg width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M4 19v-5m7 5V9m7 10V4\"/></svg><span>Progress</span></a></nav>",
+      "css": ".ds-nav{display:flex;flex-direction:column;gap:8px;padding:20px;background:#f0f5ef;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;}.ds-nav-link{display:flex;align-items:center;gap:13px;padding:12px 15px;border-radius:7px;text-decoration:none;color:#5b6e60;font-size:14.25px;font-weight:500;transition:background-color .16s,color .16s,border-color .16s;}.ds-nav-link:hover{background:#e5eee2;}.ds-nav-link.ds-selected{color:#244c35;background:#dfeadc;font-weight:600;}.ds-nav-link:focus-visible{outline:3px solid #477451;outline-offset:3px;}@media(max-width:600px){.ds-nav{flex-direction:row;justify-content:space-around;padding:0;background:#f6f9f4;}.ds-nav-link{flex-direction:column;gap:3px;padding:8px 16px;min-width:70px;font-size:9.45px;background:none!important;}.ds-nav-link.ds-selected{color:var(--pine,#174c3c);}.ds-selected svg{stroke-width:2.5;}}@media(prefers-reduced-motion:reduce){.ds-nav-link{transition:none;}}"
+    },
+    {
+      "name": "Ready Count",
+      "kind": "chip",
+      "refersTo": "due-count",
+      "description": "Noninteractive ready-card count.",
+      "html": "<span class=\"ds-due\" aria-label=\"6 cards ready\">6</span>",
+      "css": ".ds-due{display:inline-block;min-width:29px;text-align:center;background:#edf3e8;border:1px solid #dce7d4;color:#50703b;border-radius:5px;padding:4px 8px;font-size:11.55px;font-variant-numeric:tabular-nums;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;}"
+    },
+    {
+      "name": "Study Card",
+      "kind": "card",
+      "refersTo": "flashcard",
+      "description": "Structured answer example: the question retains its 150px minimum region; explanation and sources remain subordinate; metadata stays in a native collapsed disclosure.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-question\">What is 2 to the power of 5?</div><div class=\"ds-answer\"><span class=\"ds-caption\">Answer</span>32<div class=\"ds-explanation\"><span class=\"ds-caption\">Explanation</span>Multiply two by itself five times.</div><aside class=\"ds-sources\" aria-label=\"Sources\"><span class=\"ds-caption\">Sources</span>Lecture 2, page 5</aside><details class=\"ds-details\"><summary>Card details</summary><dl><div><dt>Note ID</dt><dd>Example note</dd></div><div><dt>Card ID</dt><dd>Example card</dd></div><div><dt>Note type</dt><dd>Typed answer</dd></div><div><dt>Tags</dt><dd>maths</dd></div></dl></details></div></article>",
+      "css": ".ds-card{background:#fff;border:1px solid #dbe4da;border-radius:12px;min-height:300px;box-shadow:0 9px 25px -16px #1b402925;padding:40px 42px;display:flex;flex-direction:column;color:#283c34;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;}.ds-question{font-size:24.75px;line-height:1.55;text-align:center;margin:0;min-height:150px;display:flex;align-items:center;justify-content:center;letter-spacing:-.018em;overflow-wrap:anywhere;}.ds-answer{border-top:1px solid var(--line,#e2e8e3);margin-top:30px;padding-top:25px;font-size:16.2px;line-height:1.8;animation:ds-reveal .2s cubic-bezier(.16,1,.3,1);}.ds-caption{display:block;font-size:11.25px;color:var(--muted,#53685b);margin-bottom:12px;}@keyframes ds-reveal{from{opacity:.75;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}@media(max-width:800px){.ds-card{padding:30px 25px;min-height:280px;}}@media(max-width:600px){.ds-card{padding:28px 24px;min-height:290px;border-radius:10px;}.ds-question{font-size:21px;}.ds-answer{font-size:15px;margin-top:25px;}}@media(prefers-reduced-motion:reduce){.ds-answer{animation:none;}}.ds-explanation{margin-top:24px;font-size:13.95px;color:var(--muted,#53685b);}.ds-sources{margin-top:24px;padding-top:16px;border-top:1px solid var(--line,#e2e8e3);font-size:12px;color:var(--muted,#53685b);}.ds-answer a{color:var(--pine,#174c3c);text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere;}.ds-details{margin-top:18px;font-size:11.7px;color:var(--muted,#53685b);}.ds-details summary{cursor:pointer;padding:8px 0;}.ds-details summary:focus-visible,.ds-answer a:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-details dl{margin-top:8px;}.ds-details dl>div{display:grid;grid-template-columns:minmax(85px,1fr) minmax(0,3fr);gap:12px;padding:5px 0;}.ds-details dt{font-weight:600;}.ds-details dd{margin:0;overflow-wrap:anywhere;}"
+    },
+    {
+      "name": "Recall Ratings",
+      "kind": "custom",
+      "refersTo": "rating",
+      "description": "Compact 76px-minimum controls in a centered group up to 640px wide. Explicit recall judgments and keyboard hints remain visible. Example intervals illustrate rendering; production intervals always come from Anki.",
+      "html": "<div class=\"ds-ratings\"><button class=\"ds-rating ds-again\"><span><b>Again</b><kbd>1</kbd></span><small>Forgot</small><span class=\"ds-interval\">1m</span></button><button class=\"ds-rating \"><span><b>Hard</b><kbd>2</kbd></span><small>Recalled with effort</small><span class=\"ds-interval\">6m</span></button><button class=\"ds-rating ds-good\"><span><b>Good</b><kbd>3</kbd></span><small>Recalled</small><span class=\"ds-interval\">10m</span></button><button class=\"ds-rating \"><span><b>Easy</b><kbd>4</kbd></span><small>Recalled effortlessly</small><span class=\"ds-interval\">10d</span></button></div>",
+      "css": ".ds-ratings {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 8px;\n  width: min(100%, 640px);\n}\n.ds-rating {\n  display: flex;\n  flex-direction: column;\n  text-align: left;\n  padding: 10px 12px;\n  min-height: 76px;\n  border: 1px solid #d9e2d8;\n  border-radius: 8px;\n  background: #fff;\n}\n.ds-rating > span:first-child {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 5px;\n  font-size: 13.95px;\n}\n.ds-rating b {\n  font-weight: 600;\n}\n.ds-rating small {\n  font-size: 10.649999999999999px;\n  color: var(--muted,#53685b);\n  margin-top: 3px;\n  white-space: nowrap;\n}\n.ds-rating kbd {\n  font-family: inherit;\n  color: #5e7063;\n  font-size: 10.200000000000001px;\n}\n.ds-rating .ds-interval {\n  font-size: 11.700000000000001px;\n  color: #52674f;\n  margin-top: 4px;\n}\n.ds-rating:hover:not(:disabled) {\n  background: #f0f5ed;\n  border-color: #7e9e7b;\n}\n.ds-again:hover:not(:disabled) {\n  background: #fff1ed;\n  border-color: #cc8b7b;\n}\n.ds-good {\n  background: #edf4e9;\n  border-color: #bbcfb0;\n}\n.ds-rating{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;color:#283c34;cursor:pointer;transition:background-color .16s,color .16s,border-color .16s;}.ds-rating:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-rating:disabled{opacity:.5;cursor:not-allowed;}@media(max-width:800px){.ds-ratings{grid-template-columns:repeat(2,1fr);gap:8px;}}@media(max-width:600px){.ds-rating b{font-size:13.95px;}.ds-rating small{font-size:10.5px;}}@media(prefers-reduced-motion:reduce){.ds-rating{transition:none;}}"
+    },
+    {
+      "name": "Assistant JSON Review",
+      "kind": "custom",
+      "refersTo": "draft-note",
+      "description": "An excerpt of Assistant/JSON import: optional native prompt disclosure, editable selected note, mixed-type selector, and import/export actions. The preview illustrates controls without an assistant or import runtime.",
+      "html": "<div class=\"ds-review\"><details class=\"ds-prompt\"><summary>Create a prompt for your assistant</summary><p>Prepare it here, then paste it into the assistant you use with your course material. Nothing is sent automatically.</p><label>Source material<textarea rows=\"3\" placeholder=\"Paste your notes\"></textarea></label><label>Focus<input placeholder=\"e.g. Explain and apply database normalisation\"></label><label class=\"ds-check\"><input type=\"checkbox\" checked>Include explanation, comparison and application questions where the source supports them</label><button class=\"ds-review-secondary\">Prepare prompt</button></details><div class=\"ds-review-heading\"><h2>Review 1 note</h2><span>1 selected · 1 card</span></div><fieldset class=\"ds-draft\"><legend>Note 1</legend><div class=\"ds-review-row\"><label class=\"ds-check\"><input type=\"checkbox\" checked>Include note 1</label><label>Card type<select><option>Basic</option><option>Reversed</option><option selected>Typed answer</option><option>Cloze</option></select></label></div><label>Question<textarea rows=\"2\">What is 2 to the power of 5?</textarea></label><label>Answer<textarea rows=\"2\">32</textarea></label><label>Source<input value=\"Lecture 2, page 5\"></label><details><summary>Explanation and tags</summary><label>Explanation<textarea rows=\"2\">Multiply two by itself five times.</textarea></label><label>Tags, separated by spaces<input value=\"maths\"></label></details></fieldset><div class=\"ds-review-actions\"><button class=\"ds-review-primary\">Import 1 note</button><button class=\"ds-review-secondary\">Save JSON</button></div></div>",
+      "css": ".ds-review{display:grid;gap:22px;font-size:15px;color:#283c34;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;}.ds-review label{display:flex;flex-direction:column;gap:9px;font-size:13.5px;font-weight:550;}.ds-review input:not([type=checkbox]),.ds-review textarea,.ds-review select{background:#fff;border:1px solid #6f8874;border-radius:7px;padding:12px 13px;min-width:0;color:var(--ink,#243a30);width:100%;font:400 15px -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;}.ds-review textarea{resize:vertical;line-height:1.65;}.ds-review input[type=checkbox]{accent-color:var(--pine,#174c3c);width:17px;height:17px;}.ds-review .ds-check{display:flex;flex-direction:row;align-items:center;gap:9px;font-size:12.6px;font-weight:400;}.ds-review input:focus-visible,.ds-review textarea:focus-visible,.ds-review select:focus-visible,.ds-review summary:focus-visible,.ds-review button:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-prompt{border-block:1px solid var(--line,#e2e8e3);padding:10px 0;}.ds-prompt>summary{font-weight:600;}.ds-prompt p{font-size:13.05px;color:var(--muted,#53685b);margin:12px 0 18px;line-height:1.65;}.ds-prompt label,.ds-draft label{margin-top:16px;}.ds-prompt>button{margin-top:16px;}.ds-prompt summary,.ds-draft summary{cursor:pointer;padding:8px 0;}.ds-review-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;}.ds-review-heading h2{margin:0;font-size:16.5px;font-weight:620;letter-spacing:-.018em;}.ds-review-heading>span{font-size:11.25px;color:var(--muted,#53685b);}.ds-draft{border:0;border-top:1px solid var(--line,#e2e8e3);padding:18px 0 26px;min-width:0;}.ds-draft legend{padding-right:10px;font-weight:600;font-size:13.2px;}.ds-review-row{display:flex;gap:28px;align-items:center;}.ds-review-row>label:first-child{flex:1;}.ds-review-row label{margin:0;}.ds-review-actions{display:flex;align-items:center;gap:17px;flex-wrap:wrap;margin-top:20px;}.ds-review-primary,.ds-review-secondary{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:7px;padding:12px 19px;min-height:44px;font-size:13.5px;font-weight:560;white-space:nowrap;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;transition:background-color .16s,color .16s,border-color .16s;}.ds-review-primary{background:var(--pine,#174c3c);color:#fff;border:1px solid var(--pine,#174c3c);}.ds-review-primary:hover:not(:disabled){background:var(--pine-hover,#103d2f);}.ds-review-secondary{background:#fff;color:var(--ink,#243a30);border:1px solid #ced9d0;}.ds-review-secondary:hover:not(:disabled){background:#eef3ef;border-color:#abbfb0;}.ds-review button:disabled{opacity:.5;cursor:not-allowed;}@media(max-width:800px){.ds-review-row{flex-direction:column;gap:15px;}.ds-review-row>label{width:100%;}}@media(max-width:600px){.ds-review-heading{flex-wrap:wrap;gap:12px;}}@media(prefers-reduced-motion:reduce){.ds-review button{transition:none;}}"
+    },
+    {
+      "name": "Card Guidance",
+      "kind": "custom",
+      "refersTo": "card-guidance",
+      "description": "Optional local writing hints use a flat inline section. Each dismiss action turns off that suggestion kind; Turn off all disables the group. Preferences restores individual or global choices.",
+      "html": "<section class=\"ds-guidance\" aria-label=\"Card suggestions\"><div class=\"ds-guidance-heading\"><span><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 18h6M10 22h4M15.1 14a6 6 0 1 0-6.2 0c.9.7 1.1 1.5 1.1 2h4c0-.5.2-1.3 1.1-2Z\"/></svg>Suggestions</span><button type=\"button\" class=\"ds-guidance-text\">Turn off all</button></div><ul><li><p>Add a source if you have one, so you can check the answer later.</p><button type=\"button\" class=\"ds-guidance-icon\" aria-label=\"Turn off missing sources suggestions\" title=\"Turn off missing sources suggestions\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"m18 6-12 12M6 6l12 12\"/></svg></button></li></ul><p class=\"ds-guidance-note\">Optional hints. Re-enable any kind in Preferences.</p></section>",
+      "css": ".ds-guidance{margin-top:20px;padding:14px 0;border-block:1px solid var(--line,#e2e8e3);font-size:12.75px;color:#283c34;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;}.ds-guidance-heading{display:flex;justify-content:space-between;align-items:center;gap:16px;}.ds-guidance-heading>span{display:flex;align-items:center;gap:7px;font-weight:600;}.ds-guidance-text{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 3px;min-height:36px;border:0;background:none;font-size:11.7px;font-weight:500;color:var(--pine,#174c3c);cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;transition:background-color .16s,color .16s,border-color .16s;}.ds-guidance-text:hover:not(:disabled){color:#0a2e20;text-decoration:underline;text-underline-offset:4px;}.ds-guidance ul{margin:6px 0;padding:0;list-style:none;}.ds-guidance li{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;padding:7px 0;}.ds-guidance li p{margin:6px 0;max-width:65ch;line-height:1.6;}.ds-guidance-icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:0;border-radius:5px;background:none;color:var(--muted,#53685b);cursor:pointer;transition:background-color .16s,color .16s,border-color .16s;}.ds-guidance-icon:hover{background:var(--soft,#f0f5f0);color:var(--pine,#174c3c);}.ds-guidance-note{color:var(--muted,#53685b);font-size:11.1px;margin:0;line-height:1.65;}.ds-guidance button:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-guidance button:disabled{cursor:not-allowed;opacity:.5;}@media(prefers-reduced-motion:reduce){.ds-guidance button{transition:none;}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Focused Study Desk",
+    "overview": "A focused study desk: cool white space, pale eucalyptus surfaces, dark pine actions, and readable graphite-green text. Familiar navigation, aligned rows, and compact controls make the next action clear while leaving the learning material room to breathe.\n\nThis document captures the implemented interface and the user’s clean, simple, low-bloat direction. Recall is a working name, not an approved permanent identity. Personality comes from color, proportion, and clear language rather than ornament.",
+    "keyCharacteristics": [
+      "Cool white canvas with eucalyptus tonal grouping.",
+      "Dark pine actions and clear keyboard focus.",
+      "System sans typography, aligned rows, and restrained borders.",
+      "Generous study space with a stable question and an answer revealed beneath it."
+    ],
+    "rules": [
+      {
+        "name": "The Action Contrast Rule",
+        "body": "Use dark pine for the next meaningful action; keep supporting surfaces pale and readable.",
+        "section": "colors"
+      },
+      {
+        "name": "The Quiet Depth Rule",
+        "body": "Use borders and tonal surfaces for grouping. Reserve the faint shadow for the study card.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do preserve the pine, eucalyptus, and white palette with readable muted text.",
+      "Do keep the visible focus outline and stronger field border.",
+      "Do use aligned, wrapping deck rows with tabular numerals for counts.",
+      "Do keep the question in place while revealing the answer below it.",
+      "Do show the actual Anki interval alongside each rating and its recall description.",
+      "Do preserve responsive navigation and the focused mobile study layout.",
+      "Do respect reduced-motion preferences.",
+      "Do keep explanations, sources, and optional writing hints subordinate to the recall task, with clear disclosure and preference controls."
+    ],
+    "donts": [
+      "Don't add gamified dashboards, decorative widget grids, or unnecessary interface chrome.",
+      "Don't turn every content block into an elevated card or add stronger ambient shadows.",
+      "Don't replace the stable reveal with a card flip, layout jump, or automatic advance.",
+      "Don't communicate rating meaning, selection, or errors through color alone.",
+      "Don't treat synthesized preview ramps as production tokens or the working name as a permanent brand."
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+name: Check
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+      - name: Install frontend
+        run: npm ci
+      - name: Install local engine
+        run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install -r requirements.txt
+      - name: Build
+        run: npm run build
+      - name: Native engine tests
+        run: npm test
+      - name: Install browser
+        run: npx playwright install --with-deps chrome
+      - name: Browser journeys
+        run: npm run test:e2e
