@@ -37,7 +37,7 @@ export async function api<T>(
     });
   } catch {
     throw new Error(
-      "The local engine is unavailable. Start Recall, then try again.",
+      "The local engine is unavailable. Start Oftly, then try again.",
     );
   }
   if (!response.ok) {

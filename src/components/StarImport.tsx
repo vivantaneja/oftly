@@ -85,7 +85,7 @@ export default function StarImport({ onChange }: { onChange: () => void }) {
     );
     const link = document.createElement("a");
     link.href = url;
-    link.download = "recall-notes.json";
+    link.download = "oftly-notes.json";
     link.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
@@ -241,7 +241,7 @@ export default function StarImport({ onChange }: { onChange: () => void }) {
         />
       </label>
       <p className="hint left">
-        Up to 500 notes. Imports use Recall’s layout. Exact first-field
+        Up to 500 notes. Imports use Oftly’s layout. Exact first-field
         duplicates within an Anki Star note type are skipped across decks.
       </p>
       {error && (

@@ -31,5 +31,17 @@ All integration/browser tests use temporary collections. The running app uses it
 - New browser coverage imports a four-level native path, expands/collapses with keyboard and pointer, searches through collapsed ancestors, opens breadcrumbs, creates a subfolder and a deck in it, verifies persistence, and recovers from a duplicate-name error. A folder with both direct cards and child decks is included.
 - Desktop (1440px), mobile folder contents (390px) and mobile creation captures inspected. No horizontal overflow in the tested mobile states; axe WCAG A/AA and WCAG 2.1 AA checks passed on the tested folder views.
 - The Impeccable detector ran for this extension; it reported typography/palette advisories, including existing stylesheet values. Existing design tokens and system files are preserved for this ordinary extension.
-- Local service update verified all 39 cards, 39 notes and 8 review records unchanged using full-row digests while the collection was closed, then restarted the service successfully.
+- Local service update verified all cards, notes and review records unchanged using full-row digests while the collection was closed, then restarted the service successfully.
 - Independent Impeccable review returned `ship` for the folder extension with no material fixes. Advisory: indentation is capped after four levels to protect narrow layouts; opening a folder resets the visible depth and breadcrumbs preserve its ancestry.
+
+
+## Oftly brand redesign — 10 November 2026
+
+- Implemented the supplied brand guide across Today, study, folders, authoring, imports, progress and settings. Typography is self-hosted; the logo and favicon are SVG.
+- Production build passed. JavaScript is approximately 98 KB gzipped; CSS approximately 7 KB. Five local WOFF2 files total approximately 302 KB and carry their OFL licences.
+- All 13 native integration tests and 6 browser journeys passed. The large-text regression now includes a 320px viewport with a 30px root size, covering wrapped header actions, equal-width mobile navigation and long backup controls.
+- Desktop 1440px and mobile 390px captures inspected, including source/ID study presentation, compact ratings, folder creation, imports and suggestion settings. Additional 1280px Today, 800px Progress and 320px Settings checks found no horizontal overflow at normal text size. Font checks confirmed both intended families loaded; the checked routes made no external requests.
+- Impeccable detector ran once for the redesign: 166 palette/type advisories against the old design-system documentation and zero non-advisory findings. The design system is refreshed from the supplied brand and finished implementation.
+- Screenshot timing now waits for font readiness and completes finite animations, so captures show the final marigold recall accent. Public README screenshots contain only synthetic test cards and embedded capture provenance.
+- The finish review identified a clipped retention value at enlarged text size. Its verdict pass marked the fix resolved and returned `ship` at that scope. The browser regression measures room for the selected value plus padding and native arrow.
+- Restarted the updated local service and verified unchanged deck IDs, card count and completed-review count.

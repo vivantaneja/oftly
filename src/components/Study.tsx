@@ -224,7 +224,19 @@ export default function Study({
                 role="region"
                 aria-label="Answer"
               >
-                <span className="field-label">Answer</span>
+                <span className="field-label answer-label">
+                  Answer
+                  <svg
+                    className="interval-mark"
+                    viewBox="0 0 70 24"
+                    aria-hidden="true"
+                  >
+                    <circle cx="6" cy="18" r="2.5" fill="currentColor" />
+                    <circle cx="15" cy="17" r="3.5" fill="currentColor" />
+                    <circle cx="29.5" cy="15.5" r="5" fill="currentColor" />
+                    <circle className="final-dot" cx="54" cy="13" r="7.5" />
+                  </svg>
+                </span>
                 <CardContent html={answer.answer} />
                 {answer.extras?.map((entry) => (
                   <div className="card-explanation" key={entry.label}>

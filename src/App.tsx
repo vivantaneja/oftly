@@ -19,12 +19,7 @@ import {
   HardDrive,
   Leaf,
 } from "lucide-react";
-import {
-  api,
-  navigate,
-  type Dashboard,
-  type Stats,
-} from "./lib/api";
+import { api, navigate, type Dashboard, type Stats } from "./lib/api";
 import Study from "./components/Study";
 import Import from "./components/Import";
 import DeckView from "./components/DeckView";
@@ -45,7 +40,7 @@ class ErrorBoundary extends Component<
         <h1>Let’s reopen your workspace.</h1>
         <p>Your collection is saved locally.</p>
         <button className="primary" onClick={() => location.reload()}>
-          Reload Recall
+          Reload Oftly
         </button>
       </div>
     ) : (
@@ -270,9 +265,14 @@ function AppContent() {
     if (busy) return;
     setBusy(true);
     try {
-      if (name.includes("::")) throw new Error("Choose a location below instead of using :: in the name.");
+      if (name.includes("::"))
+        throw new Error(
+          "Choose a location below instead of using :: in the name.",
+        );
       const result = await api<{ id: string }>("/decks", {
-        name, parentId: parentId || null, folder: creating === "folder",
+        name,
+        parentId: parentId || null,
+        folder: creating === "folder",
       });
       setData(await api<Dashboard>("/dashboard"));
       setCreating(null);
@@ -308,11 +308,17 @@ function AppContent() {
         Skip to content
       </a>
       <aside className="sidebar">
-        <a className="brand" href="#today" aria-label="Recall home">
-          <span className="brand-mark">
-            <BookOpen size={23} />
-          </span>
-          recall<span className="brand-dot">.</span>
+        <a className="brand" href="#today" aria-label="Oftly home">
+          <img
+            className="brand-icon"
+            src="/brand/oftly-icon-paper.svg"
+            alt=""
+          />
+          <img
+            className="brand-wordmark"
+            src="/brand/oftly-wordmark-paper.svg"
+            alt="oftly"
+          />
         </a>
         <nav aria-label="Main navigation">
           {[
@@ -359,7 +365,15 @@ function AppContent() {
       </aside>
       <div className="workspace">
         <header className="topbar">
-          <span>
+          <a className="mobile-brand" href="#today" aria-label="Oftly home">
+            <img className="brand-icon" src="/brand/oftly-icon.svg" alt="" />
+            <img
+              className="brand-wordmark"
+              src="/brand/oftly-wordmark-ink.svg"
+              alt="oftly"
+            />
+          </a>
+          <span className="topbar-date">
             {new Intl.DateTimeFormat("en-IE", {
               weekday: "long",
               day: "numeric",
@@ -377,9 +391,16 @@ function AppContent() {
               className="secondary compact"
               onClick={() => {
                 const current = data?.decks.find((d) => d.id === id);
-                const parent = current && data
-                  ? isFolder(current, data.decks) ? current : data.decks.find((d) => d.name === current.name.split("::").slice(0, -1).join("::"))
-                  : undefined;
+                const parent =
+                  current && data
+                    ? isFolder(current, data.decks)
+                      ? current
+                      : data.decks.find(
+                          (d) =>
+                            d.name ===
+                            current.name.split("::").slice(0, -1).join("::"),
+                        )
+                    : undefined;
                 beginCreation("deck", parent?.id);
               }}
             >
@@ -398,16 +419,27 @@ function AppContent() {
                   maxLength={120}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder={creating === "folder" ? "e.g. School subjects" : "What are you learning?"}
+                  placeholder={
+                    creating === "folder"
+                      ? "e.g. School subjects"
+                      : "What are you learning?"
+                  }
                 />
               </label>
               <label>
                 Location
-                <select value={parentId} onChange={(e) => setParentId(e.target.value)}>
+                <select
+                  value={parentId}
+                  onChange={(e) => setParentId(e.target.value)}
+                >
                   <option value="">Library</option>
-                  {data?.decks.filter((d) => isFolder(d, data.decks)).map((d) => (
-                    <option key={d.id} value={d.id}>{deckPath(d.name)}</option>
-                  ))}
+                  {data?.decks
+                    .filter((d) => isFolder(d, data.decks))
+                    .map((d) => (
+                      <option key={d.id} value={d.id}>
+                        {deckPath(d.name)}
+                      </option>
+                    ))}
                 </select>
               </label>
               <div className="actions">
@@ -422,7 +454,11 @@ function AppContent() {
                   Cancel
                 </button>
               </div>
-              {createError && <p className="error create-error" role="alert">{createError}</p>}
+              {createError && (
+                <p className="error create-error" role="alert">
+                  {createError}
+                </p>
+              )}
             </form>
           )}
           {error && (
@@ -524,7 +560,11 @@ function AppContent() {
                   <p>{data.stats.totalCards} cards, ready to grow with you.</p>
                 </div>
               </div>
-              <DeckBrowser key={page} decks={data.decks} onNewFolder={newFolder} />
+              <DeckBrowser
+                key={page}
+                decks={data.decks}
+                onNewFolder={newFolder}
+              />
               <div className="library-footer">
                 <Upload size={18} />
                 <p>Already learning somewhere else?</p>
@@ -630,7 +670,10 @@ function AppContent() {
                   <Week stats={data.stats} />
                   <div className="week-note">
                     <span>
-                      {data.stats.days.reduce((n, d) => n + d.count, 0)} reviews
+                      {data.stats.days.reduce((n, d) => n + d.count, 0)}{" "}
+                      {data.stats.days.reduce((n, d) => n + d.count, 0) === 1
+                        ? "review"
+                        : "reviews"}
                     </span>
                     <p>
                       {data.stats.days.some((d) => d.count)
@@ -646,7 +689,11 @@ function AppContent() {
                   </div>
                 </aside>
               </div>
-              <DeckBrowser key={page} decks={data.decks} onNewFolder={newFolder} />
+              <DeckBrowser
+                key={page}
+                decks={data.decks}
+                onNewFolder={newFolder}
+              />
               <div className="app-footnote">
                 <span>
                   <HardDrive size={14} /> Saved locally · Powered by Anki

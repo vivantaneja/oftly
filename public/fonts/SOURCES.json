@@ -1,0 +1,27 @@
+[
+  {
+    "file": "bricolage-grotesque.woff2",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/bricolagegrotesque/BricolageGrotesque%5Bopsz%2Cwdth%2Cwght%5D.ttf",
+    "license": "bricolagegrotesque-OFL.txt"
+  },
+  {
+    "file": "AtkinsonHyperlegible-Bold.woff2",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/atkinsonhyperlegible/AtkinsonHyperlegible-Bold.ttf",
+    "license": "atkinsonhyperlegible-OFL.txt"
+  },
+  {
+    "file": "AtkinsonHyperlegible-BoldItalic.woff2",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/atkinsonhyperlegible/AtkinsonHyperlegible-BoldItalic.ttf",
+    "license": "atkinsonhyperlegible-OFL.txt"
+  },
+  {
+    "file": "AtkinsonHyperlegible-Italic.woff2",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/atkinsonhyperlegible/AtkinsonHyperlegible-Italic.ttf",
+    "license": "atkinsonhyperlegible-OFL.txt"
+  },
+  {
+    "file": "AtkinsonHyperlegible-Regular.woff2",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/atkinsonhyperlegible/AtkinsonHyperlegible-Regular.ttf",
+    "license": "atkinsonhyperlegible-OFL.txt"
+  }
+]

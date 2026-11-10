@@ -1,381 +1,121 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-10T16:23:47.354Z",
-  "title": "Design System: Recall",
+  "generatedAt": "2026-11-10T17:13:56.025Z",
+  "title": "Design System: Oftly",
   "extensions": {
     "colorMeta": {
-      "pine": {
+      "ink": {
         "role": "primary",
-        "displayName": "Pine",
-        "tonalRamp": [
-          "oklch(15% 0.0283 169.5)",
-          "oklch(25% 0.0441 169.5)",
-          "oklch(36% 0.0564 169.5)",
-          "oklch(48% 0.0622 169.5)",
-          "oklch(60% 0.0593 169.5)",
-          "oklch(73% 0.0468 169.5)",
-          "oklch(85% 0.0283 169.5)",
-          "oklch(95% 0.0098 169.5)"
-        ]
+        "displayName": "Ink"
       },
-      "pine-hover": {
+      "action-hover": {
         "role": "primary",
-        "displayName": "Pine Hover",
-        "tonalRamp": [
-          "oklch(15% 0.0249 168.7)",
-          "oklch(25% 0.0388 168.7)",
-          "oklch(36% 0.0497 168.7)",
-          "oklch(48% 0.0548 168.7)",
-          "oklch(60% 0.0522 168.7)",
-          "oklch(73% 0.0412 168.7)",
-          "oklch(85% 0.0249 168.7)",
-          "oklch(95% 0.0086 168.7)"
-        ]
+        "displayName": "Ink Hover"
       },
-      "eucalyptus": {
+      "paper": {
         "role": "primary",
-        "displayName": "Eucalyptus",
-        "tonalRamp": [
-          "oklch(15% 0.0043 140.5)",
-          "oklch(25% 0.0067 140.5)",
-          "oklch(36% 0.0086 140.5)",
-          "oklch(48% 0.0095 140.5)",
-          "oklch(60% 0.0091 140.5)",
-          "oklch(73% 0.0071 140.5)",
-          "oklch(85% 0.0043 140.5)",
-          "oklch(95% 0.0015 140.5)"
-        ]
+        "displayName": "Index Paper"
       },
-      "eucalyptus-selected": {
-        "role": "primary",
-        "displayName": "Eucalyptus Selected",
-        "tonalRamp": [
-          "oklch(15% 0.0100 139.0)",
-          "oklch(25% 0.0156 139.0)",
-          "oklch(36% 0.0200 139.0)",
-          "oklch(48% 0.0220 139.0)",
-          "oklch(60% 0.0210 139.0)",
-          "oklch(73% 0.0165 139.0)",
-          "oklch(85% 0.0100 139.0)",
-          "oklch(95% 0.0034 139.0)"
-        ]
+      "marigold": {
+        "role": "secondary",
+        "displayName": "Marigold"
+      },
+      "marigold-hover": {
+        "role": "secondary",
+        "displayName": "Marigold Hover"
+      },
+      "leaf": {
+        "role": "secondary",
+        "displayName": "Leaf"
       },
       "canvas": {
         "role": "neutral",
-        "displayName": "Canvas",
-        "tonalRamp": [
-          "oklch(15% 0.0008 145.6)",
-          "oklch(25% 0.0012 145.6)",
-          "oklch(36% 0.0015 145.6)",
-          "oklch(48% 0.0017 145.6)",
-          "oklch(60% 0.0016 145.6)",
-          "oklch(73% 0.0013 145.6)",
-          "oklch(85% 0.0008 145.6)",
-          "oklch(95% 0.0003 145.6)"
-        ]
+        "displayName": "Warm Canvas"
       },
-      "white": {
+      "surface": {
         "role": "neutral",
-        "displayName": "White",
-        "tonalRamp": [
-          "oklch(15% 0.0000 0.0)",
-          "oklch(25% 0.0000 0.0)",
-          "oklch(36% 0.0000 0.0)",
-          "oklch(48% 0.0000 0.0)",
-          "oklch(60% 0.0000 0.0)",
-          "oklch(73% 0.0000 0.0)",
-          "oklch(85% 0.0000 0.0)",
-          "oklch(95% 0.0000 0.0)"
-        ]
-      },
-      "soft": {
-        "role": "neutral",
-        "displayName": "Soft",
-        "tonalRamp": [
-          "oklch(15% 0.0038 145.5)",
-          "oklch(25% 0.0060 145.5)",
-          "oklch(36% 0.0077 145.5)",
-          "oklch(48% 0.0084 145.5)",
-          "oklch(60% 0.0080 145.5)",
-          "oklch(73% 0.0063 145.5)",
-          "oklch(85% 0.0038 145.5)",
-          "oklch(95% 0.0013 145.5)"
-        ]
-      },
-      "body-ink": {
-        "role": "neutral",
-        "displayName": "Body Ink",
-        "tonalRamp": [
-          "oklch(15% 0.0133 167.8)",
-          "oklch(25% 0.0207 167.8)",
-          "oklch(36% 0.0265 167.8)",
-          "oklch(48% 0.0292 167.8)",
-          "oklch(60% 0.0278 167.8)",
-          "oklch(73% 0.0220 167.8)",
-          "oklch(85% 0.0133 167.8)",
-          "oklch(95% 0.0046 167.8)"
-        ]
-      },
-      "ink": {
-        "role": "neutral",
-        "displayName": "Ink",
-        "tonalRamp": [
-          "oklch(15% 0.0151 164.3)",
-          "oklch(25% 0.0235 164.3)",
-          "oklch(36% 0.0301 164.3)",
-          "oklch(48% 0.0331 164.3)",
-          "oklch(60% 0.0316 164.3)",
-          "oklch(73% 0.0249 164.3)",
-          "oklch(85% 0.0151 164.3)",
-          "oklch(95% 0.0052 164.3)"
-        ]
+        "displayName": "Warm Surface"
       },
       "muted": {
         "role": "neutral",
-        "displayName": "Muted",
-        "tonalRamp": [
-          "oklch(15% 0.0148 157.8)",
-          "oklch(25% 0.0230 157.8)",
-          "oklch(36% 0.0295 157.8)",
-          "oklch(48% 0.0325 157.8)",
-          "oklch(60% 0.0310 157.8)",
-          "oklch(73% 0.0244 157.8)",
-          "oklch(85% 0.0148 157.8)",
-          "oklch(95% 0.0051 157.8)"
-        ]
+        "displayName": "Muted Slate"
       },
       "line": {
         "role": "neutral",
-        "displayName": "Line",
-        "tonalRamp": [
-          "oklch(15% 0.0042 150.7)",
-          "oklch(25% 0.0065 150.7)",
-          "oklch(36% 0.0084 150.7)",
-          "oklch(48% 0.0092 150.7)",
-          "oklch(60% 0.0088 150.7)",
-          "oklch(73% 0.0069 150.7)",
-          "oklch(85% 0.0042 150.7)",
-          "oklch(95% 0.0014 150.7)"
-        ]
+        "displayName": "Warm Line"
+      },
+      "soft": {
+        "role": "neutral",
+        "displayName": "Soft Paper"
       },
       "field-border": {
         "role": "neutral",
-        "displayName": "Field Border",
-        "tonalRamp": [
-          "oklch(15% 0.0189 150.9)",
-          "oklch(25% 0.0294 150.9)",
-          "oklch(36% 0.0376 150.9)",
-          "oklch(48% 0.0415 150.9)",
-          "oklch(60% 0.0395 150.9)",
-          "oklch(73% 0.0312 150.9)",
-          "oklch(85% 0.0189 150.9)",
-          "oklch(95% 0.0065 150.9)"
-        ]
+        "displayName": "Field Slate"
       },
-      "focus": {
-        "role": "primary",
-        "displayName": "Focus",
-        "tonalRamp": [
-          "oklch(15% 0.0338 150.2)",
-          "oklch(25% 0.0526 150.2)",
-          "oklch(36% 0.0673 150.2)",
-          "oklch(48% 0.0743 150.2)",
-          "oklch(60% 0.0708 150.2)",
-          "oklch(73% 0.0558 150.2)",
-          "oklch(85% 0.0338 150.2)",
-          "oklch(95% 0.0116 150.2)"
-        ]
-      },
-      "button-border": {
+      "rail-text": {
         "role": "neutral",
-        "displayName": "Button Border",
-        "tonalRamp": [
-          "oklch(15% 0.0077 151.1)",
-          "oklch(25% 0.0120 151.1)",
-          "oklch(36% 0.0154 151.1)",
-          "oklch(48% 0.0170 151.1)",
-          "oklch(60% 0.0162 151.1)",
-          "oklch(73% 0.0128 151.1)",
-          "oklch(85% 0.0077 151.1)",
-          "oklch(95% 0.0027 151.1)"
-        ]
+        "displayName": "Rail Text"
       },
-      "focus-panel": {
-        "role": "primary",
-        "displayName": "Focus Panel",
-        "tonalRamp": [
-          "oklch(15% 0.0051 141.3)",
-          "oklch(25% 0.0079 141.3)",
-          "oklch(36% 0.0102 141.3)",
-          "oklch(48% 0.0112 141.3)",
-          "oklch(60% 0.0107 141.3)",
-          "oklch(73% 0.0084 141.3)",
-          "oklch(85% 0.0051 141.3)",
-          "oklch(95% 0.0018 141.3)"
-        ]
-      },
-      "card-border": {
+      "rail-hover": {
         "role": "neutral",
-        "displayName": "Card Border",
-        "tonalRamp": [
-          "oklch(15% 0.0075 142.6)",
-          "oklch(25% 0.0117 142.6)",
-          "oklch(36% 0.0149 142.6)",
-          "oklch(48% 0.0165 142.6)",
-          "oklch(60% 0.0157 142.6)",
-          "oklch(73% 0.0124 142.6)",
-          "oklch(85% 0.0075 142.6)",
-          "oklch(95% 0.0026 142.6)"
-        ]
-      },
-      "rating-border": {
-        "role": "neutral",
-        "displayName": "Rating Border",
-        "tonalRamp": [
-          "oklch(15% 0.0075 142.6)",
-          "oklch(25% 0.0117 142.6)",
-          "oklch(36% 0.0150 142.6)",
-          "oklch(48% 0.0165 142.6)",
-          "oklch(60% 0.0157 142.6)",
-          "oklch(73% 0.0124 142.6)",
-          "oklch(85% 0.0075 142.6)",
-          "oklch(95% 0.0026 142.6)"
-        ]
-      },
-      "good": {
-        "role": "primary",
-        "displayName": "Good",
-        "tonalRamp": [
-          "oklch(15% 0.0074 133.8)",
-          "oklch(25% 0.0115 133.8)",
-          "oklch(36% 0.0148 133.8)",
-          "oklch(48% 0.0163 133.8)",
-          "oklch(60% 0.0155 133.8)",
-          "oklch(73% 0.0122 133.8)",
-          "oklch(85% 0.0074 133.8)",
-          "oklch(95% 0.0026 133.8)"
-        ]
-      },
-      "due-soft": {
-        "role": "primary",
-        "displayName": "Due Soft",
-        "tonalRamp": [
-          "oklch(15% 0.0072 130.4)",
-          "oklch(25% 0.0112 130.4)",
-          "oklch(36% 0.0144 130.4)",
-          "oklch(48% 0.0158 130.4)",
-          "oklch(60% 0.0151 130.4)",
-          "oklch(73% 0.0119 130.4)",
-          "oklch(85% 0.0072 130.4)",
-          "oklch(95% 0.0025 130.4)"
-        ]
-      },
-      "due-ink": {
-        "role": "primary",
-        "displayName": "Due Ink",
-        "tonalRamp": [
-          "oklch(15% 0.0395 134.1)",
-          "oklch(25% 0.0615 134.1)",
-          "oklch(36% 0.0788 134.1)",
-          "oklch(48% 0.0869 134.1)",
-          "oklch(60% 0.0828 134.1)",
-          "oklch(73% 0.0653 134.1)",
-          "oklch(85% 0.0395 134.1)",
-          "oklch(95% 0.0136 134.1)"
-        ]
+        "displayName": "Rail Hover"
       },
       "danger": {
-        "role": "secondary",
-        "displayName": "Danger",
-        "tonalRamp": [
-          "oklch(15% 0.0627 27.6)",
-          "oklch(25% 0.0977 27.6)",
-          "oklch(36% 0.1250 27.6)",
-          "oklch(48% 0.1379 27.6)",
-          "oklch(60% 0.1314 27.6)",
-          "oklch(73% 0.1036 27.6)",
-          "oklch(85% 0.0627 27.6)",
-          "oklch(95% 0.0216 27.6)"
-        ]
+        "role": "neutral",
+        "displayName": "Danger"
       },
       "danger-soft": {
-        "role": "secondary",
-        "displayName": "Danger Soft",
-        "tonalRamp": [
-          "oklch(15% 0.0083 34.3)",
-          "oklch(25% 0.0129 34.3)",
-          "oklch(36% 0.0165 34.3)",
-          "oklch(48% 0.0182 34.3)",
-          "oklch(60% 0.0174 34.3)",
-          "oklch(73% 0.0137 34.3)",
-          "oklch(85% 0.0083 34.3)",
-          "oklch(95% 0.0029 34.3)"
-        ]
+        "role": "neutral",
+        "displayName": "Danger Soft"
       },
       "error-soft": {
-        "role": "secondary",
-        "displayName": "Error Soft",
-        "tonalRamp": [
-          "oklch(15% 0.0076 31.1)",
-          "oklch(25% 0.0119 31.1)",
-          "oklch(36% 0.0152 31.1)",
-          "oklch(48% 0.0167 31.1)",
-          "oklch(60% 0.0160 31.1)",
-          "oklch(73% 0.0126 31.1)",
-          "oklch(85% 0.0076 31.1)",
-          "oklch(95% 0.0026 31.1)"
-        ]
+        "role": "neutral",
+        "displayName": "Error Soft"
       },
       "error-ink": {
+        "role": "neutral",
+        "displayName": "Error Ink"
+      },
+      "success-soft": {
         "role": "secondary",
-        "displayName": "Error Ink",
-        "tonalRamp": [
-          "oklch(15% 0.0553 27.6)",
-          "oklch(25% 0.0861 27.6)",
-          "oklch(36% 0.1101 27.6)",
-          "oklch(48% 0.1215 27.6)",
-          "oklch(60% 0.1158 27.6)",
-          "oklch(73% 0.0913 27.6)",
-          "oklch(85% 0.0553 27.6)",
-          "oklch(95% 0.0190 27.6)"
-        ]
+        "displayName": "Success Soft"
       }
     },
     "typographyMeta": {
       "headline": {
         "displayName": "Headline",
-        "purpose": "Page titles; 1.7rem on phones."
+        "purpose": "Bricolage page headings; 1.7rem on phones."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Section headings."
+        "purpose": "Bricolage section headings."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Default reading size and paragraph rhythm; supporting UI uses contextual smaller sizes."
+        "purpose": "Atkinson reading copy and UI; self-hosted regular, bold, and italic faces."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Persistent form labels."
+        "purpose": "Atkinson persistent field labels; source weight resolves against supplied static faces."
       },
       "control": {
         "displayName": "Control",
-        "purpose": "Primary and secondary action labels."
+        "purpose": "Atkinson primary and secondary action labels."
       },
       "study-question": {
         "displayName": "Study Question",
-        "purpose": "Centered retrieval prompt; 1.4rem on phones."
+        "purpose": "Bricolage weight-650 retrieval prompt; 1.4rem on phones."
       },
       "study-answer": {
         "displayName": "Study Answer",
-        "purpose": "Answer beneath the stable question; 1rem on phones."
+        "purpose": "Atkinson answer below the stable question; 1rem on phones."
       }
     },
     "shadows": [
       {
         "name": "study-card",
-        "value": "0 9px 25px -16px #1b402925",
-        "purpose": "Faint lift on the study card; other main interface surfaces stay flat."
+        "value": "0 9px 25px -16px #1f2a4425",
+        "purpose": "A faint ink lift on the index-paper study card; other main surfaces stay flat."
       }
     ],
     "motion": [
@@ -387,7 +127,12 @@
       {
         "name": "answer-reveal",
         "value": "0.2s cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Opacity 0.75 and translateY(5px) to full opacity at rest; disabled under prefers-reduced-motion."
+        "purpose": "Answer moves from opacity 0.75 and translateY(5px) to rest; the question stays fixed. Disabled under prefers-reduced-motion."
+      },
+      {
+        "name": "recalled-dot",
+        "value": "0.35s cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Final interval dot resolves from ink to marigold. Brand feedback only; reduced motion retains marigold without animation."
       }
     ],
     "breakpoints": [
@@ -415,135 +160,145 @@
       "kind": "button",
       "refersTo": "button-primary",
       "description": "The next meaningful action.",
-      "html": "<button class=\"ds-primary\">Start studying <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button>",
-      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:7px;padding:12px 19px;min-height:44px;font-size:13.5px;font-weight:560;white-space:nowrap;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;transition:background-color .16s,color .16s,border-color .16s;border:1px solid var(--pine,#174c3c);background:var(--pine,#174c3c);color:#fff;}.ds-primary:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-primary:disabled{opacity:.5;cursor:not-allowed;}.ds-primary:hover:not(:disabled){background:var(--pine-hover,#103d2f);}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none;animation:none;}}"
+      "html": "<div class=\"ds-demo\"><button class=\"ds-primary\">Start studying <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button></div>",
+      "css": ".ds-demo{font-family:\"Atkinson Hyperlegible\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:16px;color:var(--ink,#1f2a44);font-synthesis:none;}\n@font-face{\n  font-family: \"Bricolage Grotesque\";\n  src: url(\"/fonts/bricolage-grotesque.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 200 800;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Regular.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Bold.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Italic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-BoldItalic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 700;\n  font-display: swap;\n}\n\n\n\n.ds-demo button{\n  font: inherit;\n}\n.ds-demo button{\n  -webkit-tap-highlight-color: transparent;\n}\n.ds-demo button{\n  touch-action: manipulation;\n}\n.ds-demo button{\n  cursor: pointer;\n}\n.ds-demo button:disabled{\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n\n.ds-demo button{\n  color: inherit;\n}\n.ds-demo button:focus-visible{\n  outline: 3px solid var(--leaf, #2f7a5f);\n  outline-offset: 3px;\n}\n\n\n.ds-demo button{\n  transition:\n    background-color 0.16s,\n    color 0.16s,\n    border-color 0.16s;\n}\n\n\n\n\n\n\n.ds-demo svg{\n  flex-shrink: 0;\n}\n\n.ds-demo button{\n  border: 0;\n  background: none;\n}\n\n\n\n\n\n\n\n.ds-demo button.ds-primary,.ds-demo .ds-primary{\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 10px;\n  border-radius: 7px;\n  padding: 12px 19px;\n  min-height: 44px;\n  text-decoration: none;\n  font-size: 0.9rem;\n  font-weight: 560;\n  white-space: nowrap;\n}\n.ds-demo .ds-primary{\n  background: var(--action, #1f2a44);\n  color: #fffefa;\n  border: 1px solid var(--action, #1f2a44);\n}\n.ds-demo .ds-primary:hover:not(:disabled){\n  background: var(--action-hover, #131c30);\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n}\n@media (pointer: coarse){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (min-width: 1500px){\n\n}\n@media (max-width: 1100px){\n\n\n\n\n\n\n\n}\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n@media (max-width: 600px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-primary{\n    max-width: 100%;\n    white-space: normal;\n  }\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 600px){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (pointer: coarse){\n}\n@media (forced-colors: active){.ds-demo button{\n    border: 1px solid ButtonText;\n  }\n.ds-demo button:focus-visible{\n    outline-color: Highlight;\n  }}\n@media(prefers-reduced-motion:reduce){.ds-demo,.ds-demo *,.ds-demo *::before,.ds-demo *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}"
     },
     {
       "name": "Secondary Button",
       "kind": "button",
       "refersTo": "button-secondary",
       "description": "A supporting action with a quiet border.",
-      "html": "<button class=\"ds-secondary\">Add cards</button>",
-      "css": ".ds-secondary{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:7px;padding:12px 19px;min-height:44px;font-size:13.5px;font-weight:560;white-space:nowrap;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;transition:background-color .16s,color .16s,border-color .16s;border:1px solid #ced9d0;background:#fff;color:var(--ink,#243a30);}.ds-secondary:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-secondary:disabled{opacity:.5;cursor:not-allowed;}.ds-secondary:hover:not(:disabled){background:#eef3ef;border-color:#abbfb0;}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none;animation:none;}}"
+      "html": "<div class=\"ds-demo\"><button class=\"ds-secondary\">Add cards</button></div>",
+      "css": ".ds-demo{font-family:\"Atkinson Hyperlegible\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:16px;color:var(--ink,#1f2a44);font-synthesis:none;}\n@font-face{\n  font-family: \"Bricolage Grotesque\";\n  src: url(\"/fonts/bricolage-grotesque.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 200 800;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Regular.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Bold.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Italic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-BoldItalic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 700;\n  font-display: swap;\n}\n\n\n\n.ds-demo button{\n  font: inherit;\n}\n.ds-demo button{\n  -webkit-tap-highlight-color: transparent;\n}\n.ds-demo button{\n  touch-action: manipulation;\n}\n.ds-demo button{\n  cursor: pointer;\n}\n.ds-demo button:disabled{\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n\n.ds-demo button{\n  color: inherit;\n}\n.ds-demo button:focus-visible{\n  outline: 3px solid var(--leaf, #2f7a5f);\n  outline-offset: 3px;\n}\n\n\n.ds-demo button{\n  transition:\n    background-color 0.16s,\n    color 0.16s,\n    border-color 0.16s;\n}\n\n\n\n\n\n\n\n\n.ds-demo button{\n  border: 0;\n  background: none;\n}\n\n\n\n\n\n\n\n.ds-demo .ds-secondary{\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 10px;\n  border-radius: 7px;\n  padding: 12px 19px;\n  min-height: 44px;\n  text-decoration: none;\n  font-size: 0.9rem;\n  font-weight: 560;\n  white-space: nowrap;\n}\n\n\n.ds-demo .ds-secondary{\n  background: #fffefa;\n  color: var(--ink, #1f2a44);\n  border: 1px solid #ded9ce;\n}\n.ds-demo .ds-secondary:hover:not(:disabled){\n  background: #f0eadf;\n  border-color: #747b89;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n}\n@media (pointer: coarse){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (min-width: 1500px){\n\n}\n@media (max-width: 1100px){\n\n\n\n\n\n\n\n}\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n@media (max-width: 600px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-secondary{\n    max-width: 100%;\n    white-space: normal;\n  }\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 600px){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (pointer: coarse){\n}\n@media (forced-colors: active){.ds-demo button{\n    border: 1px solid ButtonText;\n  }\n.ds-demo button:focus-visible{\n    outline-color: Highlight;\n  }}\n@media(prefers-reduced-motion:reduce){.ds-demo,.ds-demo *,.ds-demo *::before,.ds-demo *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}"
     },
     {
       "name": "Text Button",
       "kind": "button",
       "refersTo": "button-text",
       "description": "Inline navigation or an optional action.",
-      "html": "<button class=\"ds-text\">Write an answer first</button>",
-      "css": ".ds-text{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 3px;min-height:36px;border:0;background:none;color:var(--pine,#174c3c);font-size:12.9px;font-weight:500;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;transition:background-color .16s,color .16s,border-color .16s;}.ds-text:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-text:disabled{opacity:.5;cursor:not-allowed;}.ds-text:hover:not(:disabled){color:#0a2e20;text-decoration:underline;text-underline-offset:4px;}@media(prefers-reduced-motion:reduce){.ds-text{transition:none;animation:none;}}"
+      "html": "<div class=\"ds-demo\"><button class=\"ds-text-button\">Write an answer first</button></div>",
+      "css": ".ds-demo{font-family:\"Atkinson Hyperlegible\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:16px;color:var(--ink,#1f2a44);font-synthesis:none;}\n@font-face{\n  font-family: \"Bricolage Grotesque\";\n  src: url(\"/fonts/bricolage-grotesque.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 200 800;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Regular.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Bold.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Italic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-BoldItalic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 700;\n  font-display: swap;\n}\n\n\n\n.ds-demo button{\n  font: inherit;\n}\n.ds-demo button{\n  -webkit-tap-highlight-color: transparent;\n}\n.ds-demo button{\n  touch-action: manipulation;\n}\n.ds-demo button{\n  cursor: pointer;\n}\n.ds-demo button:disabled{\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n\n.ds-demo button{\n  color: inherit;\n}\n.ds-demo button:focus-visible{\n  outline: 3px solid var(--leaf, #2f7a5f);\n  outline-offset: 3px;\n}\n\n\n.ds-demo button{\n  transition:\n    background-color 0.16s,\n    color 0.16s,\n    border-color 0.16s;\n}\n\n\n\n\n\n\n\n\n.ds-demo button{\n  border: 0;\n  background: none;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-text-button{\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 8px;\n  padding: 8px 3px;\n  min-height: 36px;\n  font-size: 0.86rem;\n  font-weight: 500;\n  color: var(--action, #1f2a44);\n}\n.ds-demo .ds-text-button:hover:not(:disabled){\n  color: #1f2a44;\n  text-decoration: underline;\n  text-underline-offset: 4px;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n}\n@media (pointer: coarse){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (min-width: 1500px){\n\n}\n@media (max-width: 1100px){\n\n\n\n\n\n\n\n}\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n@media (max-width: 600px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 600px){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (pointer: coarse){\n}\n@media (forced-colors: active){.ds-demo button{\n    border: 1px solid ButtonText;\n  }\n.ds-demo button:focus-visible{\n    outline-color: Highlight;\n  }}\n@media(prefers-reduced-motion:reduce){.ds-demo,.ds-demo *,.ds-demo *::before,.ds-demo *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}"
     },
     {
       "name": "Icon Button",
       "kind": "button",
       "refersTo": "button-icon",
       "description": "Compact named row action.",
-      "html": "<button class=\"ds-icon\" aria-label=\"Edit note\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m16 3 5 5M4 16 16 4a3.5 3.5 0 0 1 5 5L9 21l-6 1 1-6Z\"/></svg></button>",
-      "css": ".ds-icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:0;border-radius:5px;background:none;color:var(--muted,#53685b);cursor:pointer;transition:background-color .16s,color .16s,border-color .16s;}.ds-icon:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-icon:disabled{opacity:.5;cursor:not-allowed;}.ds-icon:hover:not(:disabled){background:var(--soft,#f0f5f0);color:var(--pine,#174c3c);}@media(prefers-reduced-motion:reduce){.ds-icon{transition:none;animation:none;}}"
+      "html": "<div class=\"ds-demo\"><button class=\"ds-icon-button\" aria-label=\"Edit note\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m16 3 5 5M4 16 16 4a3.5 3.5 0 0 1 5 5L9 21l-6 1 1-6Z\"/></svg></button></div>",
+      "css": ".ds-demo{font-family:\"Atkinson Hyperlegible\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:16px;color:var(--ink,#1f2a44);font-synthesis:none;}\n@font-face{\n  font-family: \"Bricolage Grotesque\";\n  src: url(\"/fonts/bricolage-grotesque.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 200 800;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Regular.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Bold.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Italic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-BoldItalic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 700;\n  font-display: swap;\n}\n\n\n\n.ds-demo button{\n  font: inherit;\n}\n.ds-demo button{\n  -webkit-tap-highlight-color: transparent;\n}\n.ds-demo button{\n  touch-action: manipulation;\n}\n.ds-demo button{\n  cursor: pointer;\n}\n.ds-demo button:disabled{\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n\n.ds-demo button{\n  color: inherit;\n}\n.ds-demo button:focus-visible{\n  outline: 3px solid var(--leaf, #2f7a5f);\n  outline-offset: 3px;\n}\n\n\n.ds-demo button{\n  transition:\n    background-color 0.16s,\n    color 0.16s,\n    border-color 0.16s;\n}\n\n\n\n\n\n\n.ds-demo svg{\n  flex-shrink: 0;\n}\n\n.ds-demo button{\n  border: 0;\n  background: none;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-icon-button{\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 36px;\n  height: 36px;\n  border-radius: 5px;\n  color: var(--muted, #596174);\n}\n.ds-demo .ds-icon-button:hover{\n  background: var(--soft, #f0eadf);\n  color: var(--action, #1f2a44);\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n}\n@media (pointer: coarse){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (min-width: 1500px){\n\n}\n@media (max-width: 1100px){\n\n\n\n\n\n\n\n}\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n@media (max-width: 600px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 600px){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (pointer: coarse){.ds-demo .ds-icon-button{\n    min-width: 44px;\n    min-height: 44px;\n  }\n}\n@media (forced-colors: active){.ds-demo button{\n    border: 1px solid ButtonText;\n  }\n.ds-demo button:focus-visible{\n    outline-color: Highlight;\n  }}\n@media(prefers-reduced-motion:reduce){.ds-demo,.ds-demo *,.ds-demo *::before,.ds-demo *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}"
     },
     {
       "name": "Danger Button",
       "kind": "button",
       "refersTo": "button-danger",
       "description": "Explicit destructive action in inline confirmation; the source adds no special hover transformation.",
-      "html": "<button class=\"ds-danger\">Delete</button>",
-      "css": ".ds-danger{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:7px;padding:12px 19px;min-height:44px;font-size:13.5px;font-weight:560;white-space:nowrap;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;transition:background-color .16s,color .16s,border-color .16s;padding:8px 12px;min-height:36px;border:1px solid #edcbc3;background:#fcece8;color:var(--danger,#a33c34);}.ds-danger:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-danger:disabled{opacity:.5;cursor:not-allowed;}@media(prefers-reduced-motion:reduce){.ds-danger{transition:none;animation:none;}}"
+      "html": "<div class=\"ds-demo\"><button class=\"ds-danger-button\">Delete</button></div>",
+      "css": ".ds-demo{font-family:\"Atkinson Hyperlegible\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:16px;color:var(--ink,#1f2a44);font-synthesis:none;}\n@font-face{\n  font-family: \"Bricolage Grotesque\";\n  src: url(\"/fonts/bricolage-grotesque.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 200 800;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Regular.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Bold.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Italic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-BoldItalic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 700;\n  font-display: swap;\n}\n\n\n\n.ds-demo button{\n  font: inherit;\n}\n.ds-demo button{\n  -webkit-tap-highlight-color: transparent;\n}\n.ds-demo button{\n  touch-action: manipulation;\n}\n.ds-demo button{\n  cursor: pointer;\n}\n.ds-demo button:disabled{\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n\n.ds-demo button{\n  color: inherit;\n}\n.ds-demo button:focus-visible{\n  outline: 3px solid var(--leaf, #2f7a5f);\n  outline-offset: 3px;\n}\n\n\n.ds-demo button{\n  transition:\n    background-color 0.16s,\n    color 0.16s,\n    border-color 0.16s;\n}\n\n\n\n\n\n\n\n\n.ds-demo button{\n  border: 0;\n  background: none;\n}\n\n\n\n\n\n\n\n.ds-demo .ds-danger-button{\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 10px;\n  border-radius: 7px;\n  padding: 12px 19px;\n  min-height: 44px;\n  text-decoration: none;\n  font-size: 0.9rem;\n  font-weight: 560;\n  white-space: nowrap;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n}\n@media (pointer: coarse){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-danger-button{\n  color: #a33c34;\n  background: #fcece8;\n  border: 1px solid #edcbc3;\n  padding: 8px 12px;\n  min-height: 36px;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (min-width: 1500px){\n\n}\n@media (max-width: 1100px){\n\n\n\n\n\n\n\n}\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n@media (max-width: 600px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-danger-button{\n    max-width: 100%;\n    white-space: normal;\n  }\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 600px){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (pointer: coarse){\n}\n@media (forced-colors: active){.ds-demo button{\n    border: 1px solid ButtonText;\n  }\n.ds-demo button:focus-visible{\n    outline-color: Highlight;\n  }}\n@media(prefers-reduced-motion:reduce){.ds-demo,.ds-demo *,.ds-demo *::before,.ds-demo *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}"
     },
     {
       "name": "Text Field",
       "kind": "input",
       "refersTo": "field",
-      "description": "Persistent label, corrected field boundary, and visible focus.",
-      "html": "<label class=\"ds-label\">Deck name<input class=\"ds-field\" placeholder=\"e.g. Biology · Cell structure\"></label>",
-      "css": ".ds-label{display:flex;flex-direction:column;gap:9px;font-size:13.5px;font-weight:550;color:var(--ink,#243a30);font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;}.ds-field{background:#fff;border:1px solid #6f8874;border-radius:7px;padding:12px 13px;min-width:0;color:var(--ink,#243a30);font:400 15px -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;caret-color:var(--pine,#174c3c);}.ds-field::placeholder{color:#617467;}.ds-field:focus-visible{outline:3px solid #477451;outline-offset:3px;}"
+      "description": "Atkinson text on a warm surface, a distinct slate border, and leaf keyboard focus.",
+      "html": "<div class=\"ds-demo\"><label >Deck name<input  placeholder=\"e.g. Biology · Cell structure\"></label></div>",
+      "css": ".ds-demo{font-family:\"Atkinson Hyperlegible\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:16px;color:var(--ink,#1f2a44);font-synthesis:none;}\n@font-face{\n  font-family: \"Bricolage Grotesque\";\n  src: url(\"/fonts/bricolage-grotesque.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 200 800;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Regular.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Bold.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Italic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-BoldItalic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 700;\n  font-display: swap;\n}\n\n\n\n.ds-demo input{\n  font: inherit;\n}\n.ds-demo input{\n  -webkit-tap-highlight-color: transparent;\n}\n\n\n\n\n\n.ds-demo input:focus-visible{\n  outline: 3px solid var(--leaf, #2f7a5f);\n  outline-offset: 3px;\n}\n\n.ds-demo input{\n  caret-color: var(--action, #1f2a44);\n}\n\n\n\n\n\n\n\n\n.ds-demo input::placeholder{\n  color: #596174;\n}\n\n.ds-demo label{\n  display: flex;\n  flex-direction: column;\n  gap: 9px;\n  font-size: 0.9rem;\n  font-weight: 550;\n}\n.ds-demo input:not([type=\"checkbox\"]):not([type=\"file\"]){\n  background: #fffefa;\n  border: 1px solid #747b89;\n  border-radius: 7px;\n  padding: 12px 13px;\n  min-width: 0;\n  color: var(--ink, #1f2a44);\n  width: 100%;\n  font-weight: 400;\n}\n\n.ds-demo input[type=\"checkbox\"]{\n  accent-color: var(--action, #1f2a44);\n  width: 17px;\n  height: 17px;\n}\n.ds-demo input[type=\"file\"]{\n  max-width: 100%;\n  font-size: 0.85rem;\n  font-weight: 400;\n}\n.ds-demo input[type=\"file\"]::file-selector-button{\n  border: 1px solid #ded9ce;\n  border-radius: 5px;\n  padding: 8px 10px;\n  background: #fffefa;\n  color: var(--action, #1f2a44);\n  cursor: pointer;\n  margin-right: 12px;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n}\n@media (pointer: coarse){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (min-width: 1500px){\n\n}\n@media (max-width: 1100px){\n\n\n\n\n\n\n\n}\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n@media (max-width: 600px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 600px){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (pointer: coarse){\n}\n@media (forced-colors: active){.ds-demo input{\n    border: 1px solid ButtonText;\n  }\n.ds-demo input:focus-visible{\n    outline-color: Highlight;\n  }}\n@media(prefers-reduced-motion:reduce){.ds-demo,.ds-demo *,.ds-demo *::before,.ds-demo *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}"
     },
     {
       "name": "Navigation",
       "kind": "nav",
       "refersTo": "navigation-selected",
-      "description": "Rail item styling adapts to icon-over-label navigation at 600px.",
-      "html": "<nav class=\"ds-nav\" aria-label=\"Example navigation\"><a class=\"ds-nav-link ds-selected\" aria-current=\"page\" href=\"#library\"><svg width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 7v14m0-14C9 4 6 4 2 4v16c4 0 7 0 10 1m0-14c3-3 6-3 10-3v16c-4 0-7 0-10 1\"/></svg><span>Library</span></a><a class=\"ds-nav-link\" href=\"#progress\"><svg width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M4 19v-5m7 5V9m7 10V4\"/></svg><span>Progress</span></a></nav>",
-      "css": ".ds-nav{display:flex;flex-direction:column;gap:8px;padding:20px;background:#f0f5ef;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;}.ds-nav-link{display:flex;align-items:center;gap:13px;padding:12px 15px;border-radius:7px;text-decoration:none;color:#5b6e60;font-size:14.25px;font-weight:500;transition:background-color .16s,color .16s,border-color .16s;}.ds-nav-link:hover{background:#e5eee2;}.ds-nav-link.ds-selected{color:#244c35;background:#dfeadc;font-weight:600;}.ds-nav-link:focus-visible{outline:3px solid #477451;outline-offset:3px;}@media(max-width:600px){.ds-nav{flex-direction:row;justify-content:space-around;padding:0;background:#f6f9f4;}.ds-nav-link{flex-direction:column;gap:3px;padding:8px 16px;min-width:70px;font-size:9.45px;background:none!important;}.ds-nav-link.ds-selected{color:var(--pine,#174c3c);}.ds-selected svg{stroke-width:2.5;}}@media(prefers-reduced-motion:reduce){.ds-nav-link{transition:none;}}"
+      "description": "Cropped navigation rail with the actual outlined Oftly wordmark and interval icon. The ink rail uses paper selection and marigold keyboard focus; mobile navigation uses paper and leaf focus.",
+      "html": "<div class=\"ds-demo\"><aside class=\"ds-sidebar\"><a class=\"ds-brand\" href=\"#today\" aria-label=\"Oftly home\"><svg class=\"ds-brand-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 80 80\"><rect width=\"80\" height=\"80\" rx=\"20\" fill=\"#F7F2E8\"/><g fill=\"#1F2A44\"><circle cx=\"12\" cy=\"51.5\" r=\"2.5\"/><circle cx=\"21\" cy=\"50.5\" r=\"3.5\"/><circle cx=\"35.5\" cy=\"49\" r=\"5\"/></g><circle cx=\"60\" cy=\"46.5\" r=\"7.5\" fill=\"#F4B23E\"/></svg><svg class=\"ds-brand-wordmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 2004.28515625 890.57080078125\" fill=\"#F7F2E8\" role=\"img\" aria-label=\"oftly\"><g transform=\"translate(-27.714111328125 717.9998779296875) scale(1 -1)\"><path transform=\"translate(0 0)\" d=\"M295.7138671875 -14Q216.8568115234375 -14 156.42828369140625 16.78570556640625Q95.999755859375 47.5714111328125 61.85693359375 109.35711669921875Q27.714111328125 171.142822265625 27.714111328125 264.142822265625Q27.714111328125 358.857177734375 62.49981689453125 420.357177734375Q97.2855224609375 481.857177734375 158.21405029296875 511.9285888671875Q219.142578125 542 296.9996337890625 542Q376.7138671875 542 437.21380615234375 511.21429443359375Q497.7137451171875 480.4285888671875 531.6422729492188 418.9285888671875Q565.57080078125 357.4285888671875 565.57080078125 264Q565.57080078125 168.142822265625 530.2136840820312 106.35711669921875Q494.8565673828125 44.5714111328125 433.642333984375 15.28570556640625Q372.4281005859375 -14 295.7138671875 -14ZM300.2852783203125 103.857177734375Q334.142333984375 103.857177734375 356.8565673828125 120.7857666015625Q379.57080078125 137.71435546875 391.1422119140625 171.71435546875Q402.713623046875 205.71435546875 402.713623046875 254.4285888671875Q402.713623046875 307 390.1422119140625 343.0714111328125Q377.57080078125 379.142822265625 353.3565673828125 398.42852783203125Q329.142333984375 417.7142333984375 292.571044921875 417.7142333984375Q259.7139892578125 417.7142333984375 236.71405029296875 400.78564453125Q213.714111328125 383.8570556640625 202.1427001953125 349.8570556640625Q190.5712890625 315.8570556640625 190.5712890625 266.142822265625Q190.5712890625 186.71435546875 219.35693359375 145.2857666015625Q248.142578125 103.857177734375 300.2852783203125 103.857177734375Z\"/><path transform=\"translate(558 0)\" d=\"M94.285400390625 0V325.28564453125H16.714111328125V441.8570556640625L168.0001220703125 433.714111328125V448.571044921875Q120.142578125 455.571044921875 93.1424560546875 475.285400390625Q66.142333984375 494.999755859375 55.35662841796875 521.2855224609375Q44.5709228515625 547.5712890625 44.5709228515625 573.999755859375Q44.5709228515625 618.4283447265625 68.21380615234375 650.7855224609375Q91.856689453125 683.1427001953125 134.49957275390625 700.5712890625Q177.1424560546875 717.9998779296875 232.7138671875 717.9998779296875Q279.99951171875 717.9998779296875 318.07086181640625 706.2855834960938Q356.1422119140625 694.5712890625 382.28515625 674.999755859375L371.57080078125 528.7139892578125Q345.713623046875 546.5711669921875 316.99945068359375 556.9282836914062Q288.2852783203125 567.285400390625 261.7138671875 567.285400390625Q232.856689453125 567.285400390625 213.64239501953125 553.4282836914062Q194.4281005859375 539.5711669921875 194.4281005859375 508.714111328125Q194.4281005859375 487.4285888671875 204.42803955078125 474.4285888671875Q214.427978515625 461.4285888671875 231.64227294921875 455.642822265625Q248.8565673828125 449.8570556640625 270.8568115234375 449.8570556640625H380.57080078125V325.28564453125H252.5711669921875V0Z\"/><path transform=\"translate(918 0)\" d=\"M259.571044921875 -12.5714111328125Q165.9996337890625 -12.5714111328125 121.6424560546875 36.0714111328125Q77.2852783203125 84.7142333984375 77.2852783203125 189.85693359375V402H8.9998779296875L10.714111328125 517.7138671875H43.427490234375Q88.28515625 521.142578125 108.571044921875 540.3572998046875Q128.85693359375 559.572021484375 133.714111328125 602.429931640625L141.7138671875 646.71435546875H233.8568115234375V528H358.856689453125V397.4285888671875H233.8568115234375V200.28564453125Q233.8568115234375 164.5712890625 251.2139892578125 148.5712890625Q268.5711669921875 132.5712890625 300.1424560546875 132.5712890625Q316.99951171875 132.5712890625 333.142333984375 136.5712890625Q349.28515625 140.5712890625 361.142333984375 147.5712890625V2Q329.5709228515625 -7.5714111328125 304.14239501953125 -10.0714111328125Q278.7138671875 -12.5714111328125 259.571044921875 -12.5714111328125Z\"/><path transform=\"translate(1273 0)\" d=\"M51.4281005859375 0V711.42822265625H211.1424560546875V0Z\"/><path transform=\"translate(1501 0)\" d=\"M248.4278564453125 -172.5709228515625Q212.7137451171875 -172.5709228515625 172.99957275390625 -166.4281005859375Q133.285400390625 -160.2852783203125 96.42828369140625 -147.571044921875Q59.5711669921875 -134.8568115234375 30.8568115234375 -114.999755859375L68.9996337890625 36.0006103515625Q104.42822265625 2.572021484375 152.07098388671875 -12.57080078125Q199.7137451171875 -27.713623046875 240.999267578125 -27.713623046875Q292.284912109375 -27.713623046875 326.3563232421875 -7.6422119140625Q360.427734375 12.42919921875 378.28485107421875 52.7862548828125Q396.1419677734375 93.143310546875 397.856201171875 152.857421875L400.7132568359375 241.428955078125H383.14208984375Q377.1422119140625 174.857421875 355.4993896484375 132.35736083984375Q333.8565673828125 89.8572998046875 299.14227294921875 69.71441650390625Q264.427978515625 49.571533203125 217.8565673828125 49.571533203125Q160.28515625 49.571533203125 121.92803955078125 78.571533203125Q83.5709228515625 107.571533203125 64.28521728515625 165.85723876953125Q44.99951171875 224.1429443359375 44.99951171875 311.1429443359375V528H206.5709228515625V352.0001220703125Q206.5709228515625 263.000244140625 224.85662841796875 223.71453857421875Q243.142333984375 184.4288330078125 282.7137451171875 184.4288330078125Q303.28515625 184.4288330078125 319.64227294921875 195.78594970703125Q335.9993896484375 207.14306640625 347.1422119140625 228.92877197265625Q358.2850341796875 250.7144775390625 364.14215087890625 282.64306640625Q369.999267578125 314.5716552734375 369.999267578125 355.2860107421875V528H530.999267578125V146.857421875Q530.999267578125 87.143310546875 519.7135620117188 37.07196044921875Q508.4278564453125 -12.9993896484375 486.14215087890625 -51.78509521484375Q463.8564453125 -90.57080078125 430.07073974609375 -117.71368408203125Q396.2850341796875 -144.8565673828125 351.07073974609375 -158.7137451171875Q305.8564453125 -172.5709228515625 248.4278564453125 -172.5709228515625Z\"/></g></svg></a><nav aria-label=\"Main navigation\"><a href=\"#today\"><svg width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v2\"/><path d=\"M12 20v2\"/><path d=\"m4.93 4.93 1.41 1.41\"/><path d=\"m17.66 17.66 1.41 1.41\"/><path d=\"M2 12h2\"/><path d=\"M20 12h2\"/><path d=\"m6.34 17.66-1.41 1.41\"/><path d=\"m19.07 4.93-1.41 1.41\"/></svg><span>Today</span></a><a href=\"#library\" class=\"ds-selected\" aria-current=\"page\"><svg width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 7v14m0-14C9 4 6 4 2 4v16c4 0 7 0 10 1m0-14c3-3 6-3 10-3v16c-4 0-7 0-10 1\"/></svg><span>Library</span></a><a href=\"#progress\"><svg width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 19v-5m7 5V9m7 10V4\"/></svg><span>Progress</span></a></nav><div class=\"ds-sidebar-bottom\"><a class=\"ds-settings-link\" href=\"#settings\"><svg width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg><span>Settings</span></a></div></aside></div>",
+      "css": ".ds-demo{font-family:\"Atkinson Hyperlegible\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:16px;color:var(--ink,#1f2a44);font-synthesis:none;}\n@font-face{\n  font-family: \"Bricolage Grotesque\";\n  src: url(\"/fonts/bricolage-grotesque.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 200 800;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Regular.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Bold.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Italic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-BoldItalic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 700;\n  font-display: swap;\n}\n\n\n\n\n.ds-demo a{\n  -webkit-tap-highlight-color: transparent;\n}\n.ds-demo a{\n  touch-action: manipulation;\n}\n\n\n.ds-demo a{\n  color: var(--action, #1f2a44);\n  text-underline-offset: 4px;\n}\n\n.ds-demo a:focus-visible{\n  outline: 3px solid var(--leaf, #2f7a5f);\n  outline-offset: 3px;\n}\n\n\n.ds-demo a{\n  transition:\n    background-color 0.16s,\n    color 0.16s,\n    border-color 0.16s;\n}\n\n\n\n\n\n\n.ds-demo svg{\n  flex-shrink: 0;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-brand{\n  display: inline-flex;\n  align-items: center;\n  gap: 12px;\n  text-decoration: none;\n  margin: 0 12px 48px;\n}\n.ds-demo .ds-brand-icon{\n  width: 40px;\n  height: 40px;\n}\n.ds-demo .ds-brand-wordmark{\n  width: 92px;\n  height: auto;\n}\n\n.ds-demo .ds-sidebar nav{\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n}\n.ds-demo .ds-sidebar nav a,.ds-demo .ds-settings-link{\n  display: flex;\n  align-items: center;\n  gap: 13px;\n  padding: 12px 15px;\n  border-radius: 7px;\n  text-decoration: none;\n  color: #d4d8e2;\n  font-size: 0.95rem;\n  font-weight: 500;\n}\n.ds-demo .ds-sidebar nav a:hover,.ds-demo .ds-settings-link:hover{\n  background: #ffffff12;\n}\n.ds-demo .ds-sidebar nav a.ds-selected,.ds-demo .ds-settings-link.ds-selected{\n  color: #1f2a44;\n  background: var(--paper, #f7f2e8);\n  font-weight: 700;\n}\n\n\n.ds-demo .ds-sidebar :focus-visible{\n  outline-color: var(--marigold, #f4b23e);\n}\n.ds-demo .ds-sidebar-bottom{\n  margin-top: auto;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n}\n@media (pointer: coarse){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (min-width: 1500px){\n\n}\n@media (max-width: 1100px){\n\n\n\n\n\n\n\n.ds-demo .ds-brand{\n    margin-left: 7px;\n  }}\n@media (max-width: 800px){\n\n.ds-demo .ds-sidebar nav a{\n    padding: 12px 10px;\n    gap: 10px;\n  }\n.ds-demo .ds-brand{\n    font-size: 26px;\n  }\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n@media (max-width: 600px){\n\n\n.ds-demo .ds-sidebar .ds-brand{\n    display: none;\n  }\n.ds-demo .ds-sidebar nav{\n    flex-direction: row;\n    justify-content: space-around;\n    flex: 0 0 75%;\n    min-width: 0;\n    gap: 0;\n  }\n.ds-demo .ds-sidebar nav a{\n    flex-direction: column;\n    gap: 3px;\n    font-size: 0.63rem;\n    padding: 8px 4px;\n    min-width: 0;\n    flex: 1;\n    background: none !important;\n  }\n.ds-demo .ds-sidebar nav a,.ds-demo .ds-settings-link{\n    color: var(--muted, #596174);\n  }\n.ds-demo .ds-sidebar nav a.ds-selected,.ds-demo .ds-settings-link.ds-selected{\n    color: var(--ink, #1f2a44);\n  }\n.ds-demo .ds-sidebar :focus-visible{\n    outline-color: var(--leaf, #2f7a5f);\n  }\n\n\n\n\n.ds-demo .ds-sidebar nav a.ds-selected svg{\n    stroke-width: 2.5;\n  }\n\n.ds-demo .ds-sidebar-bottom{\n    margin: 0;\n    padding: 0;\n    flex: 0 0 25%;\n    min-width: 0;\n  }\n.ds-demo .ds-settings-link{\n    flex-direction: column;\n    gap: 4px;\n    font-size: 0.63rem;\n    padding: 8px 4px;\n    align-items: center;\n    background: none !important;\n  }\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 600px){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (pointer: coarse){\n}\n@media (forced-colors: active){\n.ds-demo a:focus-visible{\n    outline-color: Highlight;\n  }}.ds-demo .ds-sidebar{display:flex;flex-direction:column;background:var(--ink,#1f2a44);padding:34px 20px 24px;max-width:225px;}.ds-demo .ds-sidebar-bottom{padding-top:24px;}@media(max-width:600px){.ds-demo .ds-sidebar{flex-direction:row;align-items:center;justify-content:space-around;background:var(--paper,#f7f2e8);padding:0;max-width:none;}.ds-demo .ds-sidebar-bottom{padding-top:0;}}\n@media(prefers-reduced-motion:reduce){.ds-demo,.ds-demo *,.ds-demo *::before,.ds-demo *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}"
     },
     {
       "name": "Ready Count",
       "kind": "chip",
       "refersTo": "due-count",
       "description": "Noninteractive ready-card count.",
-      "html": "<span class=\"ds-due\" aria-label=\"6 cards ready\">6</span>",
-      "css": ".ds-due{display:inline-block;min-width:29px;text-align:center;background:#edf3e8;border:1px solid #dce7d4;color:#50703b;border-radius:5px;padding:4px 8px;font-size:11.55px;font-variant-numeric:tabular-nums;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;}"
+      "html": "<div class=\"ds-demo\"><span class=\"ds-due-count\" aria-label=\"6 cards ready\">6</span></div>",
+      "css": ".ds-demo{font-family:\"Atkinson Hyperlegible\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:16px;color:var(--ink,#1f2a44);font-synthesis:none;}\n@font-face{\n  font-family: \"Bricolage Grotesque\";\n  src: url(\"/fonts/bricolage-grotesque.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 200 800;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Regular.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Bold.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Italic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-BoldItalic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 700;\n  font-display: swap;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-due-count{\n  display: inline-block;\n  min-width: 29px;\n  background: #f0eadf;\n  border: 1px solid #ded9ce;\n  color: #596174;\n  border-radius: 5px;\n  padding: 4px 8px;\n  font-size: 0.77rem;\n  font-variant-numeric: tabular-nums;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n}\n@media (pointer: coarse){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (min-width: 1500px){\n\n}\n@media (max-width: 1100px){\n\n\n\n\n\n\n\n}\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n@media (max-width: 600px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 600px){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (pointer: coarse){\n}\n@media (forced-colors: active){\n}\n@media(prefers-reduced-motion:reduce){.ds-demo,.ds-demo *,.ds-demo *::before,.ds-demo *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}"
     },
     {
       "name": "Study Card",
       "kind": "card",
       "refersTo": "flashcard",
-      "description": "Structured answer example: the question retains its 150px minimum region; explanation and sources remain subordinate; metadata stays in a native collapsed disclosure.",
-      "html": "<article class=\"ds-card\"><div class=\"ds-question\">What is 2 to the power of 5?</div><div class=\"ds-answer\"><span class=\"ds-caption\">Answer</span>32<div class=\"ds-explanation\"><span class=\"ds-caption\">Explanation</span>Multiply two by itself five times.</div><aside class=\"ds-sources\" aria-label=\"Sources\"><span class=\"ds-caption\">Sources</span>Lecture 2, page 5</aside><details class=\"ds-details\"><summary>Card details</summary><dl><div><dt>Note ID</dt><dd>Example note</dd></div><div><dt>Card ID</dt><dd>Example card</dd></div><div><dt>Note type</dt><dd>Typed answer</dd></div><div><dt>Tags</dt><dd>maths</dd></div></dl></details></div></article>",
-      "css": ".ds-card{background:#fff;border:1px solid #dbe4da;border-radius:12px;min-height:300px;box-shadow:0 9px 25px -16px #1b402925;padding:40px 42px;display:flex;flex-direction:column;color:#283c34;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;}.ds-question{font-size:24.75px;line-height:1.55;text-align:center;margin:0;min-height:150px;display:flex;align-items:center;justify-content:center;letter-spacing:-.018em;overflow-wrap:anywhere;}.ds-answer{border-top:1px solid var(--line,#e2e8e3);margin-top:30px;padding-top:25px;font-size:16.2px;line-height:1.8;animation:ds-reveal .2s cubic-bezier(.16,1,.3,1);}.ds-caption{display:block;font-size:11.25px;color:var(--muted,#53685b);margin-bottom:12px;}@keyframes ds-reveal{from{opacity:.75;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}@media(max-width:800px){.ds-card{padding:30px 25px;min-height:280px;}}@media(max-width:600px){.ds-card{padding:28px 24px;min-height:290px;border-radius:10px;}.ds-question{font-size:21px;}.ds-answer{font-size:15px;margin-top:25px;}}@media(prefers-reduced-motion:reduce){.ds-answer{animation:none;}}.ds-explanation{margin-top:24px;font-size:13.95px;color:var(--muted,#53685b);}.ds-sources{margin-top:24px;padding-top:16px;border-top:1px solid var(--line,#e2e8e3);font-size:12px;color:var(--muted,#53685b);}.ds-answer a{color:var(--pine,#174c3c);text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere;}.ds-details{margin-top:18px;font-size:11.7px;color:var(--muted,#53685b);}.ds-details summary{cursor:pointer;padding:8px 0;}.ds-details summary:focus-visible,.ds-answer a:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-details dl{margin-top:8px;}.ds-details dl>div{display:grid;grid-template-columns:minmax(85px,1fr) minmax(0,3fr);gap:12px;padding:5px 0;}.ds-details dt{font-weight:600;}.ds-details dd{margin:0;overflow-wrap:anywhere;}"
+      "description": "Index-paper study card with a Bricolage question, Atkinson answer, explanation and sources. The question stays stable; the final interval dot resolves to marigold. Card details stay collapsed.",
+      "html": "<div class=\"ds-demo\"><article class=\"ds-flashcard\"><div class=\"ds-question\">What is 2 to the power of 5?</div><div class=\"ds-answer-reveal\"><span class=\"ds-field-label ds-answer-label\">Answer<svg class=\"ds-interval-mark\" viewBox=\"0 0 70 24\" aria-hidden=\"true\"><circle cx=\"6\" cy=\"18\" r=\"2.5\" fill=\"currentColor\"/><circle cx=\"15\" cy=\"17\" r=\"3.5\" fill=\"currentColor\"/><circle cx=\"29.5\" cy=\"15.5\" r=\"5\" fill=\"currentColor\"/><circle class=\"ds-final-dot\" cx=\"54\" cy=\"13\" r=\"7.5\"/></svg></span>32<div class=\"ds-card-explanation\"><span class=\"ds-field-label\">Explanation</span>Multiply two by itself five times.</div><aside class=\"ds-card-sources\" aria-label=\"Sources\"><span class=\"ds-field-label\">Sources</span>Lecture 2, page 5</aside><details class=\"ds-card-details\"><summary>Card details</summary><dl><div><dt>Note ID</dt><dd>Example note</dd></div><div><dt>Card ID</dt><dd>Example card</dd></div><div><dt>Note type</dt><dd>Typed answer</dd></div><div><dt>Tags</dt><dd>maths</dd></div></dl></details></div></article></div>",
+      "css": ".ds-demo{font-family:\"Atkinson Hyperlegible\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:16px;color:var(--ink,#1f2a44);font-synthesis:none;}\n@font-face{\n  font-family: \"Bricolage Grotesque\";\n  src: url(\"/fonts/bricolage-grotesque.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 200 800;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Regular.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Bold.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Italic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-BoldItalic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 700;\n  font-display: swap;\n}\n\n\n\n\n\n\n\n\n\n\n.ds-demo summary:focus-visible{\n  outline: 3px solid var(--leaf, #2f7a5f);\n  outline-offset: 3px;\n}\n\n\n\n\n\n\n\n\n\n.ds-demo svg{\n  flex-shrink: 0;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n}\n@media (pointer: coarse){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-flashcard{\n  background: var(--paper, #f7f2e8);\n  border: 1px solid #ded9ce;\n  border-radius: 12px;\n  min-height: 300px;\n  box-shadow: 0 9px 25px -16px #1f2a4425;\n  padding: 40px 42px;\n  display: flex;\n  flex-direction: column;\n}\n.ds-demo .ds-question{\n  font-family: var(--display, \"Bricolage Grotesque\", \"Atkinson Hyperlegible\", sans-serif);\n  font-weight: 650;\n  font-size: 1.65rem;\n  line-height: 1.55;\n  text-align: center;\n  margin: 0;\n  min-height: 150px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  letter-spacing: -0.018em;\n}\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-answer-reveal{\n  border-top: 1px solid var(--line, #ded9ce);\n  margin-top: 30px;\n  padding-top: 25px;\n  font-size: 1.08rem;\n  line-height: 1.8;\n  animation: ds-reveal 0.2s cubic-bezier(0.16, 1, 0.3, 1);\n}\n.ds-demo .ds-field-label{\n  display: block;\n  font-size: 0.75rem;\n  color: var(--muted, #596174);\n  margin-bottom: 12px;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-answer-label{\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 16px;\n}\n.ds-demo .ds-interval-mark{\n  width: 60px;\n  height: 24px;\n  color: var(--ink, #1f2a44);\n}\n.ds-demo .ds-interval-mark .ds-final-dot{\n  fill: var(--marigold, #f4b23e);\n  animation: ds-recalled-dot 0.35s cubic-bezier(0.16, 1, 0.3, 1);\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (min-width: 1500px){\n\n}\n@media (max-width: 1100px){\n\n\n\n\n\n\n\n}\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-flashcard{\n    padding: 30px 25px;\n    min-height: 280px;\n  }\n\n\n\n\n\n\n\n\n\n}\n@media (max-width: 600px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-flashcard{\n    padding: 28px 24px;\n    min-height: 290px;\n    border-radius: 10px;\n  }\n.ds-demo .ds-question{\n    font-size: 1.4rem;\n  }\n.ds-demo .ds-answer-reveal{\n    font-size: 1rem;\n    margin-top: 25px;\n  }\n\n\n\n\n\n\n\n\n\n}\n\n.ds-demo .ds-question:focus,.ds-demo .ds-answer-reveal:focus{\n  outline: none;\n}\n.ds-demo .ds-card-explanation{\n  margin-top: 24px;\n  font-size: 0.93rem;\n  color: var(--muted, #596174);\n}\n.ds-demo .ds-card-sources{\n  margin-top: 24px;\n  padding-top: 16px;\n  border-top: 1px solid var(--line, #ded9ce);\n  font-size: 0.8rem;\n  color: var(--muted, #596174);\n}\n\n.ds-demo .ds-card-details{\n  margin-top: 18px;\n  font-size: 0.78rem;\n  color: var(--muted, #596174);\n}\n.ds-demo .ds-card-details summary{\n  cursor: pointer;\n  padding: 8px 0;\n}\n.ds-demo .ds-card-details dl{\n  margin-top: 8px;\n}\n.ds-demo .ds-card-details dl > div{\n  display: grid;\n  grid-template-columns: minmax(85px, 1fr) minmax(0, 3fr);\n  gap: 12px;\n  padding: 5px 0;\n}\n.ds-demo .ds-card-details dt{\n  font-weight: 600;\n}\n.ds-demo .ds-card-details dd{\n  margin: 0;\n  overflow-wrap: anywhere;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 600px){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (pointer: coarse){\n}\n@media (forced-colors: active){\n.ds-demo summary:focus-visible{\n    outline-color: Highlight;\n  }}\n@keyframes ds-recalled-dot{\n  from {\n    fill: var(--ink, #1f2a44);\n  }\n  to {\n    fill: var(--marigold, #f4b23e);\n  }\n}\n@keyframes ds-reveal{\n  from {\n    opacity: 0.75;\n    transform: translateY(5px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n@media(prefers-reduced-motion:reduce){.ds-demo,.ds-demo *,.ds-demo *::before,.ds-demo *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}"
     },
     {
-      "name": "Recall Ratings",
+      "name": "Review Ratings",
       "kind": "custom",
       "refersTo": "rating",
-      "description": "Compact 76px-minimum controls in a centered group up to 640px wide. Explicit recall judgments and keyboard hints remain visible. Example intervals illustrate rendering; production intervals always come from Anki.",
-      "html": "<div class=\"ds-ratings\"><button class=\"ds-rating ds-again\"><span><b>Again</b><kbd>1</kbd></span><small>Forgot</small><span class=\"ds-interval\">1m</span></button><button class=\"ds-rating \"><span><b>Hard</b><kbd>2</kbd></span><small>Recalled with effort</small><span class=\"ds-interval\">6m</span></button><button class=\"ds-rating ds-good\"><span><b>Good</b><kbd>3</kbd></span><small>Recalled</small><span class=\"ds-interval\">10m</span></button><button class=\"ds-rating \"><span><b>Easy</b><kbd>4</kbd></span><small>Recalled effortlessly</small><span class=\"ds-interval\">10d</span></button></div>",
-      "css": ".ds-ratings {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 8px;\n  width: min(100%, 640px);\n}\n.ds-rating {\n  display: flex;\n  flex-direction: column;\n  text-align: left;\n  padding: 10px 12px;\n  min-height: 76px;\n  border: 1px solid #d9e2d8;\n  border-radius: 8px;\n  background: #fff;\n}\n.ds-rating > span:first-child {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 5px;\n  font-size: 13.95px;\n}\n.ds-rating b {\n  font-weight: 600;\n}\n.ds-rating small {\n  font-size: 10.649999999999999px;\n  color: var(--muted,#53685b);\n  margin-top: 3px;\n  white-space: nowrap;\n}\n.ds-rating kbd {\n  font-family: inherit;\n  color: #5e7063;\n  font-size: 10.200000000000001px;\n}\n.ds-rating .ds-interval {\n  font-size: 11.700000000000001px;\n  color: #52674f;\n  margin-top: 4px;\n}\n.ds-rating:hover:not(:disabled) {\n  background: #f0f5ed;\n  border-color: #7e9e7b;\n}\n.ds-again:hover:not(:disabled) {\n  background: #fff1ed;\n  border-color: #cc8b7b;\n}\n.ds-good {\n  background: #edf4e9;\n  border-color: #bbcfb0;\n}\n.ds-rating{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;color:#283c34;cursor:pointer;transition:background-color .16s,color .16s,border-color .16s;}.ds-rating:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-rating:disabled{opacity:.5;cursor:not-allowed;}@media(max-width:800px){.ds-ratings{grid-template-columns:repeat(2,1fr);gap:8px;}}@media(max-width:600px){.ds-rating b{font-size:13.95px;}.ds-rating small{font-size:10.5px;}}@media(prefers-reduced-motion:reduce){.ds-rating{transition:none;}}"
+      "description": "Compact 76px-minimum controls capped at 640px. Good uses marigold with ink text. Labels and keyboard hints remain explicit; example intervals illustrate rendering and production intervals come from Anki.",
+      "html": "<div class=\"ds-demo\"><div class=\"ds-ratings\"><button class=\"ds-rating ds-rating-0\"><span><b>Again</b><kbd>1</kbd></span><small>Forgot</small><span class=\"ds-interval\">1m</span></button><button class=\"ds-rating\"><span><b>Hard</b><kbd>2</kbd></span><small>Recalled with effort</small><span class=\"ds-interval\">6m</span></button><button class=\"ds-rating ds-rating-2\"><span><b>Good</b><kbd>3</kbd></span><small>Recalled</small><span class=\"ds-interval\">10m</span></button><button class=\"ds-rating\"><span><b>Easy</b><kbd>4</kbd></span><small>Recalled effortlessly</small><span class=\"ds-interval\">10d</span></button></div></div>",
+      "css": ".ds-demo{font-family:\"Atkinson Hyperlegible\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:16px;color:var(--ink,#1f2a44);font-synthesis:none;}\n@font-face{\n  font-family: \"Bricolage Grotesque\";\n  src: url(\"/fonts/bricolage-grotesque.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 200 800;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Regular.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Bold.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Italic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-BoldItalic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 700;\n  font-display: swap;\n}\n\n\n\n.ds-demo button{\n  font: inherit;\n}\n.ds-demo button{\n  -webkit-tap-highlight-color: transparent;\n}\n.ds-demo button{\n  touch-action: manipulation;\n}\n.ds-demo button{\n  cursor: pointer;\n}\n.ds-demo button:disabled{\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n\n.ds-demo button{\n  color: inherit;\n}\n.ds-demo button:focus-visible{\n  outline: 3px solid var(--leaf, #2f7a5f);\n  outline-offset: 3px;\n}\n\n\n.ds-demo button{\n  transition:\n    background-color 0.16s,\n    color 0.16s,\n    border-color 0.16s;\n}\n\n\n\n\n\n\n\n\n.ds-demo button{\n  border: 0;\n  background: none;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n}\n@media (pointer: coarse){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-ratings{\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 8px;\n  width: min(100%, 640px);\n}\n.ds-demo .ds-rating{\n  display: flex;\n  flex-direction: column;\n  text-align: left;\n  padding: 10px 12px;\n  min-height: 76px;\n  border: 1px solid #ded9ce;\n  border-radius: 8px;\n  background: #fffefa;\n}\n.ds-demo .ds-rating > span:first-child{\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 5px;\n  font-size: 0.93rem;\n}\n.ds-demo .ds-rating b{\n  font-weight: 600;\n}\n.ds-demo .ds-rating small{\n  font-size: 0.71rem;\n  color: var(--muted, #596174);\n  margin-top: 3px;\n  white-space: normal;\n}\n.ds-demo .ds-rating kbd{\n  font-family: inherit;\n  color: #596174;\n  font-size: 0.68rem;\n}\n.ds-demo .ds-rating .ds-interval{\n  font-size: 0.78rem;\n  color: #596174;\n  margin-top: 4px;\n}\n.ds-demo .ds-rating:hover:not(:disabled){\n  background: #f0eadf;\n  border-color: #747b89;\n}\n.ds-demo .ds-rating-0:hover:not(:disabled){\n  background: #fff1ed;\n  border-color: #cc8b7b;\n}\n.ds-demo .ds-rating-2{\n  background: var(--marigold, #f4b23e);\n  border-color: var(--marigold, #f4b23e);\n}\n.ds-demo .ds-rating-2 small,.ds-demo .ds-rating-2 kbd,.ds-demo .ds-rating-2 .ds-interval{\n  color: var(--ink, #1f2a44);\n}\n.ds-demo .ds-rating-2:hover:not(:disabled){\n  background: #eaa52d;\n  border-color: #b87c15;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (min-width: 1500px){\n\n}\n@media (max-width: 1100px){\n\n\n\n\n\n\n\n}\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-ratings{\n    gap: 8px;\n    grid-template-columns: repeat(2, 1fr);\n  }\n\n\n\n\n\n\n\n\n\n\n}\n@media (max-width: 600px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-rating b{\n    font-size: 0.93rem;\n  }\n.ds-demo .ds-rating small{\n    font-size: 0.7rem;\n  }\n\n\n\n\n\n\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 600px){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (pointer: coarse){\n}\n@media (forced-colors: active){.ds-demo button{\n    border: 1px solid ButtonText;\n  }\n.ds-demo button:focus-visible{\n    outline-color: Highlight;\n  }}\n@media(prefers-reduced-motion:reduce){.ds-demo,.ds-demo *,.ds-demo *::before,.ds-demo *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}"
     },
     {
       "name": "Assistant JSON Review",
       "kind": "custom",
       "refersTo": "draft-note",
       "description": "An excerpt of Assistant/JSON import: optional native prompt disclosure, editable selected note, mixed-type selector, and import/export actions. The preview illustrates controls without an assistant or import runtime.",
-      "html": "<div class=\"ds-review\"><details class=\"ds-prompt\"><summary>Create a prompt for your assistant</summary><p>Prepare it here, then paste it into the assistant you use with your course material. Nothing is sent automatically.</p><label>Source material<textarea rows=\"3\" placeholder=\"Paste your notes\"></textarea></label><label>Focus<input placeholder=\"e.g. Explain and apply database normalisation\"></label><label class=\"ds-check\"><input type=\"checkbox\" checked>Include explanation, comparison and application questions where the source supports them</label><button class=\"ds-review-secondary\">Prepare prompt</button></details><div class=\"ds-review-heading\"><h2>Review 1 note</h2><span>1 selected · 1 card</span></div><fieldset class=\"ds-draft\"><legend>Note 1</legend><div class=\"ds-review-row\"><label class=\"ds-check\"><input type=\"checkbox\" checked>Include note 1</label><label>Card type<select><option>Basic</option><option>Reversed</option><option selected>Typed answer</option><option>Cloze</option></select></label></div><label>Question<textarea rows=\"2\">What is 2 to the power of 5?</textarea></label><label>Answer<textarea rows=\"2\">32</textarea></label><label>Source<input value=\"Lecture 2, page 5\"></label><details><summary>Explanation and tags</summary><label>Explanation<textarea rows=\"2\">Multiply two by itself five times.</textarea></label><label>Tags, separated by spaces<input value=\"maths\"></label></details></fieldset><div class=\"ds-review-actions\"><button class=\"ds-review-primary\">Import 1 note</button><button class=\"ds-review-secondary\">Save JSON</button></div></div>",
-      "css": ".ds-review{display:grid;gap:22px;font-size:15px;color:#283c34;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;}.ds-review label{display:flex;flex-direction:column;gap:9px;font-size:13.5px;font-weight:550;}.ds-review input:not([type=checkbox]),.ds-review textarea,.ds-review select{background:#fff;border:1px solid #6f8874;border-radius:7px;padding:12px 13px;min-width:0;color:var(--ink,#243a30);width:100%;font:400 15px -apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;}.ds-review textarea{resize:vertical;line-height:1.65;}.ds-review input[type=checkbox]{accent-color:var(--pine,#174c3c);width:17px;height:17px;}.ds-review .ds-check{display:flex;flex-direction:row;align-items:center;gap:9px;font-size:12.6px;font-weight:400;}.ds-review input:focus-visible,.ds-review textarea:focus-visible,.ds-review select:focus-visible,.ds-review summary:focus-visible,.ds-review button:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-prompt{border-block:1px solid var(--line,#e2e8e3);padding:10px 0;}.ds-prompt>summary{font-weight:600;}.ds-prompt p{font-size:13.05px;color:var(--muted,#53685b);margin:12px 0 18px;line-height:1.65;}.ds-prompt label,.ds-draft label{margin-top:16px;}.ds-prompt>button{margin-top:16px;}.ds-prompt summary,.ds-draft summary{cursor:pointer;padding:8px 0;}.ds-review-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;}.ds-review-heading h2{margin:0;font-size:16.5px;font-weight:620;letter-spacing:-.018em;}.ds-review-heading>span{font-size:11.25px;color:var(--muted,#53685b);}.ds-draft{border:0;border-top:1px solid var(--line,#e2e8e3);padding:18px 0 26px;min-width:0;}.ds-draft legend{padding-right:10px;font-weight:600;font-size:13.2px;}.ds-review-row{display:flex;gap:28px;align-items:center;}.ds-review-row>label:first-child{flex:1;}.ds-review-row label{margin:0;}.ds-review-actions{display:flex;align-items:center;gap:17px;flex-wrap:wrap;margin-top:20px;}.ds-review-primary,.ds-review-secondary{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:7px;padding:12px 19px;min-height:44px;font-size:13.5px;font-weight:560;white-space:nowrap;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;transition:background-color .16s,color .16s,border-color .16s;}.ds-review-primary{background:var(--pine,#174c3c);color:#fff;border:1px solid var(--pine,#174c3c);}.ds-review-primary:hover:not(:disabled){background:var(--pine-hover,#103d2f);}.ds-review-secondary{background:#fff;color:var(--ink,#243a30);border:1px solid #ced9d0;}.ds-review-secondary:hover:not(:disabled){background:#eef3ef;border-color:#abbfb0;}.ds-review button:disabled{opacity:.5;cursor:not-allowed;}@media(max-width:800px){.ds-review-row{flex-direction:column;gap:15px;}.ds-review-row>label{width:100%;}}@media(max-width:600px){.ds-review-heading{flex-wrap:wrap;gap:12px;}}@media(prefers-reduced-motion:reduce){.ds-review button{transition:none;}}"
+      "html": "<div class=\"ds-demo\"><div class=\"ds-star-import\"><details class=\"ds-prompt-builder\"><summary>Create a prompt for your assistant</summary><p>Prepare it here, then paste it into the assistant you use with your course material. Nothing is sent automatically.</p><label>Source material<textarea rows=\"3\" placeholder=\"Paste your notes\"></textarea></label><label>Focus<input placeholder=\"e.g. Explain and apply database normalisation\"></label><label class=\"ds-checkbox\"><input type=\"checkbox\" checked>Include explanation, comparison and application questions where the source supports them</label><button class=\"ds-secondary\">Prepare prompt</button></details><div class=\"ds-section-heading\"><h2>Review 1 note</h2><span>1 selected · 1 card</span></div><fieldset class=\"ds-draft-note\"><legend>Note 1</legend><div class=\"ds-form-row\"><label class=\"ds-checkbox\"><input type=\"checkbox\" checked>Include note 1</label><label>Card type<select><option>Basic</option><option>Reversed</option><option selected>Typed answer</option><option>Cloze</option></select></label></div><label>Question<textarea rows=\"2\">What is 2 to the power of 5?</textarea></label><label>Answer<textarea rows=\"2\">32</textarea></label><label>Source<input value=\"Lecture 2, page 5\"></label><details><summary>Explanation and tags</summary><label>Explanation<textarea rows=\"2\">Multiply two by itself five times.</textarea></label><label>Tags, separated by spaces<input value=\"maths\"></label></details></fieldset><div class=\"ds-actions\"><button class=\"ds-primary\">Import 1 note</button><button class=\"ds-secondary\">Save JSON</button></div></div></div>",
+      "css": ".ds-demo{font-family:\"Atkinson Hyperlegible\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:16px;color:var(--ink,#1f2a44);font-synthesis:none;}\n@font-face{\n  font-family: \"Bricolage Grotesque\";\n  src: url(\"/fonts/bricolage-grotesque.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 200 800;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Regular.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Bold.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Italic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-BoldItalic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 700;\n  font-display: swap;\n}\n\n\n\n.ds-demo button,.ds-demo input,.ds-demo textarea,.ds-demo select{\n  font: inherit;\n}\n.ds-demo button,.ds-demo input,.ds-demo select,.ds-demo textarea{\n  -webkit-tap-highlight-color: transparent;\n}\n.ds-demo button{\n  touch-action: manipulation;\n}\n.ds-demo button{\n  cursor: pointer;\n}\n.ds-demo button:disabled{\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n\n.ds-demo button{\n  color: inherit;\n}\n.ds-demo button:focus-visible,.ds-demo input:focus-visible,.ds-demo textarea:focus-visible,.ds-demo select:focus-visible,.ds-demo summary:focus-visible{\n  outline: 3px solid var(--leaf, #2f7a5f);\n  outline-offset: 3px;\n}\n\n.ds-demo input,.ds-demo textarea{\n  caret-color: var(--action, #1f2a44);\n}\n.ds-demo button{\n  transition:\n    background-color 0.16s,\n    color 0.16s,\n    border-color 0.16s;\n}\n.ds-demo h2,.ds-demo p{\n  margin: 0;\n}\n.ds-demo h2{\n  font-family: var(--display, \"Bricolage Grotesque\", \"Atkinson Hyperlegible\", sans-serif);\n  font-optical-sizing: auto;\n}\n\n.ds-demo h2{\n  font-size: 1.1rem;\n  font-weight: 700;\n  letter-spacing: -0.018em;\n}\n\n.ds-demo p{\n  line-height: 1.65;\n}\n\n.ds-demo input::placeholder,.ds-demo textarea::placeholder{\n  color: #596174;\n}\n.ds-demo button{\n  border: 0;\n  background: none;\n}\n.ds-demo label{\n  display: flex;\n  flex-direction: column;\n  gap: 9px;\n  font-size: 0.9rem;\n  font-weight: 550;\n}\n.ds-demo input:not([type=\"checkbox\"]):not([type=\"file\"]),.ds-demo textarea,.ds-demo select{\n  background: #fffefa;\n  border: 1px solid #747b89;\n  border-radius: 7px;\n  padding: 12px 13px;\n  min-width: 0;\n  color: var(--ink, #1f2a44);\n  width: 100%;\n  font-weight: 400;\n}\n.ds-demo textarea{\n  resize: vertical;\n  line-height: 1.65;\n}\n.ds-demo input[type=\"checkbox\"]{\n  accent-color: var(--action, #1f2a44);\n  width: 17px;\n  height: 17px;\n}\n.ds-demo input[type=\"file\"]{\n  max-width: 100%;\n  font-size: 0.85rem;\n  font-weight: 400;\n}\n.ds-demo input[type=\"file\"]::file-selector-button{\n  border: 1px solid #ded9ce;\n  border-radius: 5px;\n  padding: 8px 10px;\n  background: #fffefa;\n  color: var(--action, #1f2a44);\n  cursor: pointer;\n  margin-right: 12px;\n}\n.ds-demo select{\n  cursor: pointer;\n}\n.ds-demo button.ds-primary,.ds-demo .ds-primary,.ds-demo .ds-secondary{\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 10px;\n  border-radius: 7px;\n  padding: 12px 19px;\n  min-height: 44px;\n  text-decoration: none;\n  font-size: 0.9rem;\n  font-weight: 560;\n  white-space: nowrap;\n}\n.ds-demo .ds-primary{\n  background: var(--action, #1f2a44);\n  color: #fffefa;\n  border: 1px solid var(--action, #1f2a44);\n}\n.ds-demo .ds-primary:hover:not(:disabled){\n  background: var(--action-hover, #131c30);\n}\n.ds-demo .ds-secondary{\n  background: #fffefa;\n  color: var(--ink, #1f2a44);\n  border: 1px solid #ded9ce;\n}\n.ds-demo .ds-secondary:hover:not(:disabled){\n  background: #f0eadf;\n  border-color: #747b89;\n}\n\n\n\n.ds-demo .ds-actions{\n  display: flex;\n  align-items: center;\n  gap: 17px;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-section-heading{\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 20px;\n  margin-bottom: 20px;\n}\n.ds-demo .ds-section-heading > span{\n  font-size: 0.75rem;\n  color: var(--muted, #596174);\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n}\n@media (pointer: coarse){\n}\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-form-row{\n  display: flex;\n  gap: 28px;\n  align-items: center;\n}\n.ds-demo .ds-form-row > label:first-child{\n  flex: 1;\n}\n.ds-demo .ds-checkbox{\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  gap: 9px;\n  font-size: 0.84rem;\n  font-weight: 400;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (min-width: 1500px){\n\n}\n@media (max-width: 1100px){\n\n\n\n\n\n\n\n}\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-form-row{\n    align-items: flex-start;\n    flex-direction: column;\n    gap: 15px;\n  }\n.ds-demo .ds-form-row > label{\n    width: 100%;\n  }\n\n\n\n\n\n}\n@media (max-width: 600px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-primary,.ds-demo .ds-secondary{\n    max-width: 100%;\n    white-space: normal;\n  }\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-section-heading{\n    gap: 12px;\n    flex-wrap: wrap;\n  }\n.ds-demo .ds-section-heading h2{\n    font-size: 1rem;\n  }\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-form-row{\n    gap: 16px;\n  }\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n\n\n\n\n\n\n.ds-demo .ds-prompt-builder summary,.ds-demo .ds-draft-note summary{\n  cursor: pointer;\n  padding: 8px 0;\n}\n\n\n\n\n\n.ds-demo .ds-star-import{\n  display: grid;\n  gap: 22px;\n}\n\n.ds-demo .ds-prompt-builder{\n  border-block: 1px solid var(--line, #ded9ce);\n  padding: 10px 0;\n}\n.ds-demo .ds-prompt-builder > summary{\n  font-weight: 600;\n}\n.ds-demo .ds-prompt-builder p{\n  font-size: 0.87rem;\n  color: var(--muted, #596174);\n  margin: 12px 0 18px;\n}\n.ds-demo .ds-prompt-builder label,.ds-demo .ds-draft-note label{\n  margin-top: 16px;\n}\n.ds-demo .ds-prompt-builder > button{\n  margin-top: 16px;\n}\n\n\n.ds-demo .ds-draft-note{\n  border: 0;\n  border-top: 1px solid var(--line, #ded9ce);\n  padding: 18px 0 26px;\n  min-width: 0;\n}\n.ds-demo .ds-draft-note legend{\n  padding-right: 10px;\n  font-weight: 600;\n  font-size: 0.88rem;\n}\n.ds-demo .ds-draft-note .ds-form-row{\n  align-items: center;\n}\n.ds-demo .ds-draft-note .ds-form-row label{\n  margin: 0;\n}\n\n@media (max-width: 600px){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (pointer: coarse){\n.ds-demo .ds-checkbox{\n    min-height: 44px;\n  }}\n@media (forced-colors: active){.ds-demo button,.ds-demo input,.ds-demo textarea,.ds-demo select{\n    border: 1px solid ButtonText;\n  }\n.ds-demo button:focus-visible,.ds-demo input:focus-visible,.ds-demo textarea:focus-visible,.ds-demo select:focus-visible,.ds-demo summary:focus-visible{\n    outline-color: Highlight;\n  }}\n@media(prefers-reduced-motion:reduce){.ds-demo,.ds-demo *,.ds-demo *::before,.ds-demo *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}"
     },
     {
       "name": "Card Guidance",
       "kind": "custom",
       "refersTo": "card-guidance",
       "description": "Optional local writing hints use a flat inline section. Each dismiss action turns off that suggestion kind; Turn off all disables the group. Preferences restores individual or global choices.",
-      "html": "<section class=\"ds-guidance\" aria-label=\"Card suggestions\"><div class=\"ds-guidance-heading\"><span><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 18h6M10 22h4M15.1 14a6 6 0 1 0-6.2 0c.9.7 1.1 1.5 1.1 2h4c0-.5.2-1.3 1.1-2Z\"/></svg>Suggestions</span><button type=\"button\" class=\"ds-guidance-text\">Turn off all</button></div><ul><li><p>Add a source if you have one, so you can check the answer later.</p><button type=\"button\" class=\"ds-guidance-icon\" aria-label=\"Turn off missing sources suggestions\" title=\"Turn off missing sources suggestions\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"m18 6-12 12M6 6l12 12\"/></svg></button></li></ul><p class=\"ds-guidance-note\">Optional hints. Re-enable any kind in Preferences.</p></section>",
-      "css": ".ds-guidance{margin-top:20px;padding:14px 0;border-block:1px solid var(--line,#e2e8e3);font-size:12.75px;color:#283c34;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;}.ds-guidance-heading{display:flex;justify-content:space-between;align-items:center;gap:16px;}.ds-guidance-heading>span{display:flex;align-items:center;gap:7px;font-weight:600;}.ds-guidance-text{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 3px;min-height:36px;border:0;background:none;font-size:11.7px;font-weight:500;color:var(--pine,#174c3c);cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;transition:background-color .16s,color .16s,border-color .16s;}.ds-guidance-text:hover:not(:disabled){color:#0a2e20;text-decoration:underline;text-underline-offset:4px;}.ds-guidance ul{margin:6px 0;padding:0;list-style:none;}.ds-guidance li{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;padding:7px 0;}.ds-guidance li p{margin:6px 0;max-width:65ch;line-height:1.6;}.ds-guidance-icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:0;border-radius:5px;background:none;color:var(--muted,#53685b);cursor:pointer;transition:background-color .16s,color .16s,border-color .16s;}.ds-guidance-icon:hover{background:var(--soft,#f0f5f0);color:var(--pine,#174c3c);}.ds-guidance-note{color:var(--muted,#53685b);font-size:11.1px;margin:0;line-height:1.65;}.ds-guidance button:focus-visible{outline:3px solid #477451;outline-offset:3px;}.ds-guidance button:disabled{cursor:not-allowed;opacity:.5;}@media(prefers-reduced-motion:reduce){.ds-guidance button{transition:none;}}"
+      "html": "<div class=\"ds-demo\"><section class=\"ds-card-guidance\" aria-label=\"Card suggestions\"><div class=\"ds-guidance-heading\"><span><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 18h6M10 22h4M15.1 14a6 6 0 1 0-6.2 0c.9.7 1.1 1.5 1.1 2h4c0-.5.2-1.3 1.1-2Z\"/></svg>Suggestions</span><button type=\"button\" class=\"ds-text-button\">Turn off all</button></div><ul><li><p>Add a source if you have one, so you can check the answer later.</p><button type=\"button\" class=\"ds-icon-button\" aria-label=\"Turn off missing sources suggestions\" title=\"Turn off missing sources suggestions\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"m18 6-12 12M6 6l12 12\"/></svg></button></li></ul><p class=\"ds-guidance-note\">Optional hints. Re-enable any kind in Preferences.</p></section></div>",
+      "css": ".ds-demo{font-family:\"Atkinson Hyperlegible\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:16px;color:var(--ink,#1f2a44);font-synthesis:none;}\n@font-face{\n  font-family: \"Bricolage Grotesque\";\n  src: url(\"/fonts/bricolage-grotesque.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 200 800;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Regular.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Bold.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Italic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-BoldItalic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 700;\n  font-display: swap;\n}\n\n\n\n.ds-demo button{\n  font: inherit;\n}\n.ds-demo button{\n  -webkit-tap-highlight-color: transparent;\n}\n.ds-demo button{\n  touch-action: manipulation;\n}\n.ds-demo button{\n  cursor: pointer;\n}\n.ds-demo button:disabled{\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n\n.ds-demo button{\n  color: inherit;\n}\n.ds-demo button:focus-visible{\n  outline: 3px solid var(--leaf, #2f7a5f);\n  outline-offset: 3px;\n}\n\n\n.ds-demo button{\n  transition:\n    background-color 0.16s,\n    color 0.16s,\n    border-color 0.16s;\n}\n.ds-demo p{\n  margin: 0;\n}\n\n\n\n\n.ds-demo p{\n  line-height: 1.65;\n}\n.ds-demo svg{\n  flex-shrink: 0;\n}\n\n.ds-demo button{\n  border: 0;\n  background: none;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-text-button{\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 8px;\n  padding: 8px 3px;\n  min-height: 36px;\n  font-size: 0.86rem;\n  font-weight: 500;\n  color: var(--action, #1f2a44);\n}\n.ds-demo .ds-text-button:hover:not(:disabled){\n  color: #1f2a44;\n  text-decoration: underline;\n  text-underline-offset: 4px;\n}\n\n.ds-demo .ds-icon-button{\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 36px;\n  height: 36px;\n  border-radius: 5px;\n  color: var(--muted, #596174);\n}\n.ds-demo .ds-icon-button:hover{\n  background: var(--soft, #f0eadf);\n  color: var(--action, #1f2a44);\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n}\n@media (pointer: coarse){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (min-width: 1500px){\n\n}\n@media (max-width: 1100px){\n\n\n\n\n\n\n\n}\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n@media (max-width: 600px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 600px){\n}\n.ds-demo .ds-card-guidance{\n  margin-top: 20px;\n  padding: 14px 0;\n  border-block: 1px solid var(--line, #ded9ce);\n  font-size: 0.85rem;\n}\n.ds-demo .ds-guidance-heading{\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  gap: 16px;\n}\n.ds-demo .ds-guidance-heading > span{\n  display: flex;\n  align-items: center;\n  gap: 7px;\n  font-weight: 600;\n}\n.ds-demo .ds-guidance-heading .ds-text-button{\n  font-size: 0.78rem;\n}\n.ds-demo .ds-card-guidance ul{\n  margin: 6px 0;\n  padding: 0;\n  list-style: none;\n}\n.ds-demo .ds-card-guidance li{\n  display: flex;\n  align-items: flex-start;\n  justify-content: space-between;\n  gap: 15px;\n  padding: 7px 0;\n}\n.ds-demo .ds-card-guidance li p{\n  margin: 6px 0;\n  max-width: 65ch;\n  line-height: 1.6;\n}\n.ds-demo .ds-guidance-note{\n  color: var(--muted, #596174);\n  font-size: 0.74rem;\n}\n\n\n\n\n\n\n@media (pointer: coarse){.ds-demo .ds-icon-button{\n    min-width: 44px;\n    min-height: 44px;\n  }\n}\n@media (forced-colors: active){.ds-demo button{\n    border: 1px solid ButtonText;\n  }\n.ds-demo button:focus-visible{\n    outline-color: Highlight;\n  }}\n@media(prefers-reduced-motion:reduce){.ds-demo,.ds-demo *,.ds-demo *::before,.ds-demo *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}"
+    },
+    {
+      "name": "Folder Row",
+      "kind": "custom",
+      "refersTo": "folder-row",
+      "description": "Flat nested library row with separate expand and open actions. Indentation is capped at four levels; ready counts remain visible. Example content illustrates layout.",
+      "html": "<div class=\"ds-demo\"><ul class=\"ds-library-tree\"><li><div class=\"ds-library-row\" style=\"--folder-depth:0\"><button class=\"ds-folder-toggle\" aria-label=\"Expand Computer science\" aria-expanded=\"false\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m9 18 6-6-6-6\"/></svg></button><button class=\"ds-library-item\"><span class=\"ds-library-symbol ds-folder-symbol\"><svg width=\"21\" height=\"21\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5l2 2h9a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2Z\"/></svg></span><span class=\"ds-library-name\"><strong>Computer science</strong><small>2 items · 16 cards</small></span><span class=\"ds-due-count\" aria-label=\"4 ready\">4</span><svg class=\"ds-library-open\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m9 18 6-6-6-6\"/></svg></button></div></li></ul></div>",
+      "css": ".ds-demo{font-family:\"Atkinson Hyperlegible\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;font-size:16px;color:var(--ink,#1f2a44);font-synthesis:none;}\n@font-face{\n  font-family: \"Bricolage Grotesque\";\n  src: url(\"/fonts/bricolage-grotesque.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 200 800;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Regular.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Bold.woff2\") format(\"woff2\");\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-Italic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 400;\n  font-display: swap;\n}\n@font-face{\n  font-family: \"Atkinson Hyperlegible\";\n  src: url(\"/fonts/AtkinsonHyperlegible-BoldItalic.woff2\") format(\"woff2\");\n  font-style: italic;\n  font-weight: 700;\n  font-display: swap;\n}\n\n\n\n.ds-demo button{\n  font: inherit;\n}\n.ds-demo button{\n  -webkit-tap-highlight-color: transparent;\n}\n.ds-demo button{\n  touch-action: manipulation;\n}\n.ds-demo button{\n  cursor: pointer;\n}\n.ds-demo button:disabled{\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n\n.ds-demo button{\n  color: inherit;\n}\n.ds-demo button:focus-visible{\n  outline: 3px solid var(--leaf, #2f7a5f);\n  outline-offset: 3px;\n}\n\n\n.ds-demo button{\n  transition:\n    background-color 0.16s,\n    color 0.16s,\n    border-color 0.16s;\n}\n\n\n\n\n\n\n.ds-demo svg{\n  flex-shrink: 0;\n}\n\n.ds-demo button{\n  border: 0;\n  background: none;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-due-count{\n  display: inline-block;\n  min-width: 29px;\n  background: #f0eadf;\n  border: 1px solid #ded9ce;\n  color: #596174;\n  border-radius: 5px;\n  padding: 4px 8px;\n  font-size: 0.77rem;\n  font-variant-numeric: tabular-nums;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.ds-demo .ds-library-tree{\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n\n.ds-demo .ds-library-row{\n  display: flex;\n  align-items: stretch;\n  padding-left: calc(var(--folder-depth) * 24px);\n  border-bottom: 1px solid var(--line, #ded9ce);\n}\n.ds-demo .ds-folder-toggle{\n  flex: 0 0 42px;\n  width: 42px;\n}\n.ds-demo .ds-folder-toggle{\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: var(--muted, #596174);\n  border-radius: 4px;\n}\n.ds-demo .ds-folder-toggle:hover{\n  background: var(--soft, #f0eadf);\n}\n.ds-demo .ds-folder-toggle:disabled{\n  opacity: 1;\n}\n\n.ds-demo .ds-library-item{\n  display: flex;\n  align-items: center;\n  flex: 1;\n  min-width: 0;\n  text-align: left;\n  gap: 15px;\n  padding: 18px 12px;\n  border-radius: 4px;\n}\n.ds-demo .ds-library-item:hover{\n  background: #f7f2e8;\n}\n.ds-demo .ds-library-symbol{\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 38px;\n  height: 42px;\n  flex-shrink: 0;\n  color: var(--action, #1f2a44);\n  background: var(--soft, #f0eadf);\n  border-radius: 6px;\n}\n.ds-demo .ds-folder-symbol{\n  background: transparent;\n}\n.ds-demo .ds-library-name{\n  flex: 1;\n  min-width: 0;\n}\n.ds-demo .ds-library-name strong{\n  display: block;\n  font-size: 0.93rem;\n  font-weight: 560;\n  overflow-wrap: anywhere;\n}\n.ds-demo .ds-library-name small{\n  display: block;\n  margin-top: 5px;\n  font-size: 0.75rem;\n  color: var(--muted, #596174);\n}\n.ds-demo .ds-library-item > .ds-due-count{\n  flex-shrink: 0;\n  min-width: 34px;\n  text-align: center;\n}\n.ds-demo .ds-library-open{\n  flex-shrink: 0;\n  color: var(--muted, #596174);\n}\n\n\n\n\n\n@media (max-width: 800px){\n\n\n.ds-demo .ds-library-row{\n    padding-left: calc(var(--folder-depth) * 12px);\n  }\n.ds-demo .ds-library-item{\n    gap: 10px;\n    padding: 14px 4px;\n  }\n.ds-demo .ds-folder-toggle{\n    flex-basis: 32px;\n    width: 32px;\n  }\n.ds-demo .ds-library-symbol{\n    width: 28px;\n    height: 36px;\n  }\n.ds-demo .ds-library-name strong{\n    font-size: 0.86rem;\n  }\n.ds-demo .ds-library-name small{\n    font-size: 0.73rem;\n  }\n\n.ds-demo .ds-library-item > .ds-due-count{\n    min-width: 28px;\n    padding-inline: 5px;\n  }\n.ds-demo .ds-library-open{\n    width: 12px;\n  }}\n@media (pointer: coarse){.ds-demo .ds-folder-toggle{\n    flex-basis: 44px;\n    width: 44px;\n  }\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (min-width: 1500px){\n\n}\n@media (max-width: 1100px){\n\n\n\n\n\n\n\n}\n@media (max-width: 800px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n@media (max-width: 600px){\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (max-width: 600px){\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n@media (pointer: coarse){\n}\n@media (forced-colors: active){.ds-demo button{\n    border: 1px solid ButtonText;\n  }\n.ds-demo button:focus-visible{\n    outline-color: Highlight;\n  }}\n@media(prefers-reduced-motion:reduce){.ds-demo,.ds-demo *,.ds-demo *::before,.ds-demo *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}"
     }
   ],
   "narrative": {
-    "northStar": "The Focused Study Desk",
-    "overview": "A focused study desk: cool white space, pale eucalyptus surfaces, dark pine actions, and readable graphite-green text. Familiar navigation, aligned rows, and compact controls make the next action clear while leaving the learning material room to breathe.\n\nThis document captures the implemented interface and the user’s clean, simple, low-bloat direction. Recall is a working name, not an approved permanent identity. Personality comes from color, proportion, and clear language rather than ornament.",
+    "northStar": "The Oftly Study Desk",
+    "overview": "Oftly is a warm study workspace built around regular return. A deep ink rail anchors the interface; index-paper cards and a warm canvas make the work area feel quiet and familiar. Bricolage Grotesque gives headings and questions their character, while Atkinson Hyperlegible keeps answers, controls, and dense information readable.\n\nThe user-supplied Oftly Brand Identity guide governs the identity. The implemented system keeps familiar flashcard controls and restrained density: aligned folders and decks, short paths to study, and supporting material disclosed when useful. The interval mark and small marigold recall accents provide recognition without turning study into a game.",
     "keyCharacteristics": [
-      "Cool white canvas with eucalyptus tonal grouping.",
-      "Dark pine actions and clear keyboard focus.",
-      "System sans typography, aligned rows, and restrained borders.",
-      "Generous study space with a stable question and an answer revealed beneath it."
+      "Ink navigation and actions on warm index-paper and canvas surfaces.",
+      "Bricolage Grotesque headings/questions paired with Atkinson Hyperlegible UI/answers.",
+      "Outlined lowercase wordmark and bottom-aligned interval dots.",
+      "Stable question placement, compact ratings, and subordinate explanation/source details."
     ],
     "rules": [
       {
-        "name": "The Action Contrast Rule",
-        "body": "Use dark pine for the next meaningful action; keep supporting surfaces pale and readable.",
+        "name": "The Recall Accent Rule",
+        "body": "Reserve marigold for the Good rating, interval-mark endpoint, selection, and focus on the dark rail. Use ink for normal text.",
         "section": "colors"
       },
       {
         "name": "The Quiet Depth Rule",
-        "body": "Use borders and tonal surfaces for grouping. Reserve the faint shadow for the study card.",
+        "body": "Use borders and warm tonal surfaces for grouping. Reserve the faint shadow for the study card.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Do preserve the pine, eucalyptus, and white palette with readable muted text.",
-      "Do keep the visible focus outline and stronger field border.",
-      "Do use aligned, wrapping deck rows with tabular numerals for counts.",
-      "Do keep the question in place while revealing the answer below it.",
-      "Do show the actual Anki interval alongside each rating and its recall description.",
-      "Do preserve responsive navigation and the focused mobile study layout.",
-      "Do respect reduced-motion preferences.",
-      "Do keep explanations, sources, and optional writing hints subordinate to the recall task, with clear disclosure and preference controls."
+      "Do use the supplied Oftly wordmark assets and the implemented ink, index-paper, marigold, and leaf roles.",
+      "Do pair Bricolage Grotesque headings and questions with Atkinson Hyperlegible body copy, answers, and controls.",
+      "Do preserve leaf focus on light surfaces and marigold focus on the ink rail.",
+      "Do use aligned, wrapping folder/deck rows with separate expand and open actions.",
+      "Do keep the question in place while revealing the answer, explanation, and sources below it.",
+      "Do show actual Anki intervals alongside every rating and its recall description.",
+      "Do keep metadata and optional writing hints subordinate, with explicit disclosure and preference controls.",
+      "Do preserve responsive navigation, touch targets, text wrapping, and reduced-motion behavior."
     ],
     "donts": [
+      "Don't recreate the wordmark with live text, replace the interval geometry with arbitrary dots, or squeeze the four-dot app mark below its implemented minimum.",
+      "Don't use marigold for normal body text or make the interval mark look like an actual review count or mastery score.",
       "Don't add gamified dashboards, decorative widget grids, or unnecessary interface chrome.",
       "Don't turn every content block into an elevated card or add stronger ambient shadows.",
       "Don't replace the stable reveal with a card flip, layout jump, or automatic advance.",
       "Don't communicate rating meaning, selection, or errors through color alone.",
-      "Don't treat synthesized preview ramps as production tokens or the working name as a permanent brand."
+      "Don't introduce speculative color ramps or remote font-service requests."
     ]
   }
 }

@@ -143,7 +143,7 @@ export default function Import({ onChange }: { onChange: () => void }) {
           <div className="import-instructions">
             <FileText size={21} />
             <div>
-              <strong>From Quizlet to Recall</strong>
+              <strong>From Quizlet to Oftly</strong>
               <p>
                 Open a set you created on Quizlet’s website. Choose{" "}
                 <b>Export</b>, select a tab between terms and definitions, then

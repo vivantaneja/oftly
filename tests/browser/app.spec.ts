@@ -22,7 +22,8 @@ async function capture(page: Page, path: string) {
         requestAnimationFrame(() => requestAnimationFrame(resolve)),
       ),
   );
-  await page.screenshot({ path, fullPage: false });
+  await page.evaluate(() => document.fonts.ready);
+  await page.screenshot({ path, fullPage: false, animations: "disabled" });
   await page.setViewportSize(viewport);
 }
 test("complete learner journey, native scheduling, and responsive accessibility", async ({
@@ -41,7 +42,12 @@ test("complete learner journey, native scheduling, and responsive accessibility"
     window.scrollTo(0, 0);
     (document.activeElement as HTMLElement)?.blur();
   });
-  await page.screenshot({ path: shots + "/desktop-empty.png", fullPage: true });
+  await page.evaluate(() => document.fonts.ready);
+  await page.screenshot({
+    path: shots + "/desktop-empty.png",
+    fullPage: true,
+    animations: "disabled",
+  });
   await page
     .getByRole("button", { name: "Or try a 6-card sample deck" })
     .click();
@@ -52,7 +58,12 @@ test("complete learner journey, native scheduling, and responsive accessibility"
     window.scrollTo(0, 0);
     (document.activeElement as HTMLElement)?.blur();
   });
-  await page.screenshot({ path: shots + "/desktop.png", fullPage: true });
+  await page.evaluate(() => document.fonts.ready);
+  await page.screenshot({
+    path: shots + "/desktop.png",
+    fullPage: true,
+    animations: "disabled",
+  });
   let audit = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
     .analyze();
@@ -89,7 +100,12 @@ test("complete learner journey, native scheduling, and responsive accessibility"
     window.scrollTo(0, 0);
     (document.activeElement as HTMLElement)?.blur();
   });
-  await page.screenshot({ path: shots + "/study-desktop.png", fullPage: true });
+  await page.evaluate(() => document.fonts.ready);
+  await page.screenshot({
+    path: shots + "/study-desktop.png",
+    fullPage: true,
+    animations: "disabled",
+  });
   audit = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
     .analyze();
@@ -129,9 +145,11 @@ test("complete learner journey, native scheduling, and responsive accessibility"
     window.scrollTo(0, 0);
     (document.activeElement as HTMLElement)?.blur();
   });
+  await page.evaluate(() => document.fonts.ready);
   await page.screenshot({
     path: shots + "/import-desktop.png",
     fullPage: true,
+    animations: "disabled",
   });
   await page.getByRole("button", { name: "Import 2 cards" }).click();
   await page.getByRole("button", { name: "Go to your library" }).click();
@@ -178,7 +196,12 @@ test("complete learner journey, native scheduling, and responsive accessibility"
         requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
       ),
   );
-  await page.screenshot({ path: shots + "/mobile.png", fullPage: false });
+  await page.evaluate(() => document.fonts.ready);
+  await page.screenshot({
+    path: shots + "/mobile.png",
+    fullPage: false,
+    animations: "disabled",
+  });
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -201,7 +224,12 @@ test("complete learner journey, native scheduling, and responsive accessibility"
     window.scrollTo(0, 0);
     (document.activeElement as HTMLElement)?.blur();
   });
-  await page.screenshot({ path: shots + "/study-mobile.png", fullPage: true });
+  await page.evaluate(() => document.fonts.ready);
+  await page.screenshot({
+    path: shots + "/study-mobile.png",
+    fullPage: true,
+    animations: "disabled",
+  });
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -457,12 +485,33 @@ test("large text and reordered imported answer fields stay usable", async ({
     page.getByRole("heading", { name: "Card suggestions", exact: true }),
   ).toBeVisible();
   await page.evaluate(() => (document.documentElement.style.fontSize = "30px"));
+  await page.setViewportSize({ width: 320, height: 844 });
+  expect(
+    await page
+      .getByRole("combobox", { name: "Target retention" })
+      .evaluate((element) => {
+        const select = element as HTMLSelectElement;
+        const style = getComputedStyle(select);
+        const context = document.createElement("canvas").getContext("2d")!;
+        context.font = style.font;
+        const available =
+          select.clientWidth -
+          parseFloat(style.paddingLeft) -
+          parseFloat(style.paddingRight) -
+          24;
+        return (
+          context.measureText(select.selectedOptions[0].text).width <= available
+        );
+      }),
+  ).toBe(true);
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= window.innerWidth,
     ),
   ).toBe(true);
+  await capture(page, shots + "/oftly-settings-large-text.png");
   await page.evaluate(() => (document.documentElement.style.fontSize = ""));
+  await page.setViewportSize({ width: 390, height: 844 });
   const response = await page.request.get("/api/dashboard");
   const deck = (await response.json()).decks.find(
     (d: { total: number }) => d.total > 0,
@@ -502,77 +551,161 @@ test("large text and reordered imported answer fields stay usable", async ({
   ).toBe(true);
 });
 
-test("nested folders, native imports, creation, search, and breadcrumbs", async ({ page }) => {
+test("nested folders, native imports, creation, search, and breadcrumbs", async ({
+  page,
+}) => {
   test.setTimeout(90000);
   const headers = { "X-Recall-Request": "1" };
   const preview = await page.request.post("/api/import/text/preview", {
-    headers, data: { text: "What stores instructions?\tMemory\nWhat executes instructions?\tThe processor" },
+    headers,
+    data: {
+      text: "What stores instructions?\tMemory\nWhat executes instructions?\tThe processor",
+    },
   });
   const imported = await page.request.post("/api/import/commit", {
-    headers, data: { token: (await preview.json()).token, name: "School · sample::Science::Computing::Foundations" },
+    headers,
+    data: {
+      token: (await preview.json()).token,
+      name: "School · sample::Science::Computing::Foundations",
+    },
   });
   expect(imported.ok()).toBeTruthy();
   const dashboard = await (await page.request.get("/api/dashboard")).json();
-  const science = dashboard.decks.find((d: { name: string }) => d.name === "School · sample::Science");
-  await page.request.post("/api/notes", { headers, data: { deckId: science.id, fields: ["What is a hypothesis?", "A testable explanation."] } });
+  const science = dashboard.decks.find(
+    (d: { name: string }) => d.name === "School · sample::Science",
+  );
+  await page.request.post("/api/notes", {
+    headers,
+    data: {
+      deckId: science.id,
+      fields: ["What is a hypothesis?", "A testable explanation."],
+    },
+  });
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/#library");
-  const item = (name: string) => page.locator(".library-item").filter({ has: page.getByText(name, { exact: true }) });
+  const item = (name: string) =>
+    page
+      .locator(".library-item")
+      .filter({ has: page.getByText(name, { exact: true }) });
   await expect(item("School · sample")).toContainText("3 cards");
   await expect(item("Foundations")).not.toBeVisible();
-  await page.getByRole("button", { name: "Expand School · sample", exact: true }).focus();
+  await page
+    .getByRole("button", { name: "Expand School · sample", exact: true })
+    .focus();
   await page.keyboard.press("Enter");
-  await page.getByRole("button", { name: "Expand Science", exact: true }).click();
-  await page.getByRole("button", { name: "Expand Computing", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Expand Science", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Expand Computing", exact: true })
+    .click();
   await expect(item("Foundations")).toBeVisible();
   await expect(page.locator("main")).not.toContainText("::");
   await capture(page, shots + "/folders-desktop.png");
-  let audit = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
+  let audit = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+    .analyze();
   expect(audit.violations.map((v) => v.id)).toEqual([]);
-  await page.getByRole("button", { name: "Collapse School · sample", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Collapse School · sample", exact: true })
+    .click();
   await page.getByRole("textbox", { name: "Search decks" }).fill("Foundations");
   await expect(item("Foundations")).toBeVisible();
   await expect(item("School · sample")).toBeVisible();
-  await page.getByRole("textbox", { name: "Search decks" }).fill("Unfindable subject");
-  await expect(page.getByRole("heading", { name: "No folders or decks match." })).toBeVisible();
+  await page
+    .getByRole("textbox", { name: "Search decks" })
+    .fill("Unfindable subject");
+  await expect(
+    page.getByRole("heading", { name: "No folders or decks match." }),
+  ).toBeVisible();
   await page.getByRole("textbox", { name: "Search decks" }).fill("");
   await expect(item("Foundations")).not.toBeVisible();
-  await page.getByRole("button", { name: "Expand School · sample", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Expand School · sample", exact: true })
+    .click();
   await item("Science").click();
-  await expect(page.getByRole("heading", { name: "Science", exact: true })).toBeVisible();
-  await expect(page.getByText("3 cards in this folder · 3 ready today")).toBeVisible();
-  await expect(page.getByText("What is a hypothesis?", { exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Science", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("3 cards in this folder · 3 ready today"),
+  ).toBeVisible();
+  await expect(
+    page.getByText("What is a hypothesis?", { exact: true }),
+  ).toBeVisible();
   await page.getByRole("button", { name: "New subfolder" }).click();
-  await expect(page.getByRole("combobox", { name: "Location" })).toHaveValue(science.id);
-  await page.getByRole("textbox", { name: "Name your new folder" }).fill("Chemistry");
-  await page.getByRole("button", { name: "Create folder", exact: true }).click();
-  await expect(page.getByRole("heading", { name: "Chemistry", exact: true })).toBeVisible();
+  await expect(page.getByRole("combobox", { name: "Location" })).toHaveValue(
+    science.id,
+  );
+  await page
+    .getByRole("textbox", { name: "Name your new folder" })
+    .fill("Chemistry");
+  await page
+    .getByRole("button", { name: "Create folder", exact: true })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "Chemistry", exact: true }),
+  ).toBeVisible();
   await page.reload();
-  await expect(page.getByRole("heading", { name: "Make room for your next subject." })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Make room for your next subject." }),
+  ).toBeVisible();
   await page.getByRole("button", { name: "New deck", exact: true }).click();
-  await expect(page.getByRole("combobox", { name: "Location" }).locator("option:checked")).toHaveText("School · sample / Science / Chemistry");
-  await page.getByRole("textbox", { name: "Name your new deck" }).fill("Bonding");
+  await expect(
+    page.getByRole("combobox", { name: "Location" }).locator("option:checked"),
+  ).toHaveText("School · sample / Science / Chemistry");
+  await page
+    .getByRole("textbox", { name: "Name your new deck" })
+    .fill("Bonding");
   await page.getByRole("button", { name: "Create deck", exact: true }).click();
-  await expect(page.getByRole("heading", { name: "Bonding", exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Bonding", exact: true }),
+  ).toBeVisible();
   const saved = await (await page.request.get("/api/dashboard")).json();
-  expect(saved.decks.some((d: { name: string }) => d.name === "School · sample::Science::Chemistry::Bonding")).toBeTruthy();
+  expect(
+    saved.decks.some(
+      (d: { name: string }) =>
+        d.name === "School · sample::Science::Chemistry::Bonding",
+    ),
+  ).toBeTruthy();
   await page.getByRole("button", { name: "New deck", exact: true }).click();
-  await page.getByRole("textbox", { name: "Name your new deck" }).fill("Bonding");
+  await page
+    .getByRole("textbox", { name: "Name your new deck" })
+    .fill("Bonding");
   await page.getByRole("button", { name: "Create deck", exact: true }).click();
   await expect(page.getByRole("alert")).toContainText("already exists here");
   await page.getByRole("button", { name: "Cancel", exact: true }).click();
-  await page.getByRole("navigation", { name: "Folder path" }).getByRole("link", { name: "Science", exact: true }).click();
+  await page
+    .getByRole("navigation", { name: "Folder path" })
+    .getByRole("link", { name: "Science", exact: true })
+    .click();
   await expect(item("Chemistry")).toBeVisible();
-  await page.getByRole("button", { name: "Expand Chemistry", exact: true }).click();
-  await page.getByRole("button", { name: "Expand Computing", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Expand Chemistry", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Expand Computing", exact: true })
+    .click();
   await page.setViewportSize({ width: 390, height: 844 });
   await expect(page.locator("main")).not.toContainText("::");
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBeTruthy();
   await capture(page, shots + "/folders-mobile.png");
-  audit = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
+  audit = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+    .analyze();
   expect(audit.violations.map((v) => v.id)).toEqual([]);
   await page.getByRole("button", { name: "New subfolder" }).click();
-  await page.getByRole("textbox", { name: "Name your new folder" }).fill("Applied and experimental sciences");
+  await page
+    .getByRole("textbox", { name: "Name your new folder" })
+    .fill("Applied and experimental sciences");
   await capture(page, shots + "/folder-create-mobile.png");
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBeTruthy();
 });

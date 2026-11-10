@@ -240,14 +240,14 @@ async def lifespan(app):
     yield
     app.state.engine.close()
 
-app = FastAPI(title='Recall local API', lifespan=lifespan)
+app = FastAPI(title='Oftly local API', lifespan=lifespan)
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=['127.0.0.1','localhost','testserver'])
 
 @app.middleware('http')
 async def protect_local_api(request: Request, call_next):
     origin = request.headers.get('origin')
     if origin and origin not in {f"{request.url.scheme}://{request.headers.get('host', '')}", 'http://127.0.0.1:5173', 'http://localhost:5173'}:
-        return JSONResponse({'detail':'This local service only accepts requests from Recall.'},403)
+        return JSONResponse({'detail':'This local service only accepts requests from Oftly.'},403)
     if request.method not in {'GET','HEAD','OPTIONS'} and request.headers.get('x-recall-request') != '1':
         return JSONResponse({'detail':'Missing local application request header.'},403)
     response = await call_next(request)
@@ -473,7 +473,7 @@ async def preview_anki(request: Request,file: UploadFile=File(...)):
             rows.append({k:plain(v) for k,v in preview_fields(note).items()})
         token=uuid.uuid4().hex
         engine(request).pending[token]={'kind':'anki','directory':str(directory),'package':str(package),'created':time.time()}
-        return {'token':token,'kind':'anki','count':count,'preview':rows,'warnings':['Sources, explanations and IDs are preserved as note fields. Custom designs and scripts are removed from the imported copy. Cloze, text, images and audio use Recall’s layout. Image occlusion and add-on-dependent interactions may need editing.'],'warningCount':1}
+        return {'token':token,'kind':'anki','count':count,'preview':rows,'warnings':['Sources, explanations and IDs are preserved as note fields. Custom designs and scripts are removed from the imported copy. Cloze, text, images and audio use Oftly’s layout. Image occlusion and add-on-dependent interactions may need editing.'],'warningCount':1}
     except Exception as exc:
         shutil.rmtree(directory,ignore_errors=True)
         raise HTTPException(422,f'Anki could not read this package: {str(exc)[:200]}')
@@ -506,7 +506,7 @@ async def commit(data: CommitInput,request: Request):
 async def export(request: Request):
     e=engine(request);directory=Path(tempfile.mkdtemp(prefix='recall-export-'));target=directory/'recall-backup.apkg'
     e.col.export_anki_package(out_path=str(target),options=imex.ExportAnkiPackageOptions(with_scheduling=True,with_deck_configs=True,with_media=True,legacy=False),limit=None)
-    return FileResponse(target,filename=f'recall-{datetime.now():%Y-%m-%d}.apkg',media_type='application/octet-stream',background=BackgroundTask(shutil.rmtree,directory))
+    return FileResponse(target,filename=f'oftly-{datetime.now():%Y-%m-%d}.apkg',media_type='application/octet-stream',background=BackgroundTask(shutil.rmtree,directory))
 
 class SuggestionSettings(BaseModel):
     enabled: bool = True

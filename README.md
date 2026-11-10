@@ -1,12 +1,12 @@
-# Recall
+# Oftly
 
 **A calmer way to study. Serious spaced repetition, simple flashcards, and cards you can take with you.**
 
 Built by [Vivan Taneja](https://github.com/vivantaneja) and [Ashvant (@MilesatAshvantAnand)](https://github.com/MilesatAshvantAnand).
 
-We built Recall during our study period because we were fed up with how difficult Anki was to navigate, while Quizlet’s repetition didn’t feel rigorous enough for the way we wanted to learn. We wanted Anki’s memory scheduling in an interface that made sense immediately, with room to rethink how good flashcards are made.
+We built Oftly during our study period because we were fed up with how difficult Anki was to navigate, while Quizlet’s repetition didn’t feel rigorous enough for the way we wanted to learn. We wanted Anki’s memory scheduling in an interface that made sense immediately, with room to rethink how good flashcards are made.
 
-Recall is a local-first React web app backed by the **official Anki engine**. No account, subscription, analytics, or AI API key is needed. Your cards and review history live in a real Anki collection on your computer.
+Oftly is a local-first React web app backed by the **official Anki engine**. No account, subscription, analytics, or AI API key is needed. Your cards and review history live in a real Anki collection on your computer.
 
 ![Daily study view with a demonstration deck](docs/images/today.png)
 
@@ -53,7 +53,7 @@ The learning layer adds source-grounded explanation/application prompts, correct
 
 ## Your data and compatibility
 
-Data lives under `.data/`, ignored by Git. Recall owns a separate collection and does not open your installed Anki profile. Use **Settings → Download Anki backup** and keep a copy outside this project. Importing a backup merges matching notes. `RECALL_DATA_DIR` selects another app-owned directory.
+Data lives under `.data/`, ignored by Git. Oftly owns a separate collection and does not open your installed Anki profile. Use **Settings → Download Anki backup** and keep a copy outside this project. Importing a backup merges matching notes. `RECALL_DATA_DIR` selects another app-owned directory.
 
 Run one service per collection; exchange APKG files with Anki instead of opening the same database in two applications. The clean-layout migration saves `.data/before-clean-layout.apkg` before changing existing template designs. The server binds to `127.0.0.1`; this is a local app, not a public multi-user service. There is no AnkiWeb or cross-device sync.
 

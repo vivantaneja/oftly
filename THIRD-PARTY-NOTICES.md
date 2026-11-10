@@ -16,3 +16,12 @@ Installed packages retain their own notices. Review upstream obligations before 
 ## Anki Star
 
 The unmodified interchange and collection modules under `server/vendor/anki_star/` are from [Anki Star](https://github.com/MilesatAshvantAnand/anki-star), commit `63e55713fc3f22d2ef0ce95be881b936b8449854`, copyright © 2026 Anki Star contributors, MIT licence. The full notice is retained in `server/vendor/anki_star/LICENSE`. No Qt, OCR executable or desktop add-on entry point is loaded.
+
+
+## Typefaces
+
+Oftly self-hosts Bricolage Grotesque and Atkinson Hyperlegible from the Google Fonts repository under the SIL Open Font License 1.1. Font files are converted losslessly to WOFF2; the wordmark contains outlined Bricolage Grotesque glyphs.
+
+- [Bricolage Grotesque licence](public/fonts/bricolagegrotesque-OFL.txt)
+- [Atkinson Hyperlegible licence](public/fonts/atkinsonhyperlegible-OFL.txt)
+- [Exact source URLs](public/fonts/SOURCES.json)
