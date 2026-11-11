@@ -167,11 +167,13 @@ test.describe("touch scrolling", () => {
         type: "touchStart",
         touchPoints: [{ x: 200, y: 700 }],
       });
-      for (const y of [600, 500, 400, 300]) {
+      for (const y of [600, 500, 400, 300, 200, 100]) {
         await session.send("Input.dispatchTouchEvent", {
           type: "touchMove",
           touchPoints: [{ x: 200, y }],
         });
+        // Let native touch frames run instead of relying on CDP delivery speed.
+        await page.waitForTimeout(30);
       }
       await session.send("Input.dispatchTouchEvent", {
         type: "touchEnd",
@@ -180,7 +182,10 @@ test.describe("touch scrolling", () => {
     };
     await swipe();
     const story = page.locator(".recall-scroll");
-    await expect(story).toHaveAttribute("data-paused", "true");
+    await expect(story, JSON.stringify(await snapshot(page))).toHaveAttribute(
+      "data-paused",
+      "true",
+    );
     const held = await snapshot(page);
     expect(held.curveX).toBeCloseTo(240, 0);
     expect(held.curveY).toBeCloseTo(18, 0);

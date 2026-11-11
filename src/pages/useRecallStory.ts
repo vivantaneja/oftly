@@ -91,11 +91,6 @@ export function useRecallStory(missed: boolean) {
       if (stationary) cancelInput();
       if (scrollY < start - 8) visited.clear();
 
-      // Catch touch momentum that crosses a peak after the finger is lifted.
-      if (inputDriven && !stationary && held === null && scrollY > previousY) {
-        const index = crossing(previousY, scrollY);
-        if (index !== -1) pause(index);
-      }
       if (held !== null)
         window.scrollTo({ top: peakY(held), behavior: "instant" });
       previousY = scrollY;
@@ -198,6 +193,16 @@ export function useRecallStory(missed: boolean) {
     const scrollEnd = () => {
       inputDriven = false;
     };
+    const scroll = () => {
+      // Handle momentum before scrollend clears the gesture, rather than
+      // deferring this decision until the next animation frame.
+      if (inputDriven && !stationary && held === null && scrollY > previousY) {
+        const index = crossing(previousY, scrollY);
+        if (index !== -1) pause(index);
+      }
+      previousY = scrollY;
+      request();
+    };
     const remeasure = () => {
       oversized = false;
       cancelInput();
@@ -207,7 +212,7 @@ export function useRecallStory(missed: boolean) {
     resize.observe(stageElement);
     resize.observe(track.current!);
     resize.observe(card.current!);
-    window.addEventListener("scroll", request, { passive: true });
+    window.addEventListener("scroll", scroll, { passive: true });
     window.addEventListener("scrollend", scrollEnd);
     window.addEventListener("wheel", wheel, { passive: false });
     window.addEventListener("touchstart", touchStart, { passive: true });
@@ -222,7 +227,7 @@ export function useRecallStory(missed: boolean) {
       cancelInput();
       cancelAnimationFrame(frame);
       resize.disconnect();
-      window.removeEventListener("scroll", request);
+      window.removeEventListener("scroll", scroll);
       window.removeEventListener("scrollend", scrollEnd);
       window.removeEventListener("wheel", wheel);
       window.removeEventListener("touchstart", touchStart);
