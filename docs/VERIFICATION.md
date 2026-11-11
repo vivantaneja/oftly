@@ -72,3 +72,13 @@ All integration/browser tests use temporary collections. The running app uses it
 - Hosted Supabase migration and deletion function deployed. Live anonymous card/RPC/deletion requests return 401. Google OAuth is in production, and a real basic-identity login completed through Supabase back to the local frontend. Resend's verified Oftly sender delivered a sign-in email to the owner's account. Email callback completion is additionally covered by the local PKCE journey; the production email was verified as delivered, not opened during testing.
 - Publication scan found no private credential patterns in tracked/publishable files. Backend secrets, project key dumps and private collections are ignored. The client includes the intended public Supabase URL and publishable key.
 - This records local and provider verification. GitHub CI is checked separately after pushing. No Vercel deployment command was run. Provider quotas, session expiry while offline and retained device copies are described in the account guide.
+
+
+## Compact guided setup — 11 November 2026
+
+- Replaced the tall scroll introduction with a gated sample-card trial, study setting, current method, hours/minutes, a short plan and optional sign-in. Removed subject lists, card counts, goal horizons and scroll-only calls to action. Daily time accepts 5 minutes through 24 hours; the result is a disclosed starting allocation, not an enforced study limit or efficacy prediction.
+- Browser production build passed. Removed Motion and its dependencies; the landing JavaScript chunk is approximately 9.74 KB (3.53 KB gzip). The existing brand tokens and assets are preserved.
+- All 10 local account/landing tests and 8 browser-only journeys passed. The changed flow covers reveal/rating gates, keyboard progression and heading focus, an eight-hour day, Back and reload persistence, exact plan saving, guest continuation, existing account handoff, 5-minute/24-hour bounds and legacy plan labels. The account suite also retains its isolation, sync, offline, conflict, media, deletion and PKCE coverage.
+- Inspected desktop 1440px, tablet 800px and phone 390/320px captures, plus mobile setting, time, plan and account screens. The first view fits its viewport; checked views pass automated accessibility checks. The account step remains within the width at 320px with a 30px root font.
+- Impeccable detector ran once: 16 advisories and no primary findings. No new visual world, raster assets or design tokens were introduced.
+- Fresh independent Impeccable review returned `ship` for this user-directed refinement after inspecting all eight captures, relevant implementation and persisted scope; no material fixes were identified. Dependency audit reports zero vulnerabilities.

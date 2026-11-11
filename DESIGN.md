@@ -198,8 +198,10 @@ Buttons provide immediate pressed-state color feedback without movement. Queue c
 - Keep scheduling, imports, IDs and learner data behavior unchanged.
 - Do not add motivational dashboards, large numerals, decorative panels, bright rating fills, status pills or unsolicited tips.
 
-## Public landing and account extension
+## Guided introduction and accounts
 
-The public introduction is an explicit, user-requested exception to the quiet Operate surface. Preserve the same Oftly palette, assets and fonts. Larger Bricolage headings (up to 5.6rem desktop, 2.9rem phone) and a single ink-background chapter may explain the review cycle. Follow one clearly labeled sample card through retrieval, rating and return; tie scroll motion to that sequence and the illustrative curve. No automatic looping animation, decorative badges or invented metrics. Reduced motion presents the complete diagram and manually selectable stages. Labels remain readable independently of SVG scaling.
+The public entry now uses the quiet Operate language, following the user's 11 November 2026 direction. Keep one task in a centered 540px column: reveal/rate a sample card, choose a study setting, choose a method, enter daily hours/minutes, see a short plan, then optionally sign in. Use modest Bricolage headings (1.9–2.5rem), flat option rows, ordinary controls and a factual step counter. The first screen fits a phone viewport; later screens grow naturally for enlarged text or errors.
 
-The planner uses ordinary grouped form controls and flat separators. Its numbers describe a disclosed time budget, not measured learning outcomes. Account forms use the incumbent control language, with Google/email sign-in, a guest option and visible error states. Sync status is factual text linked to Account; no account dashboard or new colored status badges. Preserve the study app's type scale, compact ratings and motion-free reveal. Keep the existing design tokens unchanged.
+Remove the scroll-led hero, memory-graph chapter and long explanatory sections. Buttons reveal, choose, advance, go back or save. A single brief answer-reveal animation gives feedback and respects reduced motion. No sticky narrative, decorative badges, nested panels or automatic loops. The result contains a disclosed suggested allocation, not a learning prediction or an enforced time limit.
+
+Account forms retain Google/email sign-in, guest continuation and visible errors. Sync status remains factual text linked to Account. Existing colors, fonts, assets, study density and compact ratings are unchanged.

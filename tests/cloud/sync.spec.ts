@@ -135,40 +135,82 @@ test("private RPC, optimistic writes, immutable media and account isolation", as
     ).error,
   ).toBeTruthy();
 });
-test("onboarding budget, keyboard flow and accessible landing", async ({
+test("guided setup requires an action, retains answers and supports an eight-hour day", async ({
   page,
 }) => {
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: "One card. A longer-lasting memory." }),
+    page.getByRole("heading", { name: "Try one card." }),
   ).toBeVisible();
-  await page
-    .getByRole("button", { name: "Try to recall. Then reveal." })
-    .click();
-  await expect(page.getByText("To remember.", { exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "Find my study rhythm" }).click();
-  await page.getByLabel("Subject or goal").fill("Biology");
-  await page.getByRole("button", { name: "Continue", exact: true }).click();
-  await page.getByLabel("Using flashcards").check();
-  await page.getByRole("button", { name: "Continue", exact: true }).click();
-  await page.getByLabel("Daily study time").fill("20");
-  await page.getByRole("button", { name: "Continue", exact: true }).click();
-  await page.getByLabel("Approximate number of cards").fill("200");
-  await page.getByRole("button", { name: "See my study rhythm" }).click();
   await expect(
-    page.getByRole("heading", { name: "Biology, in 20-minute returns." }),
+    page.getByRole("button", { name: "Set up my study plan" }),
+  ).toHaveCount(0);
+  await page
+    .getByRole("button", { name: "Reveal answer", exact: true })
+    .click();
+  await expect(
+    page.getByText("The Pacific Ocean.", { exact: true }),
   ).toBeVisible();
-  await expect(page.getByText("5–10 new cards a day")).toBeVisible();
-  await page.getByText("How this estimate works").click();
-  await expect(page.getByText(/not a prediction of memory/)).toBeVisible();
-  const axe = await new AxeBuilder({ page }).analyze();
-  expect(axe.violations).toEqual([]);
+  await page.getByRole("button", { name: "I missed it", exact: true }).click();
+  await expect(
+    page.getByText("Oftly brings missed cards back sooner."),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Set up my study plan" }).click();
+  await page
+    .getByRole("button", { name: "College / university", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Practice questions", exact: true })
+    .focus();
+  await page.keyboard.press("Enter");
+  await expect(
+    page.getByRole("heading", { name: "How much do you study each day?" }),
+  ).toBeFocused();
+  await page.getByLabel("Hours", { exact: true }).fill("8");
+  await page.getByLabel("Minutes", { exact: true }).fill("0");
+  await page.reload();
+  await expect(page.getByLabel("Hours", { exact: true })).toHaveValue("8");
+  await page.getByRole("button", { name: "See my plan" }).click();
+  await expect(
+    page.getByText("College / university · 8 hours a day"),
+  ).toBeVisible();
+  await expect(page.getByText("4 × 15 minutes", { exact: true })).toBeVisible();
+  await expect(page.getByText("7 hours", { exact: true })).toBeVisible();
+  await page.getByText("How this plan works").click();
+  await expect(
+    page.getByText(/not a learning prediction or a study limit/),
+  ).toBeVisible();
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.getByRole("button", { name: "Back", exact: true }).click();
+  await expect(page.getByLabel("Hours", { exact: true })).toHaveValue("8");
+  await page.getByRole("button", { name: "See my plan" }).click();
+  await page.getByRole("button", { name: "Use this plan" }).click();
+  expect(
+    await page.evaluate(() =>
+      JSON.parse(sessionStorage.getItem("oftly-onboarding")!),
+    ),
+  ).toEqual({
+    version: 2,
+    context: "college",
+    method: "practice",
+    minutes: 480,
+  });
   await page
     .getByRole("button", { name: "Continue on this device without an account" })
     .click();
   await expect(
     page.getByRole("heading", { name: "Decks", exact: true }),
   ).toBeVisible();
+  const saved = await page.evaluate(async () => {
+    const { readMeta } = await import("/src/lib/browser/storage.ts");
+    return readMeta("plan");
+  });
+  expect(saved).toEqual({
+    version: 2,
+    context: "college",
+    method: "practice",
+    minutes: 480,
+  });
 });
 test("two devices sync progress, offline edits survive reload, sign-out isolates guest cards", async ({
   browser,
@@ -281,7 +323,7 @@ test("two devices sync progress, offline edits survive reload, sign-out isolates
   await p1.goto("/#account");
   await p1.getByRole("button", { name: "Sign out", exact: true }).click();
   await expect(
-    p1.getByRole("heading", { name: "One card. A longer-lasting memory." }),
+    p1.getByRole("heading", { name: "Try one card." }),
   ).toBeVisible();
   await p1.goto("/#today");
   expect((await localState(p1)).collection.notes).toHaveLength(0);

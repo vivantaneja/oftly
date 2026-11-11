@@ -1,19 +1,22 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { mkdirSync } from "node:fs";
-test("landing at desktop and phone sizes respects motion and stays readable", async ({
+
+test("compact setup fits desktop and phone screens with an accessible path", async ({
   page,
 }) => {
   mkdirSync(".impeccable/review", { recursive: true });
   await page.emulateMedia({ reducedMotion: "reduce" });
   for (const [name, width, height] of [
     ["desktop", 1440, 900],
+    ["tablet", 800, 900],
     ["mobile", 390, 844],
+    ["small", 320, 740],
   ] as const) {
     await page.setViewportSize({ width, height });
     await page.goto("/");
     await expect(
-      page.getByRole("heading", { name: "One card. A longer-lasting memory." }),
+      page.getByRole("heading", { name: "Try one card." }),
     ).toBeVisible();
     await page.evaluate(() => document.fonts.ready);
     expect(
@@ -21,70 +24,103 @@ test("landing at desktop and phone sizes respects motion and stays readable", as
         () => document.documentElement.scrollWidth <= innerWidth,
       ),
     ).toBeTruthy();
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollHeight <= innerHeight + 1,
+      ),
+    ).toBeTruthy();
     expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
     await page.screenshot({
-      path: `.impeccable/review/landing-${name}.png`,
+      path: `.impeccable/review/setup-${name}.png`,
       fullPage: true,
       animations: "disabled",
     });
   }
-  await page.getByLabel("Subject or goal").fill("Biology");
-  for (let i = 0; i < 3; i++)
-    await page.getByRole("button", { name: "Continue", exact: true }).click();
-  await page.getByRole("button", { name: "See my study rhythm" }).click();
+  await page.setViewportSize({ width: 390, height: 844 });
   await page
-    .getByRole("heading", { name: "Biology, in 15-minute returns." })
-    .scrollIntoViewIfNeeded();
-  await page.evaluate(() => window.scrollTo(0, 0));
+    .getByRole("button", { name: "Reveal answer", exact: true })
+    .click();
+  await page.getByRole("button", { name: "I remembered", exact: true }).click();
+  await page.getByRole("button", { name: "Set up my study plan" }).click();
   await page.screenshot({
-    path: ".impeccable/review/plan-mobile.png",
+    path: ".impeccable/review/setup-context-mobile.png",
     fullPage: true,
-    animations: "disabled",
   });
-  await page.goto("/#account");
-  await expect(
-    page.getByRole("heading", { name: "Take your learning with you." }),
-  ).toBeVisible();
+  await page.getByRole("button", { name: "School", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Reading and notes", exact: true })
+    .click();
+  await page.getByLabel("Hours", { exact: true }).fill("8");
   await page.screenshot({
-    path: ".impeccable/review/auth-mobile.png",
+    path: ".impeccable/review/setup-time-mobile.png",
     fullPage: true,
-    animations: "disabled",
   });
+  await page.getByRole("button", { name: "See my plan" }).click();
+  await page.screenshot({
+    path: ".impeccable/review/setup-plan-mobile.png",
+    fullPage: true,
+  });
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.getByRole("button", { name: "Use this plan" }).click();
+  await page.screenshot({
+    path: ".impeccable/review/setup-account-mobile.png",
+    fullPage: true,
+  });
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.evaluate(() => (document.documentElement.style.fontSize = "30px"));
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBeTruthy();
 });
 
-test("sample rating follows the card through the scroll story", async ({
+test("time entry handles short sessions, full days, invalid totals and legacy saved plans", async ({
   page,
 }) => {
-  await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto("/");
-  await page
-    .getByRole("button", { name: "Try to recall. Then reveal." })
-    .click();
-  await page.getByRole("button", { name: "Hard", exact: true }).click();
+  await page.evaluate(() =>
+    sessionStorage.setItem(
+      "oftly-setup",
+      JSON.stringify({
+        step: 3,
+        context: "independent",
+        method: "flashcards",
+        hours: "0",
+        minutes: "0",
+        demo: "again",
+      }),
+    ),
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "See my plan" }).click();
+  await expect(page.getByRole("alert")).toContainText(
+    "between 5 minutes and 24 hours",
+  );
+  await page.getByLabel("Minutes", { exact: true }).fill("5");
+  await page.getByRole("button", { name: "See my plan" }).click();
   await expect(
-    page.getByText("Rated Hard. This card will return after a gap."),
+    page.getByText("Work or personal study · 5 minutes a day"),
   ).toBeVisible();
-  await page.screenshot({ path: ".impeccable/review/landing-rated.png" });
-  for (const [name, progress] of [
-    ["rating", 0.5],
-    ["return", 0.9],
-  ] as const) {
-    await page.evaluate((progress) => {
-      const section = document.querySelector(".memory-story")!;
-      const top = section.getBoundingClientRect().top + window.scrollY;
-      const start = top - innerHeight / 2;
-      const end = top + section.getBoundingClientRect().height - innerHeight;
-      window.scrollTo(0, start + (end - start) * progress);
-    }, progress);
-    await expect(page.locator(".story-card-state")).toHaveText(
-      name === "rating"
-        ? "Your rating: Hard"
-        : "Same question. A fresh retrieval.",
-    );
-    await page.screenshot({
-      path: `.impeccable/review/landing-story-${name}.png`,
-      animations: "disabled",
+  await expect(page.getByText("Other study & breaks")).toHaveCount(0);
+  await page.getByRole("button", { name: "Back", exact: true }).click();
+  await page.getByLabel("Hours", { exact: true }).fill("24");
+  await page.getByRole("button", { name: "See my plan" }).click();
+  await expect(page.getByRole("alert")).toBeVisible();
+  await page.getByLabel("Minutes", { exact: true }).fill("0");
+  await page.getByRole("button", { name: "See my plan" }).click();
+  await expect(
+    page.getByText("Work or personal study · 24 hours a day"),
+  ).toBeVisible();
+  const legacy = await page.evaluate(async () => {
+    const { savedPlanLabel } = await import("/src/lib/plan.ts");
+    return savedPlanLabel({
+      subject: "Spanish",
+      minutes: 15,
+      weeks: 8,
+      cards: 300,
     });
-  }
+  });
+  expect(legacy).toBe("Spanish · 15 minutes a day");
 });

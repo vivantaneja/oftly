@@ -1,47 +1,55 @@
+export const studyContexts = {
+  school: "School",
+  college: "College / university",
+  independent: "Work or personal study",
+} as const;
+export type StudyContext = keyof typeof studyContexts;
+export type StudyMethod = "notes" | "flashcards" | "practice";
 export type StudyPlan = {
-  subject: string;
-  method: "rereading" | "notes" | "flashcards" | "practice";
+  version: 2;
+  context: StudyContext;
+  method: StudyMethod;
   minutes: number;
-  weeks: number;
-  cards: number;
 };
-export const defaultPlan: StudyPlan = {
-  subject: "",
-  method: "rereading",
-  minutes: 15,
-  weeks: 8,
-  cards: 300,
-};
+export function formatDuration(minutes: number) {
+  const hours = Math.floor(minutes / 60),
+    rest = minutes % 60;
+  if (!hours) return `${rest} minutes`;
+  return `${hours} ${hours === 1 ? "hour" : "hours"}${rest ? ` ${rest} minutes` : ""}`;
+}
 export function estimatePlan(plan: StudyPlan) {
-  const minutes = Math.min(60, Math.max(5, Number(plan.minutes) || 15));
-  const cards = Math.min(10000, Math.max(10, Number(plan.cards) || 300));
-  const weeks = Math.min(52, Math.max(1, Number(plan.weeks) || 8));
-  const newMinutes = Math.max(2, Math.round(minutes * 0.4)),
-    reviewMinutes = minutes - newMinutes;
-  const low = Math.max(1, Math.floor((newMinutes * 60) / 90)),
-    high = Math.max(low, Math.floor((newMinutes * 60) / 45));
+  const minutes = Math.min(
+    1440,
+    Math.max(5, Math.round(Number(plan.minutes) || 60)),
+  );
+  // A disclosed starting allocation, not a measured or scientifically optimal dosage.
+  const sessions = Math.max(1, Math.ceil(minutes / 120));
+  const sessionMinutes = Math.min(
+    15,
+    Math.max(5, Math.floor(minutes / sessions / 4 / 5) * 5),
+  );
+  const recallMinutes = Math.min(minutes, sessions * sessionMinutes);
   return {
     minutes,
-    cards,
-    weeks,
-    newMinutes,
-    reviewMinutes,
-    low,
-    high,
-    fastDays: Math.ceil(cards / high),
-    slowDays: Math.ceil(cards / low),
-    weeklyMinutes: minutes * 7,
-    totalMinutes: minutes * 7 * weeks,
-    deadlineDays: weeks * 7,
+    sessions,
+    sessionMinutes,
+    recallMinutes,
+    otherMinutes: minutes - recallMinutes,
   };
 }
-export const methodAdvice: Record<StudyPlan["method"], string> = {
-  rereading:
-    "Keep your reading. Add a moment with the answer hidden, so you practise finding it yourself.",
+export const methodAdvice: Record<StudyMethod, string> = {
   notes:
-    "Your notes are the source. Turn one idea at a time into a question you can answer without looking.",
+    "Turn the key ideas in your notes into questions. Try answering before you reveal.",
   flashcards:
-    "You already know the format. Let your recall change the schedule, so each card gets its own return date.",
+    "Import your existing cards, then start with the ones due for review.",
   practice:
-    "Keep solving whole problems. Use short cards for the facts and steps that keep interrupting you.",
+    "Keep doing practice questions. Make cards for the facts and steps you keep missing.",
 };
+export function savedPlanLabel(plan: Record<string, unknown>) {
+  const context =
+    typeof plan.context === "string" && plan.context in studyContexts
+      ? studyContexts[plan.context as StudyContext]
+      : String(plan.subject || "Study plan");
+  const minutes = Math.min(1440, Math.max(5, Number(plan.minutes) || 60));
+  return `${context} · ${formatDuration(minutes)} a day`;
+}

@@ -7,6 +7,7 @@ import {
   type ReactNode,
 } from "react";
 import type { Session } from "@supabase/supabase-js";
+import { savedPlanLabel } from "../plan";
 import { cloud, cloudConfigured, redirectURL, clientFor } from "./client";
 import {
   selectStorage,
@@ -55,6 +56,7 @@ export function AccountProvider({ children }: { children: ReactNode }) {
           await savePlan(JSON.parse(draft), session.user.id);
           if (!mounted || ticket !== sequence) return;
           sessionStorage.removeItem("oftly-onboarding");
+          sessionStorage.removeItem("oftly-setup");
         }
         if (!mounted || ticket !== sequence) return;
         startSync(session);
@@ -362,10 +364,7 @@ export function AccountSettings() {
       {plan && (
         <div className="data-section">
           <h2>Your starting rhythm</h2>
-          <p>
-            {String(plan.subject ?? "Your subject")} ·{" "}
-            {String(plan.minutes ?? 15)} minutes a day
-          </p>
+          <p>{savedPlanLabel(plan)}</p>
           <a href="#welcome">Revisit the study planner</a>
         </div>
       )}

@@ -35,9 +35,8 @@ Oftly self-hosts Bricolage Grotesque and Atkinson Hyperlegible from the Google F
 
 Dependency packages retain their full upstream licence notices.
 
-## Accounts and landing motion
+## Accounts
 
 - Supabase JavaScript 2.119.0: MIT, copyright © 2020 Supabase; [source and licence](https://github.com/supabase/supabase-js).
-- Motion 14.12.0: MIT, copyright © 2024 Motion B.V.; [source and licence](https://github.com/motiondivision/motion).
 
 Their installed packages retain the complete MIT notices.
