@@ -14,3 +14,7 @@ The interval mark has four dots with growing radii and edge-to-edge gaps of 3, 6
 The reveal interaction keeps the question stationary. Its final dot changes to marigold as answer feedback appears; reduced-motion preferences disable the animation. This is a brand accent, not a representation of a card’s actual review history or a claim of mastery.
 
 Native Anki model names, collection configuration keys and the existing local request header remain stable for compatibility. The GitHub repository URL remains unchanged. The PDF’s preliminary naming screen is not treated as verified legal clearance or repeated as a clearance claim.
+
+## Google sign-in mark
+
+`public/brand/google-g.png` preserves the Google G from the official Android/Web 4× light-button asset, cropped to the unchanged logo area. Source: [Google’s approved sign-in assets](https://developers.google.com/identity/branding-guidelines). The button uses Google’s light-button white background, #1F1F1F text and #747775 border as a deliberate provider-brand exception to Oftly’s palette. The mark remains decorative beside its accessible text label.

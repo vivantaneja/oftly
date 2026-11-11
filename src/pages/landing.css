@@ -33,6 +33,20 @@
   width: 100%;
   justify-content: center;
   min-height: 46px;
+  white-space: normal;
+}
+/* Google's light-button colors keep the official mark intact. */
+.account-form .google-signin,
+.account-form .google-signin:hover {
+  background: #fff;
+  color: #1f1f1f;
+  border-color: #747775;
+}
+.google-signin img {
+  display: block;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
 }
 .account-form label {
   display: block;

@@ -70,7 +70,30 @@ test("scroll introduction keeps the trial and setup accessible at every width", 
     path: ".impeccable/review/scroll-context-mobile.png",
     fullPage: true,
   });
-  await page.getByRole("button", { name: "School", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "What are you studying for?" }),
+  ).toBeFocused();
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+      ),
+  );
+  await page.screenshot({
+    path: ".impeccable/review/study-purpose-desktop.png",
+    fullPage: true,
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.getByRole("button", { name: "Other", exact: true }).focus();
+  await page.keyboard.press("Enter");
+  await expect(
+    page.getByRole("heading", { name: "How do you usually study?" }),
+  ).toBeFocused();
+  await page.reload();
+  await expect(
+    page.getByRole("heading", { name: "How do you usually study?" }),
+  ).toBeVisible();
   await page
     .getByRole("button", { name: "Reading and notes", exact: true })
     .click();
@@ -80,24 +103,91 @@ test("scroll introduction keeps the trial and setup accessible at every width", 
     fullPage: true,
   });
   await page.getByRole("button", { name: "See my plan" }).click();
+  await expect(
+    page.getByText("Other · 8 hours a day", { exact: true }),
+  ).toBeVisible();
   await page.screenshot({
     path: ".impeccable/review/scroll-plan-mobile.png",
     fullPage: true,
   });
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.getByRole("button", { name: "Use this plan" }).click();
+  const google = page.getByRole("button", {
+    name: "Continue with Google",
+    exact: true,
+  });
+  await expect(google).toBeEnabled();
+  await expect(google.locator("img")).toHaveAttribute("alt", "");
+  await expect
+    .poll(() =>
+      google
+        .locator("img")
+        .evaluate(
+          (img: HTMLImageElement) => img.complete && img.naturalWidth > 0,
+        ),
+    )
+    .toBe(true);
   await page.screenshot({
     path: ".impeccable/review/scroll-account-mobile.png",
     fullPage: true,
   });
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+      ),
+  );
+  await page.screenshot({
+    path: ".impeccable/review/google-signin-desktop.png",
+    fullPage: true,
+  });
   await page.setViewportSize({ width: 320, height: 740 });
   await page.evaluate(() => (document.documentElement.style.fontSize = "30px"));
+  const emailButton = page.getByRole("button", {
+    name: "Email me a sign-in link",
+    exact: true,
+  });
+  const labelFits = await emailButton.evaluate((button) => {
+    const range = document.createRange();
+    range.selectNodeContents(button);
+    const label = range.getBoundingClientRect(),
+      bounds = button.getBoundingClientRect();
+    return label.left >= bounds.left && label.right <= bounds.right;
+  });
+  expect(labelFits).toBe(true);
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBeTruthy();
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+      ),
+  );
+  await page.screenshot({
+    path: ".impeccable/review/google-signin-large-text.png",
+    fullPage: true,
+  });
+  await page
+    .getByRole("button", { name: "Continue on this device without an account" })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "Decks", exact: true }),
+  ).toBeVisible();
+  const saved = await page.evaluate(async () => {
+    const { readMeta } = await import("/src/lib/browser/storage.ts");
+    return readMeta("plan");
+  });
+  expect(saved).toEqual({
+    version: 2,
+    context: "other",
+    method: "notes",
+    minutes: 480,
+  });
 });
 
 test("time entry handles short sessions, full days, invalid totals and legacy saved plans", async ({
@@ -250,7 +340,7 @@ test("scroll directly moves the card across, draws the curve and reverses on des
   await expect(page.locator(".recall-card-stage")).toHaveText("Back sooner");
   await page.getByRole("button", { name: "Set up my study plan" }).click();
   await expect(
-    page.getByRole("heading", { name: "Where are you studying?" }),
+    page.getByRole("heading", { name: "What are you studying for?" }),
   ).toBeFocused();
 });
 

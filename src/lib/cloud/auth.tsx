@@ -137,8 +137,19 @@ export function SignIn({ onGuest }: { onGuest: () => void }) {
         </p>
       ) : (
         <>
-          <button className="secondary" disabled={busy} onClick={google}>
-            Continue with Google
+          <button
+            className="secondary google-signin"
+            disabled={busy}
+            onClick={google}
+          >
+            <img
+              src="/brand/google-g.png"
+              width="20"
+              height="20"
+              alt=""
+              aria-hidden="true"
+            />
+            <span>Continue with Google</span>
           </button>
           <div className="account-divider">or use your email</div>
           <form

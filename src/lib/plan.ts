@@ -2,6 +2,7 @@ export const studyContexts = {
   school: "School",
   college: "College / university",
   independent: "Work or personal study",
+  other: "Other",
 } as const;
 export type StudyContext = keyof typeof studyContexts;
 export type StudyMethod = "notes" | "flashcards" | "practice";

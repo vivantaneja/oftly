@@ -7,6 +7,7 @@ import {
   Check,
   GraduationCap,
   School,
+  CircleEllipsis,
 } from "lucide-react";
 import { SignIn, useAccount } from "../lib/cloud/auth";
 import {
@@ -343,14 +344,15 @@ export default function Landing() {
           {flow.step === 1 && (
             <>
               <h1 ref={heading} tabIndex={-1}>
-                Where are you studying?
+                What are you studying for?
               </h1>
-              <div className="setup-choices" aria-label="Study setting">
+              <div className="setup-choices" aria-label="Study purpose">
                 {(
                   [
                     ["school", School],
                     ["college", GraduationCap],
                     ["independent", BookOpen],
+                    ["other", CircleEllipsis],
                   ] as const
                 ).map(([value, Icon]) => (
                   <button

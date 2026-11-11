@@ -18,6 +18,8 @@ Oftly uses Supabase project `bhapnkflyqvpfcmqnrcr` in Ireland. `src/lib/cloud/co
 
 The canonical frontend is `https://oftly.vivantaneja.com`. Supabase redirect allowlists include the exact canonical root and `http://127.0.0.1:5174/` for local verification. Google redirects only to `https://bhapnkflyqvpfcmqnrcr.supabase.co/auth/v1/callback`. Preview origins need their own exact Supabase redirect entry; a preview is not automatically an authorized callback.
 
+Google Auth Platform branding for Oftly was verified and published on 11 November 2026. The saved brand includes the existing Oftly logo, app name, canonical homepage and public privacy page. Google confirms that the verified branding is shown to users. This improves the app identity on the consent screen while retaining the existing Supabase callback. A custom callback domain would be a separate paid Supabase configuration, not a frontend rename. See [Supabase’s Google branding guidance](https://supabase.com/docs/guides/auth/social-sign-in/auth-google).
+
 For a fork:
 
 1. Create your own Supabase project. Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` using `.env.example`; never use a secret/service-role key in Vite variables.

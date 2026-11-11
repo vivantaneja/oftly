@@ -159,7 +159,7 @@ for (const [name, width, height, answer] of [
     expect((await snapshot(page)).cardX).toBeCloseTo(before.cardX, 1);
     await page.getByRole("button", { name: "Set up my study plan" }).click();
     await expect(
-      page.getByRole("heading", { name: "Where are you studying?" }),
+      page.getByRole("heading", { name: "What are you studying for?" }),
     ).toBeFocused();
   });
 }
@@ -225,7 +225,7 @@ test.describe("touch scrolling", () => {
     await session.detach();
     await page.getByRole("button", { name: "Set up my study plan" }).click();
     await expect(
-      page.getByRole("heading", { name: "Where are you studying?" }),
+      page.getByRole("heading", { name: "What are you studying for?" }),
     ).toBeVisible();
   });
 });
