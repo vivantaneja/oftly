@@ -108,3 +108,12 @@ All integration/browser tests use temporary collections. The running app uses it
 - The site home now chooses the landing page from sign-in status, regardless of saved guest cards. Signed-in visitors open their decks; explicit guest continuation and study links remain available. Removed the unnecessary collection read that previously gated the initial route.
 - Regression coverage creates a guest library, opens and reloads home, verifies the landing page and unchanged cards, returns through guest continuation, and checks signed-in home. All 13 local cloud/onboarding tests, the focused entry regression and 8 browser-only journeys passed.
 - Updated the browser title to “Oftly - Your daily practice”, clarified the unavailable recall value and rephrased punctuation in project copy and documentation. Browser production build and formatting checks pass.
+
+
+## Review-peak pauses: 11 November 2026
+
+- Forward scrolling holds for one second at the top of each review spike before accepting more forward movement. Stop positions come from the actual SVG path lengths for both successful and missed answers. The active card chapter changes at each peak; repeated input during a hold does not extend its timer.
+- Browser production build and eight focused landing/scroll tests passed. New coverage uses real wheel, keyboard and touch input to check both peaks, exact curve endpoints, timing, continued input, forward release, reverse escape, avoiding repeated holds, focus navigation, resizing, reduced motion and unmount cleanup. Existing responsive, large-text, accessibility and complete setup tests also passed.
+- Inspected both paused peaks at 1440px and 390px. The existing horizontal card journey, typography, palette and layout are preserved. Reduced motion and oversized content retain the unpinned complete illustration. No animation dependency was added.
+- The single detector run reported 31 existing font-size advisories in unchanged CSS and no primary findings.
+- Independent Impeccable finish review returned `ship` with no material fixes after inspecting the peak captures, existing responsive captures, implementation and tests. The review used the persisted Oftly contract and incumbent captures; no separate quality-bar card was supplied. Four focused input tests passed again after moving screenshot capture outside the timed assertion window.

@@ -20,79 +20,12 @@ import {
 } from "../lib/plan";
 import { savePlan } from "../lib/browser/storage";
 import { scheduleSync } from "../lib/cloud/sync";
+import { useRecallStory } from "./useRecallStory";
 import "./landing.css";
 
 function RecallStory({ rating }: { rating: "again" | "good" | null }) {
-  const section = useRef<HTMLElement>(null);
-  const stageElement = useRef<HTMLDivElement>(null);
-  const track = useRef<HTMLDivElement>(null);
-  const card = useRef<HTMLDivElement>(null);
-  const [stage, setStage] = useState(0);
   const missed = rating === "again";
-
-  useEffect(() => {
-    const root = section.current!,
-      content = stageElement.current!;
-    const motion = matchMedia("(prefers-reduced-motion: reduce)");
-    let frame = 0;
-    let currentStage = -1;
-    let oversized = false;
-    const paint = () => {
-      frame = 0;
-      const contentHeight = content.offsetHeight;
-      // Keep the fallback stable when its wider card changes the measured height.
-      oversized ||= contentHeight > innerHeight - 32;
-      const stationary = motion.matches || oversized;
-      root.dataset.stationary = String(stationary);
-      root.style.setProperty("--story-height", `${contentHeight}px`);
-      const distance = Math.max(1, root.offsetHeight - contentHeight);
-      const progress = stationary
-        ? 1
-        : Math.max(
-            0,
-            Math.min(1, (16 - root.getBoundingClientRect().top) / distance),
-          );
-      const travel = Math.max(
-        0,
-        track.current!.clientWidth - card.current!.offsetWidth,
-      );
-      root.style.setProperty(
-        "--card-x",
-        `${stationary ? 0 : travel * progress}px`,
-      );
-      root.style.setProperty(
-        "--curve-progress",
-        String(Math.max(0.02, progress)),
-      );
-      const nextStage = Math.min(2, Math.floor(progress * 3));
-      if (nextStage !== currentStage) {
-        currentStage = nextStage;
-        setStage(nextStage);
-      }
-    };
-    const request = () => {
-      if (!frame) frame = requestAnimationFrame(paint);
-    };
-    const remeasure = () => {
-      oversized = false;
-      request();
-    };
-    const resize = new ResizeObserver(request);
-    resize.observe(content);
-    resize.observe(track.current!);
-    resize.observe(card.current!);
-    window.addEventListener("scroll", request, { passive: true });
-    window.addEventListener("resize", remeasure);
-    motion.addEventListener("change", remeasure);
-    paint();
-    return () => {
-      cancelAnimationFrame(frame);
-      resize.disconnect();
-      window.removeEventListener("scroll", request);
-      window.removeEventListener("resize", remeasure);
-      motion.removeEventListener("change", remeasure);
-    };
-  }, []);
+  const { section, content, track, card, stage, path } = useRecallStory(missed);
 
   return (
     <section
@@ -100,7 +33,7 @@ function RecallStory({ rating }: { rating: "again" | "good" | null }) {
       className="recall-scroll"
       aria-labelledby="recall-story-title"
     >
-      <div ref={stageElement} className="recall-stage">
+      <div ref={content} className="recall-stage">
         <div className="recall-heading">
           <h2 id="recall-story-title">
             A useful return.
@@ -156,15 +89,7 @@ function RecallStory({ rating }: { rating: "again" | "good" | null }) {
               className="recall-fade"
               d="M10 18C65 45 80 130 220 140S650 149 990 149"
             />
-            <path
-              className="recall-path"
-              pathLength="1"
-              d={
-                missed
-                  ? "M10 18C40 30 60 100 130 112V18C220 18 275 95 430 112V18C600 18 770 55 990 78"
-                  : "M10 18C70 30 110 100 240 112V18C370 18 440 85 640 106V18C760 18 880 34 990 48"
-              }
-            />
+            <path className="recall-path" pathLength="1" d={path} />
           </svg>
           <ol className="recall-chapters">
             {["First encounter", "Recall & rate", "A later return"].map(
