@@ -208,6 +208,11 @@ test("local scheduling, daily limits, undo, persistence, backup restore and no u
   expect((await state(page)).reviews).toHaveLength(0);
   await page.getByRole("button", { name: "Show answer" }).click();
   await page.getByRole("button", { name: /Easy 4/ }).click();
+  // Complete the save before a hard navigation tears down this document.
+  await expect(
+    page.getByRole("heading", { name: "Session complete" }),
+  ).toBeVisible();
+  expect((await state(page)).reviews).toHaveLength(1);
   await page.goto("/#settings");
   await page.reload();
   await expect(
