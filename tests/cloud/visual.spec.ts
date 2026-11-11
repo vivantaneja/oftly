@@ -162,6 +162,10 @@ async function scrollStory(page: Page, progress: number) {
         requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
       ),
   );
+  await expect(page.locator(".recall-scroll")).toHaveAttribute(
+    "data-moving",
+    "false",
+  );
 }
 
 test("scroll directly moves the card across, draws the curve and reverses on desktop and phone", async ({

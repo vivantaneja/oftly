@@ -25,8 +25,7 @@ export function useRecallStory(missed: boolean) {
     const root = section.current!,
       stageElement = content.current!;
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
-    // Dash progress follows path length, so pauses land at the tops of the
-    // vertical review strokes, including the shorter missed-answer curve.
+    // Keep chapter changes aligned to the actual review peaks on both curves.
     const measurePath = document.createElementNS(
       "http://www.w3.org/2000/svg",
       "path",
@@ -36,51 +35,87 @@ export function useRecallStory(missed: boolean) {
       return measurePath.getTotalLength();
     });
     const peaks = lengths.slice(0, -1).map((length) => length / lengths[2]);
-    // Give each review a short stretch of scroll to breathe. The page keeps
-    // moving natively; only the illustration dwells, with zero speed on arrival
-    // and departure so it never feels like hitting a scroll barrier.
-    const dwell = 0.1;
+    // A modest slowdown near each peak, with continuous speed through it.
+    // No flat sections: every scroll input still advances the illustration.
     const progressAt = (position: number) => {
-      let scrollStart = 0,
-        pathStart = 0;
-      for (let i = 0; i <= peaks.length; i++) {
-        const pathEnd = peaks[i] ?? 1;
-        const movingEnd = pathEnd * (1 - dwell * peaks.length) + dwell * i;
-        if (position <= movingEnd) {
-          const t = Math.max(
-            0,
-            Math.min(1, (position - scrollStart) / (movingEnd - scrollStart)),
+      let previous = 0;
+      for (const end of [...peaks, 1]) {
+        if (position <= end) {
+          const t = (position - previous) / (end - previous);
+          return (
+            previous +
+            (end - previous) *
+              (t - (0.25 * Math.sin(2 * Math.PI * t)) / (2 * Math.PI))
           );
-          const eased = t * t * t * (t * (6 * t - 15) + 10);
-          return pathStart + (pathEnd - pathStart) * eased;
         }
-        if (position <= movingEnd + dwell) return pathEnd;
-        scrollStart = movingEnd + dwell;
-        pathStart = pathEnd;
+        previous = end;
       }
       return 1;
     };
     let frame = 0,
       currentStage = -1,
-      oversized = false;
-    const paint = () => {
-      frame = 0;
+      lastTime = 0;
+    let oversized = false,
+      stationary = false,
+      needsMeasure = true,
+      resetMotion = true;
+    let target = 0,
+      progress = 0,
+      velocity = 0,
+      travel = 0;
+    let measuredHeight = 0;
+
+    const measure = () => {
+      needsMeasure = false;
       const contentHeight = stageElement.offsetHeight;
       // Keep the large-text fallback stable when its wider card changes height.
       oversized ||= contentHeight > innerHeight - 32;
-      const stationary = motion.matches || oversized;
+      stationary = motion.matches || oversized;
       root.dataset.stationary = String(stationary);
-      root.style.setProperty("--story-height", `${contentHeight}px`);
+      if (contentHeight !== measuredHeight) {
+        measuredHeight = contentHeight;
+        root.style.setProperty("--story-height", `${contentHeight}px`);
+      }
+      const bounds = root.getBoundingClientRect();
       const distance = Math.max(1, root.offsetHeight - contentHeight);
-      const position = Math.max(
-        0,
-        Math.min(1, (16 - root.getBoundingClientRect().top) / distance),
-      );
-      const progress = stationary ? 1 : progressAt(position);
-      const travel = Math.max(
+      const position = Math.max(0, Math.min(1, (16 - bounds.top) / distance));
+      target = stationary ? 1 : progressAt(position);
+      travel = Math.max(
         0,
         track.current!.clientWidth - card.current!.offsetWidth,
       );
+      if (
+        resetMotion ||
+        stationary ||
+        document.hidden ||
+        bounds.bottom < 0 ||
+        bounds.top > innerHeight
+      ) {
+        progress = target;
+        velocity = 0;
+        resetMotion = false;
+      }
+    };
+    const paint = (time: number) => {
+      frame = 0;
+      if (needsMeasure) measure();
+      const delta = lastTime ? Math.min(64, time - lastTime) / 1000 : 1 / 60;
+      lastTime = time;
+      // Exact critically damped response: soften wheel ticks without bounce.
+      // Timing uses elapsed seconds, so high-refresh screens feel the same.
+      const offset = progress - target;
+      const decay = Math.exp(-26 * delta);
+      const change = (velocity + 26 * offset) * delta;
+      let next = target + (offset + change) * decay;
+      velocity = (velocity - 26 * change) * decay;
+      if (
+        (target - progress) * (target - next) < 0 ||
+        (Math.abs(next - target) < 0.0001 && Math.abs(velocity) < 0.001)
+      ) {
+        next = target;
+        velocity = 0;
+      }
+      progress = next;
       root.style.setProperty(
         "--card-x",
         `${stationary ? 0 : travel * progress}px`,
@@ -94,13 +129,22 @@ export function useRecallStory(missed: boolean) {
         currentStage = nextStage;
         setStage(nextStage);
       }
+      const moving = progress !== target || velocity !== 0;
+      root.dataset.moving = String(moving);
+      if (moving) frame = requestAnimationFrame(paint);
+      else lastTime = 0;
     };
     const request = () => {
+      needsMeasure = true;
       if (!frame) frame = requestAnimationFrame(paint);
+    };
+    const reset = () => {
+      resetMotion = true;
+      request();
     };
     const remeasure = () => {
       oversized = false;
-      request();
+      reset();
     };
     const resize = new ResizeObserver(request);
     resize.observe(stageElement);
@@ -109,13 +153,15 @@ export function useRecallStory(missed: boolean) {
     window.addEventListener("scroll", request, { passive: true });
     window.addEventListener("resize", remeasure);
     motion.addEventListener("change", remeasure);
-    paint();
+    document.addEventListener("visibilitychange", reset);
+    paint(performance.now());
     return () => {
       cancelAnimationFrame(frame);
       resize.disconnect();
       window.removeEventListener("scroll", request);
       window.removeEventListener("resize", remeasure);
       motion.removeEventListener("change", remeasure);
+      document.removeEventListener("visibilitychange", reset);
     };
   }, [segments]);
 

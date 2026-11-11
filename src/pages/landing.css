@@ -637,6 +637,9 @@
     width: 76%;
     padding: 16px;
   }
+  .recall-travelling-card > span:last-child {
+    min-height: 2.9em;
+  }
   .recall-travelling-card p {
     font-size: 1.1rem;
     min-height: 4.2em;

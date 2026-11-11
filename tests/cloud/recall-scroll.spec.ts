@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { mkdirSync, writeFileSync } from "node:fs";
 
 async function frame(page: Page) {
   await page.evaluate(
@@ -21,6 +22,10 @@ async function enterStory(page: Page) {
       window.scrollTo(0, scrollY + el.getBoundingClientRect().top - 16),
     );
   await frame(page);
+  await expect(page.locator(".recall-scroll")).toHaveAttribute(
+    "data-moving",
+    "false",
+  );
 }
 
 async function snapshot(page: Page) {
@@ -49,11 +54,24 @@ async function wheel(page: Page, delta: number) {
   await frame(page);
 }
 
-for (const [name, width, height, answer, peaks] of [
-  ["desktop", 1440, 900, "I remembered", [240, 640]],
-  ["phone", 390, 844, "I missed it", [130, 430]],
+async function seek(page: Page, progress: number) {
+  await page.locator(".recall-scroll").evaluate((el, progress) => {
+    const stage = el.querySelector(".recall-stage")!;
+    const start = scrollY + el.getBoundingClientRect().top - 16;
+    scrollTo(0, start + (el.clientHeight - stage.clientHeight) * progress);
+  }, progress);
+  await frame(page);
+  await expect(page.locator(".recall-scroll")).toHaveAttribute(
+    "data-moving",
+    "false",
+  );
+}
+
+for (const [name, width, height, answer] of [
+  ["desktop", 1440, 900, "I remembered"],
+  ["phone", 390, 844, "I missed it"],
 ] as const) {
-  test(`${name}: the illustration eases into each peak while the page keeps scrolling`, async ({
+  test(`${name}: scroll bursts glide, settle and keep moving through both reviews`, async ({
     page,
   }) => {
     await page.setViewportSize({ width, height });
@@ -64,48 +82,81 @@ for (const [name, width, height, answer, peaks] of [
       .click();
     await page.getByRole("button", { name: answer, exact: true }).click();
     await enterStory(page);
-    for (const [index, x] of peaks.entries()) {
-      const movements: number[] = [];
-      let current = await snapshot(page);
-      for (let step = 0; step < 100; step++) {
-        if (
-          Math.abs(current.curveX - x) < 0.01 &&
-          Math.abs(current.curveY - 18) < 0.001
-        )
-          break;
-        await wheel(page, 10);
-        const next = await snapshot(page);
-        movements.push(next.cardX - current.cardX);
-        current = next;
-      }
-      expect(current.curveX).toBeCloseTo(x, 1);
-      expect(current.curveY).toBeCloseTo(18, 1);
-      // The card decelerates into the peak instead of hitting a hard stop.
-      expect(movements.at(-1)!).toBeLessThan(Math.max(...movements) / 3);
-      // The easing can look stationary just before the exact endpoint.
-      await wheel(page, 10);
-      current = await snapshot(page);
-      await expect(page.locator(".recall-card-stage")).toHaveText(
-        index === 0
-          ? "Recall & rate"
-          : name === "phone"
-            ? "Back sooner"
-            : "A later return",
-      );
-      await wheel(page, 20);
-      const dwell = await snapshot(page);
-      expect(dwell.scroll).toBeGreaterThan(current.scroll + 18);
-      expect(dwell.cardX).toBeCloseTo(current.cardX, 1);
-      expect(dwell.curveY).toBeCloseTo(18, 1);
-      await page.screenshot({
-        path: `.impeccable/review/soft-peak-${name}-${index + 1}.png`,
+    const before = await snapshot(page);
+    const sampling = page.locator(".recall-scroll").evaluate(
+      (el) =>
+        new Promise<{ time: number; x: number; height: number }[]>(
+          (resolve) => {
+            const samples: { time: number; x: number; height: number }[] = [];
+            const start = performance.now();
+            const sample = (time: number) => {
+              const box = el
+                .querySelector(".recall-travelling-card")!
+                .getBoundingClientRect();
+              samples.push({
+                time: time - start,
+                x: box.x,
+                height: box.height,
+              });
+              if (time - start < 700) requestAnimationFrame(sample);
+              else resolve(samples);
+            };
+            requestAnimationFrame(sample);
+          },
+        ),
+    );
+    await page.mouse.wheel(0, 220);
+    const samples = await sampling;
+    await expect(page.locator(".recall-scroll")).toHaveAttribute(
+      "data-moving",
+      "false",
+    );
+    const last = samples.at(-1)!.x;
+    const positions = [before.cardX, ...samples.map((sample) => sample.x)];
+    const changes = positions.slice(1).map((x, i) => x - positions[i]);
+    expect(last - before.cardX).toBeGreaterThan(width > 600 ? 100 : 10);
+    expect(changes.filter((delta) => delta > 0.01).length).toBeGreaterThan(5);
+    expect(Math.max(...changes)).toBeLessThan((last - before.cardX) * 0.45);
+    expect(Math.max(...positions)).toBeLessThanOrEqual(last + 0.1);
+    expect(
+      Math.max(...samples.map((s) => s.height)) -
+        Math.min(...samples.map((s) => s.height)),
+    ).toBeLessThan(1);
+    await page.waitForTimeout(150);
+    expect((await snapshot(page)).cardX).toBeCloseTo(last, 1);
+    mkdirSync(".impeccable/review", { recursive: true });
+    writeFileSync(
+      `.impeccable/review/fluid-scroll-${name}.json`,
+      JSON.stringify(samples),
+    );
+
+    const peaks = await page.locator(".recall-path").evaluate((el) => {
+      const path = el as SVGPathElement;
+      const pieces = path.getAttribute("d")!.split("V18");
+      return [0, 1].map((index) => {
+        const prefix = path.cloneNode() as SVGPathElement;
+        prefix.setAttribute(
+          "d",
+          pieces.slice(0, index + 1).join("V18") + "V18",
+        );
+        return prefix.getTotalLength() / path.getTotalLength();
       });
-      await wheel(page, 100);
-      expect((await snapshot(page)).cardX).toBeGreaterThan(dwell.cardX);
+    });
+    for (const [index, peak] of peaks.entries()) {
+      await seek(page, peak - 0.025);
+      const approach = await snapshot(page);
+      await seek(page, peak);
+      const center = await snapshot(page);
+      await seek(page, peak + 0.025);
+      const departure = await snapshot(page);
+      expect(center.cardX).toBeGreaterThan(approach.cardX + 0.5);
+      expect(departure.cardX).toBeGreaterThan(center.cardX + 0.5);
+      await page.screenshot({
+        path: `.impeccable/review/fluid-${name}-review-${index + 1}.png`,
+      });
     }
-    const end = await snapshot(page);
-    await wheel(page, -50);
-    expect((await snapshot(page)).cardX).toBeLessThan(end.cardX);
+    await seek(page, 0);
+    expect((await snapshot(page)).cardX).toBeCloseTo(before.cardX, 1);
     await page.getByRole("button", { name: "Set up my study plan" }).click();
     await expect(
       page.getByRole("heading", { name: "Where are you studying?" }),

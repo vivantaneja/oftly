@@ -126,3 +126,12 @@ All integration/browser tests use temporary collections. The running app uses it
 - Browser production build and eight targeted landing tests passed. Coverage measures deceleration, page movement during each illustrated dwell, actual curve endpoints for both ratings, continuation, reverse movement, fast scrolling, keyboard navigation, native touch, reduced motion, large text, accessibility and setup access. Two initial fixture assertions were corrected for near-endpoint sampling and the browser's native Home-key position.
 - Inspected both peak states on desktop and phone. The existing visual design is preserved. This behavior supersedes the timed-lock implementation and its two hosted touch-test failures; the account and sync tests themselves passed in both earlier hosted runs.
 - Fresh independent Impeccable review returned `ship` with no material fixes, including the latest criticism of the abrupt stop. The final native-touch test also passed with down/up gestures so document boundaries do not invalidate the second swipe.
+
+
+## Continuous scroll motion: 11 November 2026
+
+- The latest instruction prioritizes smoothness over previous pause requirements. Removed flat dwells and kept continuous movement with a modest slowdown near each review peak. A critically damped response smooths discrete scroll input; the card and curve share the same displayed progress and settle without a loop. Native page scrolling remains unrestricted.
+- Layout reads occur only on scroll or resize, while settling frames update the transform and curve. Reduced motion, content outside the viewport, resizing and tab visibility changes snap to the appropriate state. Mobile feedback reserves two lines to prevent the card height changing at review transitions.
+- Browser production build and all eight targeted motion/landing tests passed. Recorded 43-frame scroll traces at desktop and phone widths reached 95% of their travel in 196 ms and 185 ms respectively, with no overshoot or card-height change. Tests verify movement through both peaks, rest after input, reversal, touch, keyboard, fast scrolling, setup access, responsive layouts, enlarged text and accessibility.
+- Inspected both review states on desktop and phone. The single detector run reported 31 existing typography advisories and no primary findings. Brand assets and tokens are unchanged.
+- Fresh independent Impeccable review returned `ship` with no material fixes after inspecting the implementation, current captures and recorded motion traces against the latest smoothness request.
