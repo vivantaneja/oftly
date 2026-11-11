@@ -8,6 +8,18 @@ See [current engine comparison](ENGINE-COMPARISON.md) for FSRS-7, SBD, neural pr
 
 Build around effortful retrieval, visible corrective feedback, and repeated sessions over time. Use the official Anki engine and its native FSRS scheduler through a local service. A better scheduler can reduce wasted reviews, but it cannot repair ambiguous questions, incorrect answers, or shallow recognition-only practice. No evidence establishes one interval pattern or retention target as universally best for all learners, subjects, and deadlines.
 
+## Visual research guide
+
+The [in-app research guide](https://oftly.vivantaneja.com/#research) is the public entry to these notes. Its first comparison reproduces the reported mean proportion of prose idea units recalled in Experiment 1 of [Roediger & Karpicke (2006)](https://learninglab.psych.purdue.edu/downloads/2006/2006_Roediger_Karpicke_PsychSci.pdf), checked against the author PDF on 11 November 2026:
+
+| Final test delay | Restudy | Initial retrieval |
+| --- | --- | --- |
+| 5 minutes | 81% | 75% |
+| 2 days | 54% | 68% |
+| 1 week | 42% | 56% |
+
+These results describe that experiment, not Oftly versus Anki or a forecast for an individual. The spacing curves are explicitly illustrative. The timing demo calls the same browser FSRS-6 scheduler and default 90% target as the app, advances a simulated clock to each next due time, and never saves a card or review to the learner’s library. Sources remain adjacent to their explanations; GitHub keeps the fuller research and engineering record.
+
 ## What the evidence actually supports
 
 | Finding | Evidence and strength | Product implication |

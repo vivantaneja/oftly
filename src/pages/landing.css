@@ -263,6 +263,73 @@
   font-size: 2rem;
   color: var(--muted);
 }
+.setup-time-wheels {
+  align-items: center;
+}
+.time-wheel-field {
+  width: calc((100% - 38px) / 2);
+  min-width: 0;
+  text-align: center;
+}
+.time-wheel-field > span {
+  display: block;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.time-wheel-frame {
+  position: relative;
+}
+.time-wheel-frame::before {
+  content: "";
+  position: absolute;
+  inset: 40% 0;
+  background: var(--paper);
+  border-block: 1px solid var(--line);
+  pointer-events: none;
+}
+.time-wheel {
+  --wheel-row: 2.75rem;
+  height: calc(var(--wheel-row) * 5);
+  padding-block: calc(var(--wheel-row) * 2);
+  overflow-y: auto;
+  scrollbar-width: none;
+  scroll-snap-type: y mandatory;
+  overscroll-behavior-y: contain;
+  touch-action: pan-y;
+  position: relative;
+  mask-image: linear-gradient(transparent, #000 30%, #000 70%, transparent);
+}
+.time-wheel::-webkit-scrollbar {
+  display: none;
+}
+.time-wheel-frame:has(:focus-visible) {
+  outline: 3px solid var(--leaf);
+  outline-offset: 3px;
+  border-radius: 5px;
+}
+.time-wheel:focus-visible {
+  outline: none;
+}
+.time-wheel-option {
+  height: var(--wheel-row);
+  display: grid;
+  place-items: center;
+  scroll-snap-align: center;
+  color: var(--muted);
+  font-size: 1.25rem;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  user-select: none;
+}
+.time-wheel-option.selected {
+  color: var(--ink);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.setup-time-wheels > span {
+  padding: 0 0 2rem;
+}
 .setup-plan {
   margin: 30px 0 24px;
   border-top: 1px solid var(--line);
@@ -472,8 +539,8 @@
   --curve-progress: 1;
   --card-x: 0px;
   height: calc(var(--story-height) + clamp(360px, 80svh, 800px));
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--story-ground);
+  color: var(--story-ink);
   margin-top: 24px;
 }
 .recall-stage {
@@ -539,11 +606,11 @@
   display: block;
 }
 .recall-baseline {
-  stroke: color-mix(in srgb, var(--paper) 30%, var(--ink));
+  stroke: color-mix(in srgb, var(--story-ink) 30%, var(--story-ground));
   fill: none;
 }
 .recall-fade {
-  stroke: color-mix(in srgb, var(--paper) 50%, var(--ink));
+  stroke: color-mix(in srgb, var(--story-ink) 50%, var(--story-ground));
   fill: none;
   stroke-dasharray: 3 5;
 }

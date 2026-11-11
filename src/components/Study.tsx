@@ -194,6 +194,7 @@ export default function Study({
         </div>
       ) : (
         <>
+          <h1 className="sr-only">Study session</h1>
           <div className="study-context">
             <span className="deck-label">{deckPath(session.card.deck)}</span>
             <span>
@@ -318,7 +319,8 @@ export default function Study({
                     <button
                       className={"rating rating-" + i}
                       title={description}
-                      aria-label={`${title} ${i + 1}: ${description}; ${answer.intervals[i]}`}
+                      aria-description={description}
+                      aria-keyshortcuts={String(i + 1)}
                       key={title}
                       disabled={busy}
                       onClick={() => rate(i + 1)}

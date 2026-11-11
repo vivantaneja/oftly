@@ -2,6 +2,7 @@ import {
   useEffect,
   useState,
   useCallback,
+  useSyncExternalStore,
   Component,
   type ReactNode,
 } from "react";
@@ -14,6 +15,7 @@ import DeckBrowser from "./components/DeckBrowser";
 import { NextRepeat } from "./components/QueueCounts";
 import { deckPath, isFolder } from "./lib/decks";
 import { SuggestionSettings } from "./components/CardGuidance";
+import { appearance, type Appearance } from "./lib/appearance";
 class ErrorBoundary extends Component<
   { children: ReactNode },
   { error: boolean }
@@ -62,6 +64,8 @@ function Week({ stats, large = false }: { stats: Stats; large?: boolean }) {
   );
 }
 function Preferences({ onChange }: { onChange: () => void }) {
+  const theme = useSyncExternalStore(appearance.subscribe, appearance.get);
+  const [appearanceError, setAppearanceError] = useState(false);
   const browserLocal = import.meta.env.VITE_STORAGE === "browser";
   const [values, setValues] = useState<{
     newPerDay: number;
@@ -79,6 +83,34 @@ function Preferences({ onChange }: { onChange: () => void }) {
   return (
     <section className="narrow-page">
       <h1>Settings</h1>
+      <div className="setting-row appearance-setting">
+        <div>
+          <h2>
+            <label htmlFor="appearance">Appearance</label>
+          </h2>
+          <p id="appearance-hint">Applies immediately on this device.</p>
+        </div>
+        <select
+          id="appearance"
+          aria-describedby="appearance-hint"
+          value={theme}
+          onChange={(event) =>
+            setAppearanceError(
+              !appearance.set(event.target.value as Appearance),
+            )
+          }
+        >
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+          <option value="system">System</option>
+        </select>
+      </div>
+      {appearanceError && (
+        <p role="status" className="hint left">
+          Theme changed for this visit. Your browser couldn’t save the
+          preference.
+        </p>
+      )}
       {error && (
         <p role="alert" className="error">
           {error}
@@ -517,11 +549,15 @@ function AppContent({ account }: { account?: ReactNode }) {
                 <div>
                   <p>Spacing and retrieval support long-term retention.</p>
                   <a
-                    href="https://pubmed.ncbi.nlm.nih.gov/16719566/"
+                    href={
+                      import.meta.env.VITE_STORAGE === "browser"
+                        ? "#research"
+                        : "https://oftly.vivantaneja.com/#research"
+                    }
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Read the spacing research
+                    Explore the learning research
                   </a>
                 </div>
               </details>

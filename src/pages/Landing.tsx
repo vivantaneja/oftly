@@ -22,6 +22,7 @@ import {
 import { savePlan } from "../lib/browser/storage";
 import { scheduleSync } from "../lib/cloud/sync";
 import { useRecallStory } from "./useRecallStory";
+import { StudyTime } from "../components/StudyTime";
 import "./landing.css";
 
 function RecallStory({ rating }: { rating: "again" | "good" | null }) {
@@ -401,6 +402,7 @@ export default function Landing() {
           )}
           {flow.step === 3 && (
             <form
+              noValidate
               onSubmit={(e) => {
                 e.preventDefault();
                 result();
@@ -412,37 +414,11 @@ export default function Landing() {
               <p className="setup-lead">
                 Your usual total, including reading and practice.
               </p>
-              <div className="setup-time">
-                <label htmlFor="study-hours">
-                  <input
-                    id="study-hours"
-                    type="number"
-                    inputMode="numeric"
-                    min="0"
-                    max="24"
-                    step="1"
-                    required
-                    value={flow.hours}
-                    onChange={(e) => update({ hours: e.target.value })}
-                  />
-                  Hours
-                </label>
-                <span aria-hidden="true">:</span>
-                <label htmlFor="study-minutes">
-                  <input
-                    id="study-minutes"
-                    type="number"
-                    inputMode="numeric"
-                    min="0"
-                    max="59"
-                    step="1"
-                    required
-                    value={flow.minutes}
-                    onChange={(e) => update({ minutes: e.target.value })}
-                  />
-                  Minutes
-                </label>
-              </div>
+              <StudyTime
+                hours={flow.hours}
+                minutes={flow.minutes}
+                onChange={update}
+              />
               <button className="primary setup-next">
                 See my plan <ArrowRight size={17} aria-hidden="true" />
               </button>
@@ -538,13 +514,7 @@ export default function Landing() {
       </main>
       <footer className="setup-footer">
         <a href="/privacy.html">Privacy</a>
-        <a
-          href="https://github.com/vivantaneja/oftly/blob/main/docs/LEARNING-RESEARCH.md"
-          target="_blank"
-          rel="noreferrer"
-        >
-          The research
-        </a>
+        <a href="#research">The research</a>
       </footer>
     </div>
   );

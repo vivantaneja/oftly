@@ -12,7 +12,9 @@ Oftly is a local-first React web app. The **public browser edition** uses FSRS-6
 
 ## Features
 
-- **A guided introduction:** try a card, choose your study setting and method, then enter your daily hours and minutes. One step at a time, with a suggested study split and optional sign-in.
+- **A guided introduction:** try a card, choose your study setting and method, then enter your daily hours and minutes. Minute arrows move in tens; touch devices get vertically scrolling hour/minute wheels. One step at a time, with a suggested study split and optional sign-in.
+- **Appearance:** Light, Dark or System in Settings, saved on each device and applied before the app paints.
+- **Explore the research:** an in-app visual guide with interactive study results, scroll-linked spacing, paper citations and a live FSRS timing simulation. [Open the guide](https://oftly.vivantaneja.com/#research).
 - **Optional accounts and sync:** Google and email-link sign-in; private decks, progress, media and preferences across devices. Offline edits sync when connected. Conflicting changes retain both versions for recovery.
 - **FSRS scheduling:** retrieve, reveal, compare and rate. New / Learning / Due counts, a missed-answer tally and countdown to the next repeat. Real interval previews, compact Again/Hard/Good/Easy buttons, keyboard shortcuts and undo.
 - **Anki and Quizlet imports:** preview modern/legacy APKG packages, or paste/upload Quizlet exports and CSV/TSV/text. Optionally keep Anki review history.

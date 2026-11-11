@@ -15,6 +15,7 @@ import {
 } from "./lib/cloud/auth";
 import { subscribeSync, syncSnapshot } from "./lib/cloud/sync";
 import "./pages/landing.css";
+const Research = lazy(() => import("./pages/Research"));
 const Landing = lazy(() => import("./pages/Landing"));
 function Privacy() {
   return (
@@ -97,6 +98,16 @@ function Content() {
         </button>
       </main>
     );
+  if (route === "research")
+    return (
+      <Suspense
+        fallback={
+          <main className="loading-account">Opening the research…</main>
+        }
+      >
+        <Research />
+      </Suspense>
+    );
   if (route === "privacy") return <Privacy />;
   const authError = new URLSearchParams(location.hash.slice(1)).get(
     "error_description",
@@ -124,6 +135,7 @@ function Content() {
           <img src="/brand/oftly-icon.svg" alt="" />
           <img src="/brand/oftly-wordmark-ink.svg" alt="oftly" />
         </a>
+        <h1 className="sr-only">Sign in to Oftly</h1>
         <SignIn onGuest={() => (location.hash = "today")} />
       </main>
     );

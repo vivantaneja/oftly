@@ -135,3 +135,11 @@ All integration/browser tests use temporary collections. The running app uses it
 - Browser production build and all eight targeted motion/landing tests passed. Recorded 43-frame scroll traces at desktop and phone widths reached 95% of their travel in 196 ms and 185 ms respectively, with no overshoot or card-height change. Tests verify movement through both peaks, rest after input, reversal, touch, keyboard, fast scrolling, setup access, responsive layouts, enlarged text and accessibility.
 - Inspected both review states on desktop and phone. The single detector run reported 31 existing typography advisories and no primary findings. Brand assets and tokens are unchanged.
 - Fresh independent Impeccable review returned `ship` with no material fixes after inspecting the implementation, current captures and recorded motion traces against the latest smoothness request.
+
+## Appearance, touch time controls and research guide
+
+Added browser journeys cover Light/Dark/System selection, first-paint styling, persistence across reloads and tabs, system changes, blocked preference storage and offline reload. Dark settings, imports, sign-in, study and privacy are checked with axe and captured for visual review.
+
+Desktop minute arrows advance in tens while typed integer minutes still work. Chromium touch emulation exercises the hour/minute wheels with actual touch events, snapping, taps, keyboard limits, reloads, validation, tablet layout and enlarged text. An outside-wheel swipe verifies that page scrolling remains available. This is not a physical iPad/Safari device test.
+
+The public research journey checks the published delayed-recall values, citation and GitHub links, answer reveal, live FSRS interval changes, reset and an unchanged guest library. Responsive and reduced-motion checks cover native scroll drawing, static curves, dark appearance and enlarged text. Simulated reviews remain in component memory only.
