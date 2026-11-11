@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowLeft,
+  ArrowDown,
   BookOpen,
   Check,
   GraduationCap,
@@ -21,56 +22,164 @@ import { savePlan } from "../lib/browser/storage";
 import { scheduleSync } from "../lib/cloud/sync";
 import "./landing.css";
 
-function RecallStory({ missed }: { missed: boolean }) {
-  const returnAt = missed ? 100 : 250;
-  const path = missed
-    ? "M12 18C32 25 55 76 100 82V18C175 18 235 58 348 67"
-    : "M12 18C65 18 115 65 250 82V18C285 18 318 24 348 29";
+function RecallStory({ rating }: { rating: "again" | "good" | null }) {
+  const section = useRef<HTMLElement>(null);
+  const stageElement = useRef<HTMLDivElement>(null);
+  const track = useRef<HTMLDivElement>(null);
+  const card = useRef<HTMLDivElement>(null);
+  const [stage, setStage] = useState(0);
+  const missed = rating === "again";
+
+  useEffect(() => {
+    const root = section.current!,
+      content = stageElement.current!;
+    const motion = matchMedia("(prefers-reduced-motion: reduce)");
+    let frame = 0;
+    let currentStage = -1;
+    let oversized = false;
+    const paint = () => {
+      frame = 0;
+      const contentHeight = content.offsetHeight;
+      // Keep the fallback stable when its wider card changes the measured height.
+      oversized ||= contentHeight > innerHeight - 32;
+      const stationary = motion.matches || oversized;
+      root.dataset.stationary = String(stationary);
+      root.style.setProperty("--story-height", `${contentHeight}px`);
+      const distance = Math.max(1, root.offsetHeight - contentHeight);
+      const progress = stationary
+        ? 1
+        : Math.max(
+            0,
+            Math.min(1, (16 - root.getBoundingClientRect().top) / distance),
+          );
+      const travel = Math.max(
+        0,
+        track.current!.clientWidth - card.current!.offsetWidth,
+      );
+      root.style.setProperty(
+        "--card-x",
+        `${stationary ? 0 : travel * progress}px`,
+      );
+      root.style.setProperty(
+        "--curve-progress",
+        String(Math.max(0.02, progress)),
+      );
+      const nextStage = Math.min(2, Math.floor(progress * 3));
+      if (nextStage !== currentStage) {
+        currentStage = nextStage;
+        setStage(nextStage);
+      }
+    };
+    const request = () => {
+      if (!frame) frame = requestAnimationFrame(paint);
+    };
+    const remeasure = () => {
+      oversized = false;
+      request();
+    };
+    const resize = new ResizeObserver(request);
+    resize.observe(content);
+    resize.observe(track.current!);
+    resize.observe(card.current!);
+    window.addEventListener("scroll", request, { passive: true });
+    window.addEventListener("resize", remeasure);
+    motion.addEventListener("change", remeasure);
+    paint();
+    return () => {
+      cancelAnimationFrame(frame);
+      resize.disconnect();
+      window.removeEventListener("scroll", request);
+      window.removeEventListener("resize", remeasure);
+      motion.removeEventListener("change", remeasure);
+    };
+  }, []);
+
   return (
-    <section className="recall-story" aria-labelledby="recall-story-title">
-      <div>
-        <h2 id="recall-story-title">A useful return.</h2>
-        <p role="status">
-          {missed
-            ? "Oftly brings missed cards back sooner."
-            : "As recall gets stronger, Oftly spaces reviews further apart."}
-        </p>
-      </div>
-      <figure>
-        <div className="recall-marker" aria-hidden="true">
-          <span
-            style={{
-              left: `clamp(5ch, ${(returnAt / 360) * 100}%, calc(100% - 5ch))`,
-            }}
+    <section
+      ref={section}
+      className="recall-scroll"
+      aria-labelledby="recall-story-title"
+    >
+      <div ref={stageElement} className="recall-stage">
+        <div className="recall-heading">
+          <h2 id="recall-story-title">
+            A useful return.
+            <br />A little further apart.
+          </h2>
+          <p>
+            {missed
+              ? "Oftly brings missed cards back sooner."
+              : "As recall gets stronger, Oftly spaces reviews further apart."}
+          </p>
+        </div>
+        <div ref={track} className="recall-track">
+          <div ref={card} className="recall-travelling-card">
+            <span className="recall-card-stage">
+              {
+                [
+                  "First encounter",
+                  "Recall & rate",
+                  missed ? "Back sooner" : "A later return",
+                ][stage]
+              }
+            </span>
+            <p>
+              {stage === 1
+                ? "The Pacific Ocean."
+                : "What is the largest ocean on Earth?"}
+            </p>
+            <span>
+              {stage === 0
+                ? "Try to find the answer in memory."
+                : stage === 1
+                  ? rating
+                    ? `Your response: ${missed ? "I missed it" : "I remembered"}`
+                    : "Compare your answer. Rate your recall."
+                  : "Same question. A fresh retrieval."}
+            </span>
+          </div>
+        </div>
+        <figure className="recall-figure">
+          <span className="recall-axis-title">Recall after a review</span>
+          <svg
+            viewBox="0 0 1000 170"
+            preserveAspectRatio="none"
+            role="img"
+            aria-label={
+              missed
+                ? "Illustrative recall curve: a missed card returns after a shorter gap."
+                : "Illustrative recall curve: successful reviews allow longer gaps."
+            }
           >
-            Next review
-          </span>
-        </div>
-        <svg
-          viewBox="0 0 360 108"
-          role="img"
-          aria-label={
-            missed
-              ? "Illustration: a missed card has a shorter gap before its next review."
-              : "Illustration: a remembered card has a longer gap before its next review."
-          }
-        >
-          <path className="recall-baseline" d="M12 100H348" />
-          <path
-            className="recall-fade"
-            d="M12 18C65 45 80 91 150 94S280 99 348 99"
-          />
-          <path className="recall-path" d={path} pathLength="1" />
-          <circle className="recall-dot" cx={returnAt} cy="18" r="5" />
-        </svg>
-        <div className="recall-axis" aria-hidden="true">
-          <span>Now</span>
-          <span>
-            Time <ArrowRight size={14} />
-          </span>
-        </div>
-        <figcaption>Illustrative gaps. Your reviews set the timing.</figcaption>
-      </figure>
+            <path className="recall-baseline" d="M10 150H990" />
+            <path
+              className="recall-fade"
+              d="M10 18C65 45 80 130 220 140S650 149 990 149"
+            />
+            <path
+              className="recall-path"
+              pathLength="1"
+              d={
+                missed
+                  ? "M10 18C40 30 60 100 130 112V18C220 18 275 95 430 112V18C600 18 770 55 990 78"
+                  : "M10 18C70 30 110 100 240 112V18C370 18 440 85 640 106V18C760 18 880 34 990 48"
+              }
+            />
+          </svg>
+          <ol className="recall-chapters">
+            {["First encounter", "Recall & rate", "A later return"].map(
+              (label, i) => (
+                <li key={label} aria-current={stage === i ? "step" : undefined}>
+                  {missed && i === 2 ? "Back sooner" : label}
+                </li>
+              ),
+            )}
+          </ol>
+          <figcaption>
+            Illustrative gaps. Your reviews set the timing.
+          </figcaption>
+        </figure>
+      </div>
     </section>
   );
 }
@@ -287,18 +396,23 @@ export default function Landing() {
                   </>
                 )}
               </div>
-              {(flow.demo === "again" || flow.demo === "good") && (
-                <>
-                  <RecallStory missed={flow.demo === "again"} />
-                  <button
-                    className="primary setup-next"
-                    onClick={() => update({ step: 1 })}
-                  >
-                    Set up my study plan{" "}
-                    <ArrowRight size={17} aria-hidden="true" />
-                  </button>
-                </>
-              )}
+              <p className="recall-scroll-cue">
+                <ArrowDown size={16} aria-hidden="true" /> Scroll to follow the
+                card
+              </p>
+              <RecallStory
+                rating={
+                  flow.demo === "again" || flow.demo === "good"
+                    ? flow.demo
+                    : null
+                }
+              />
+              <button
+                className="primary setup-next"
+                onClick={() => update({ step: 1 })}
+              >
+                Set up my study plan <ArrowRight size={17} aria-hidden="true" />
+              </button>
             </>
           )}
           {flow.step === 1 && (

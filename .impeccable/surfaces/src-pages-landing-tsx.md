@@ -11,18 +11,22 @@ Mode: Persuade at the opening, then Operate for setup. Existing Oftly identity; 
 
 ## User authority — 11 November 2026
 
-The user rejected the tall scroll page, scrolling buttons, obscure subject choices, card-count/deadline questions and one-hour ceiling. They asked for an active, designated path with much less text/options and support for people studying eight hours a day. A subsequent request asks to tie back into the old landing style. Restore its expressive headline, paper sample card and ink-and-gold recall illustration while retaining the shorter active path and simpler questions; do not restore the entire scroll page.
+The user rejected the tall scroll page, scrolling buttons, obscure subject choices, card-count/deadline questions and one-hour ceiling. They asked for an active, designated path with much less text/options and support for people studying eight hours a day. A subsequent request asks to tie back into the old landing style. Restore its expressive headline, paper sample card and ink-and-gold recall illustration while retaining the simpler questions. The latest clarification is explicit: “I LIKED THE SCROLL ANAIMATIONS GOOING ACROSS”. The horizontal, scroll-scrubbed card journey is the central requirement, not merely the old colors or a timed curve reveal.
 
 ## Direction contract
 
 **THESIS** — Understand one card by using it, then make a simple study plan.
 
-**OWN-WORLD** — Preserve Oftly's warm canvas, ink, fonts and existing icons. Restore the original first impression through centered editorial type, a single paper flashcard and a short ink-and-gold explanation after the recall response. Keep the study application quiet.
+**OWN-WORLD** — Preserve Oftly's warm canvas, ink, fonts and existing icons. Restore the original first impression through centered editorial type, a single paper flashcard and a pinned ink-and-gold scroll chapter with the same card travelling across it. Keep the study application quiet.
 
-**STORY** — Reveal → recall response → study setting → current method → hours/minutes → a short suggested split → optional account or guest study. Each screen has one task. Back preserves answers and a reload resumes setup.
+**STORY** — Optional sample reveal/rating → scroll the same card left to right through encounter, recall/rating and return → study setting → current method → hours/minutes → a short suggested split → optional account or guest study. Each screen has one task. Back preserves answers and a reload resumes setup.
 
-**FIRST VIEWPORT** — Brand/sign-in header, the original “One card. A longer-lasting memory.” headline, one short description, a paper sample card and Reveal answer. It fits 320–1440px viewports at ordinary text size. Rating reveals a compact explanation and finite curve animation before setup.
+**FIRST VIEWPORT** — Brand/sign-in header, the original “One card. A longer-lasting memory.” headline, one short description, a paper sample card and Reveal answer. The sample action is visible at 320–1440px widths. The scroll chapter is available immediately below it, without requiring a rating to discover the animation. The final setup button advances to the first question.
 
-**FORM** — Up to 1040px opening with centered 480px card; 540px task column for setup, flat choice rows, 44px controls, factual progress, no nested cards or arbitrary numeric efficacy claims. Three setting options and three methods; no card totals, horizons or long subject list. Daily time accepts 5 minutes to 24 hours. The suggested allocation never limits actual studying. Answer reveal and the rating-triggered curve animate once; reduced motion disables both. The curve changes with the rating and is explicitly illustrative, without fabricated day counts.
+**FORM** — Up to 1040px opening with centered 480px card; 540px task column for setup, flat choice rows, 44px controls, factual progress, no nested cards or arbitrary numeric efficacy claims. Three setting options and three methods; no card totals, horizons or long subject list. Daily time accepts 5 minutes to 24 hours. The suggested allocation never limits actual studying. Scrolling directly controls card translation and curve drawing, including reverse scrolling. It stops when scrolling stops, with no autoplay or loop. Reduced motion and content taller than the viewport use an unpinned, complete illustration. The curve reflects the optional rating and is explicitly illustrative, without fabricated day counts.
 
 **FINISH** — Inspect desktop, tablet and phone states; verify keyboard/large text, eight-hour input, plan persistence and account handoff. Fresh independent finish review includes the user's criticism. Existing design tokens and assets stay unchanged; no new rasters ship.
+
+## Motion thesis
+
+Focal moment: the same card travels from left to right while a pinned chapter stays in view. Continuity: encounter → answer/rating → returned question. Feedback: scroll position updates the card, active chapter and curve together; sample ratings alter the return story. Budget: one passive scroll listener, one requestAnimationFrame per event batch, transform and stroke updates, React updates only at stage boundaries. No animation dependency.

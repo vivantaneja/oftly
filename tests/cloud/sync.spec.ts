@@ -135,7 +135,7 @@ test("private RPC, optimistic writes, immutable media and account isolation", as
     ).error,
   ).toBeTruthy();
 });
-test("guided setup requires an action, retains answers and supports an eight-hour day", async ({
+test("guided setup retains answers and supports an eight-hour day", async ({
   page,
 }) => {
   await page.goto("/");
@@ -146,7 +146,7 @@ test("guided setup requires an action, retains answers and supports an eight-hou
   ).toBeVisible();
   await expect(
     page.getByRole("button", { name: "Set up my study plan" }),
-  ).toHaveCount(0);
+  ).toHaveCount(1);
   await page
     .getByRole("button", { name: "Reveal answer", exact: true })
     .click();
