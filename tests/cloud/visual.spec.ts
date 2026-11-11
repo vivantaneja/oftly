@@ -46,7 +46,9 @@ test("scroll introduction keeps the trial and setup accessible at every width", 
     page.getByRole("heading", { name: /A useful return/ }),
   ).toBeVisible();
   await expect(
-    page.getByRole("img", { name: /successful reviews allow longer gaps/ }),
+    page.getByRole("img", {
+      name: /successful reviews lead to shallower dips/,
+    }),
   ).toBeVisible();
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.screenshot({

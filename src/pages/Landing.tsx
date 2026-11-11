@@ -27,7 +27,8 @@ import "./landing.css";
 
 function RecallStory({ rating }: { rating: "again" | "good" | null }) {
   const missed = rating === "again";
-  const { section, content, track, card, stage, path } = useRecallStory(missed);
+  const { section, content, track, card, stage, path, withoutReview } =
+    useRecallStory(missed);
 
   return (
     <section
@@ -82,15 +83,12 @@ function RecallStory({ rating }: { rating: "again" | "good" | null }) {
             role="img"
             aria-label={
               missed
-                ? "Illustrative recall curve: a missed card returns after a shorter gap."
-                : "Illustrative recall curve: successful reviews allow longer gaps."
+                ? "Illustrative recall curve: a missed card returns sooner, then successful reviews lead to shallower dips."
+                : "Illustrative recall curve: successful reviews lead to shallower dips, flatter curves and longer gaps."
             }
           >
             <path className="recall-baseline" d="M10 150H990" />
-            <path
-              className="recall-fade"
-              d="M10 18C65 45 80 130 220 140S650 149 990 149"
-            />
+            <path className="recall-fade" d={withoutReview} />
             <path className="recall-path" pathLength="1" d={path} />
           </svg>
           <ol className="recall-chapters">
@@ -334,12 +332,18 @@ export default function Landing() {
                     : null
                 }
               />
-              <button
-                className="primary setup-next"
-                onClick={() => update({ step: 1 })}
-              >
-                Set up my study plan <ArrowRight size={17} aria-hidden="true" />
-              </button>
+              <div className="welcome-actions">
+                <button
+                  className="primary setup-next"
+                  onClick={() => update({ step: 1 })}
+                >
+                  Set up my study plan{" "}
+                  <ArrowRight size={17} aria-hidden="true" />
+                </button>
+                <a className="text-button" href="#research">
+                  See the research <ArrowRight size={16} aria-hidden="true" />
+                </a>
+              </div>
             </>
           )}
           {flow.step === 1 && (

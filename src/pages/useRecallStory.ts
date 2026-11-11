@@ -1,16 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 
+const firstCurves = {
+  good: "M10 18C70 30 110 100 240 112",
+  again: "M10 18C40 30 60 100 130 112",
+};
 const curves = {
   good: [
-    "M10 18C70 30 110 100 240 112V18",
-    "C370 18 440 85 640 106V18",
-    "C760 18 880 34 990 48",
+    `${firstCurves.good}V18`,
+    "C370 24 440 55 640 68V18",
+    "C760 20 880 27 990 34",
   ],
   again: [
-    "M10 18C40 30 60 100 130 112V18",
-    "C220 18 275 95 430 112V18",
-    "C600 18 770 55 990 78",
+    `${firstCurves.again}V18`,
+    "C220 28 275 68 430 84V18",
+    "C600 22 770 42 990 54",
   ],
+};
+// Both paths share the same first attempt; only further reviews change the curve.
+const withoutReview = {
+  good: `${firstCurves.good}C370 139 480 146 640 148S880 150 990 150`,
+  again: `${firstCurves.again}C220 139 300 146 430 148S800 150 990 150`,
 };
 
 export function useRecallStory(missed: boolean) {
@@ -23,7 +32,9 @@ export function useRecallStory(missed: boolean) {
 
   useEffect(() => {
     const root = section.current!,
-      stageElement = content.current!;
+      stageElement = content.current!,
+      trackElement = track.current!,
+      cardElement = card.current!;
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
     // Keep chapter changes aligned to the actual review peaks on both curves.
     const measurePath = document.createElementNS(
@@ -80,10 +91,7 @@ export function useRecallStory(missed: boolean) {
       const distance = Math.max(1, root.offsetHeight - contentHeight);
       const position = Math.max(0, Math.min(1, (16 - bounds.top) / distance));
       target = stationary ? 1 : progressAt(position);
-      travel = Math.max(
-        0,
-        track.current!.clientWidth - card.current!.offsetWidth,
-      );
+      travel = Math.max(0, trackElement.clientWidth - cardElement.offsetWidth);
       if (
         resetMotion ||
         stationary ||
@@ -98,6 +106,7 @@ export function useRecallStory(missed: boolean) {
     };
     const paint = (time: number) => {
       frame = 0;
+      if (!root.isConnected) return;
       if (needsMeasure) measure();
       const delta = lastTime ? Math.min(64, time - lastTime) / 1000 : 1 / 60;
       lastTime = time;
@@ -135,6 +144,7 @@ export function useRecallStory(missed: boolean) {
       else lastTime = 0;
     };
     const request = () => {
+      if (!root.isConnected) return;
       needsMeasure = true;
       if (!frame) frame = requestAnimationFrame(paint);
     };
@@ -148,8 +158,8 @@ export function useRecallStory(missed: boolean) {
     };
     const resize = new ResizeObserver(request);
     resize.observe(stageElement);
-    resize.observe(track.current!);
-    resize.observe(card.current!);
+    resize.observe(trackElement);
+    resize.observe(cardElement);
     window.addEventListener("scroll", request, { passive: true });
     window.addEventListener("resize", remeasure);
     motion.addEventListener("change", remeasure);
@@ -165,5 +175,13 @@ export function useRecallStory(missed: boolean) {
     };
   }, [segments]);
 
-  return { section, content, track, card, stage, path: segments.join("") };
+  return {
+    section,
+    content,
+    track,
+    card,
+    stage,
+    path: segments.join(""),
+    withoutReview: withoutReview[missed ? "again" : "good"],
+  };
 }

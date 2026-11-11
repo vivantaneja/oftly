@@ -5,8 +5,16 @@ import { mkdirSync } from "node:fs";
 test("research explains actual study results and simulates FSRS without changing the library", async ({
   page,
 }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/#welcome");
-  await page.getByRole("link", { name: "The research", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Reveal answer", exact: true })
+    .click();
+  await page.getByRole("button", { name: "I remembered", exact: true }).click();
+  await page
+    .getByRole("link", { name: "See the research", exact: true })
+    .click();
   await expect(page).toHaveURL(/#research$/);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Make it stick.Here’s the science.",
@@ -64,6 +72,14 @@ test("research explains actual study results and simulates FSRS without changing
     page.getByText(/not a scientifically validated prediction/),
   ).toBeVisible();
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.getByRole("link", { name: "Back to Oftly", exact: true }).click();
+  await expect(
+    page.getByText("Your response: I remembered", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "The research", exact: true }),
+  ).toHaveAttribute("href", "#research");
+  expect(errors).toEqual([]);
   await page.goto("/#today");
   await expect(
     page.getByRole("button", { name: "Try a 6-card sample deck" }),

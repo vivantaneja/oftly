@@ -402,4 +402,6 @@ The public entry follows the user's 11 November refinement: retain the active se
 
 Then use the quiet Operate language in a 540px column: study purpose (including Other), current method, daily hours/minutes, a short plan and optional sign-in. Flat rows, familiar controls and factual progress keep each screen focused. Buttons reveal, choose, advance, go back or save. Preserve the compact sequence; keep the restored horizontal scroll sequence concise; do not restore the long explanations, card counts or deadline questions. The suggested allocation never limits studying.
 
+The landing recall curve uses the research figure's progressively shallower dips and flatter declines. Its dashed comparison follows the same first decline before separating at the first review. Keep the illustration caption and the earlier returns for missed cards. After the graph, group the primary setup button with a quieter “See the research” text action; allow this pair to wrap naturally on phones. The existing footer research link stays available.
+
 Account forms retain Google/email sign-in, guest continuation and visible errors. Sync status remains factual text linked to Account. Existing colors, fonts, assets, study density and compact ratings are unchanged.
