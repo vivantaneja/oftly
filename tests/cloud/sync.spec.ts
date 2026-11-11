@@ -140,7 +140,9 @@ test("guided setup requires an action, retains answers and supports an eight-hou
 }) => {
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: "Try one card." }),
+    page.getByRole("heading", {
+      name: /One card\.\s*A longer-lasting memory\./,
+    }),
   ).toBeVisible();
   await expect(
     page.getByRole("button", { name: "Set up my study plan" }),
@@ -323,7 +325,7 @@ test("two devices sync progress, offline edits survive reload, sign-out isolates
   await p1.goto("/#account");
   await p1.getByRole("button", { name: "Sign out", exact: true }).click();
   await expect(
-    p1.getByRole("heading", { name: "Try one card." }),
+    p1.getByRole("heading", { name: /One card\.\s*A longer-lasting memory\./ }),
   ).toBeVisible();
   await p1.goto("/#today");
   expect((await localState(p1)).collection.notes).toHaveLength(0);

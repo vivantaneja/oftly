@@ -189,21 +189,6 @@
 .setup-page button {
   min-height: 44px;
 }
-.setup-feedback {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  padding-top: 2px;
-}
-.setup-feedback svg {
-  flex-shrink: 0;
-  color: var(--leaf);
-  margin-top: 2px;
-}
-.setup-feedback p {
-  margin: 0;
-  line-height: 1.5;
-}
 .setup-next {
   width: 100%;
   justify-content: center;
@@ -414,4 +399,184 @@
   clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
+}
+
+/* The first encounter retains the original landing's editorial scale. */
+.setup-welcome .setup-header {
+  border-bottom: 1px solid var(--line);
+}
+.setup-welcome .setup-main {
+  width: min(100%, 1040px);
+  padding-top: 30px;
+}
+.welcome-intro {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.welcome-intro h1 {
+  font-size: clamp(2.4rem, 5.5vw, 4.6rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  max-width: 19ch;
+  margin: 0 auto 20px;
+}
+.welcome-intro .setup-lead {
+  max-width: 46ch;
+  margin: 0 auto;
+}
+.setup-welcome .setup-demo {
+  width: min(100%, 480px);
+  margin: 0 auto;
+  padding: 24px 28px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 14px 40px #1f2a440a;
+}
+.setup-welcome .setup-question {
+  margin-block: 18px 22px;
+  font-size: 1.65rem;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+.setup-response {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.recall-story {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 36px;
+  align-items: center;
+  margin: 30px auto 0;
+  padding: 28px 36px;
+  max-width: 840px;
+  background: var(--ink);
+  color: var(--paper);
+}
+.recall-story h2 {
+  font:
+    550 1.9rem/1.15 "Bricolage Grotesque",
+    sans-serif;
+  letter-spacing: -0.025em;
+  margin: 0 0 12px;
+}
+.recall-story p {
+  margin: 0;
+  line-height: 1.5;
+}
+.recall-story figure {
+  margin: 0;
+  min-width: 0;
+}
+.recall-story figure > svg {
+  width: 100%;
+  display: block;
+}
+.recall-baseline {
+  stroke: color-mix(in srgb, var(--paper) 30%, var(--ink));
+  fill: none;
+}
+.recall-fade {
+  stroke: color-mix(in srgb, var(--paper) 50%, var(--ink));
+  fill: none;
+  stroke-dasharray: 3 5;
+}
+.recall-path {
+  stroke: var(--marigold);
+  stroke-width: 3;
+  stroke-linecap: round;
+  fill: none;
+  stroke-dasharray: 1;
+  animation: recall-draw 800ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.recall-dot {
+  fill: var(--marigold);
+}
+.recall-marker {
+  position: relative;
+  height: 1.5em;
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+.recall-marker span {
+  position: absolute;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+.recall-axis {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 4px 0 12px;
+  font-size: 0.8rem;
+}
+.recall-axis span:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.recall-story figcaption {
+  color: var(--paper);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+.setup-welcome .setup-next {
+  white-space: normal;
+  width: fit-content;
+  max-width: 100%;
+  margin: 24px auto 0;
+  display: flex;
+}
+.setup-welcome .setup-navigation,
+.setup-welcome .setup-progress {
+  max-width: 480px;
+  margin-inline: auto;
+}
+@keyframes recall-draw {
+  from {
+    stroke-dashoffset: 0.98;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .recall-path {
+    animation: none;
+  }
+}
+@media (max-width: 600px) {
+  .setup-welcome .setup-main {
+    padding-top: 24px;
+  }
+  .welcome-intro {
+    margin-bottom: 24px;
+  }
+  .welcome-intro h1 {
+    font-size: clamp(2.15rem, 9vw, 2.8rem);
+  }
+  .welcome-intro .setup-lead {
+    font-size: 0.95rem;
+  }
+  .setup-welcome .setup-demo {
+    padding: 20px;
+  }
+  .setup-welcome .setup-question {
+    font-size: 1.4rem;
+  }
+  .recall-story {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 24px;
+    margin-top: 24px;
+  }
+  .recall-story h2 {
+    font-size: 1.7rem;
+  }
+  .recall-story figure > svg {
+    max-height: 100px;
+  }
 }

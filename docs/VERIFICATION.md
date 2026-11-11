@@ -82,3 +82,12 @@ All integration/browser tests use temporary collections. The running app uses it
 - Inspected desktop 1440px, tablet 800px and phone 390/320px captures, plus mobile setting, time, plan and account screens. The first view fits its viewport; checked views pass automated accessibility checks. The account step remains within the width at 320px with a 30px root font.
 - Impeccable detector ran once: 16 advisories and no primary findings. No new visual world, raster assets or design tokens were introduced.
 - Fresh independent Impeccable review returned `ship` for this user-directed refinement after inspecting all eight captures, relevant implementation and persisted scope; no material fixes were identified. Dependency audit reports zero vulnerabilities.
+
+
+## Original landing character, guided path — 11 November 2026
+
+- Restored the original centered headline, paper sample card and ink-and-gold recall illustration in response to the user's preference for the earlier style. Kept the active sample-card gate, three short questions, hours/minutes input and account/guest handoff. The explanation appears after the response; no scroll-only controls or long marketing chapters return.
+- Browser production build and all 11 local account/landing tests passed. Three focused visual/flow tests passed again after final label and large-text fixes. Coverage includes both rating-dependent illustrations, finite animation, reduced motion, viewport fit at 320/390/800/1440px, automated accessibility, the eight-hour path, persistence and account integration.
+- Enlarged-text inspection caught colliding graph labels and an overflowing primary-button label. The return marker now sits above the graph and the button wraps; regression assertions verify separation, button bounds and no horizontal overflow at 320px with a 30px root size. A transient full-page capture artifact after resizing was recaptured after two animation frames.
+- Impeccable detector ran once: 26 advisories and no primary findings. The existing brand tokens and assets remain unchanged; no animation library or new raster asset was added. The landing chunk is approximately 10.52 KB (3.82 KB gzip).
+- Fresh independent Impeccable review returned `ship` for the refinement after checking all eleven current captures against the original landing reference and latest scope. It identified no material fixes.

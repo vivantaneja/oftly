@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { mkdirSync } from "node:fs";
 
-test("compact setup fits desktop and phone screens with an accessible path", async ({
+test("expressive opening fits desktop and phone screens with an accessible path", async ({
   page,
 }) => {
   mkdirSync(".impeccable/review", { recursive: true });
@@ -16,7 +16,9 @@ test("compact setup fits desktop and phone screens with an accessible path", asy
     await page.setViewportSize({ width, height });
     await page.goto("/");
     await expect(
-      page.getByRole("heading", { name: "Try one card." }),
+      page.getByRole("heading", {
+        name: /One card\.\s*A longer-lasting memory\./,
+      }),
     ).toBeVisible();
     await page.evaluate(() => document.fonts.ready);
     expect(
@@ -31,7 +33,7 @@ test("compact setup fits desktop and phone screens with an accessible path", asy
     ).toBeTruthy();
     expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
     await page.screenshot({
-      path: `.impeccable/review/setup-${name}.png`,
+      path: `.impeccable/review/return-${name}.png`,
       fullPage: true,
       animations: "disabled",
     });
@@ -41,9 +43,32 @@ test("compact setup fits desktop and phone screens with an accessible path", asy
     .getByRole("button", { name: "Reveal answer", exact: true })
     .click();
   await page.getByRole("button", { name: "I remembered", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "A useful return." }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("img", { name: /remembered card has a longer gap/ }),
+  ).toBeVisible();
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.screenshot({
+    path: ".impeccable/review/return-rated-mobile.png",
+    fullPage: true,
+  });
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+      ),
+  );
+  await page.screenshot({
+    path: ".impeccable/review/return-rated-desktop.png",
+    fullPage: true,
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
   await page.getByRole("button", { name: "Set up my study plan" }).click();
   await page.screenshot({
-    path: ".impeccable/review/setup-context-mobile.png",
+    path: ".impeccable/review/return-context-mobile.png",
     fullPage: true,
   });
   await page.getByRole("button", { name: "School", exact: true }).click();
@@ -52,18 +77,18 @@ test("compact setup fits desktop and phone screens with an accessible path", asy
     .click();
   await page.getByLabel("Hours", { exact: true }).fill("8");
   await page.screenshot({
-    path: ".impeccable/review/setup-time-mobile.png",
+    path: ".impeccable/review/return-time-mobile.png",
     fullPage: true,
   });
   await page.getByRole("button", { name: "See my plan" }).click();
   await page.screenshot({
-    path: ".impeccable/review/setup-plan-mobile.png",
+    path: ".impeccable/review/return-plan-mobile.png",
     fullPage: true,
   });
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.getByRole("button", { name: "Use this plan" }).click();
   await page.screenshot({
-    path: ".impeccable/review/setup-account-mobile.png",
+    path: ".impeccable/review/return-account-mobile.png",
     fullPage: true,
   });
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
@@ -123,4 +148,54 @@ test("time entry handles short sessions, full days, invalid totals and legacy sa
     });
   });
   expect(legacy).toBe("Spanish · 15 minutes a day");
+});
+
+test("recall illustration follows the answer and finishes its animation", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  await page
+    .getByRole("button", { name: "Reveal answer", exact: true })
+    .click();
+  await page.getByRole("button", { name: "I missed it", exact: true }).click();
+  await expect(
+    page.getByRole("img", { name: /missed card has a shorter gap/ }),
+  ).toBeVisible();
+  await expect
+    .poll(() =>
+      page
+        .locator(".recall-path")
+        .evaluate((el) => getComputedStyle(el).strokeDashoffset),
+    )
+    .toBe("0px");
+  expect(
+    await page
+      .locator(".recall-path")
+      .evaluate((el) => getComputedStyle(el).animationIterationCount),
+  ).toBe("1");
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.evaluate(() => (document.documentElement.style.fontSize = "30px"));
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBeTruthy();
+  const bounds = await page
+    .getByRole("button", { name: "Set up my study plan" })
+    .evaluate((el) => ({ width: el.clientWidth, scroll: el.scrollWidth }));
+  expect(bounds.scroll).toBeLessThanOrEqual(bounds.width);
+  const marker = await page.locator(".recall-marker span").boundingBox();
+  const axis = await page.locator(".recall-axis").boundingBox();
+  expect(marker!.y + marker!.height).toBeLessThan(axis!.y);
+  await page.screenshot({
+    path: ".impeccable/review/return-large-text.png",
+    fullPage: true,
+  });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  expect(
+    await page
+      .locator(".recall-path")
+      .evaluate((el) => getComputedStyle(el).animationName),
+  ).toBe("none");
 });

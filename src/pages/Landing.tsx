@@ -6,8 +6,6 @@ import {
   Check,
   GraduationCap,
   School,
-  TimerReset,
-  CalendarDays,
 } from "lucide-react";
 import { SignIn, useAccount } from "../lib/cloud/auth";
 import {
@@ -23,6 +21,59 @@ import { savePlan } from "../lib/browser/storage";
 import { scheduleSync } from "../lib/cloud/sync";
 import "./landing.css";
 
+function RecallStory({ missed }: { missed: boolean }) {
+  const returnAt = missed ? 100 : 250;
+  const path = missed
+    ? "M12 18C32 25 55 76 100 82V18C175 18 235 58 348 67"
+    : "M12 18C65 18 115 65 250 82V18C285 18 318 24 348 29";
+  return (
+    <section className="recall-story" aria-labelledby="recall-story-title">
+      <div>
+        <h2 id="recall-story-title">A useful return.</h2>
+        <p role="status">
+          {missed
+            ? "Oftly brings missed cards back sooner."
+            : "As recall gets stronger, Oftly spaces reviews further apart."}
+        </p>
+      </div>
+      <figure>
+        <div className="recall-marker" aria-hidden="true">
+          <span
+            style={{
+              left: `clamp(5ch, ${(returnAt / 360) * 100}%, calc(100% - 5ch))`,
+            }}
+          >
+            Next review
+          </span>
+        </div>
+        <svg
+          viewBox="0 0 360 108"
+          role="img"
+          aria-label={
+            missed
+              ? "Illustration: a missed card has a shorter gap before its next review."
+              : "Illustration: a remembered card has a longer gap before its next review."
+          }
+        >
+          <path className="recall-baseline" d="M12 100H348" />
+          <path
+            className="recall-fade"
+            d="M12 18C65 45 80 91 150 94S280 99 348 99"
+          />
+          <path className="recall-path" d={path} pathLength="1" />
+          <circle className="recall-dot" cx={returnAt} cy="18" r="5" />
+        </svg>
+        <div className="recall-axis" aria-hidden="true">
+          <span>Now</span>
+          <span>
+            Time <ArrowRight size={14} />
+          </span>
+        </div>
+        <figcaption>Illustrative gaps. Your reviews set the timing.</figcaption>
+      </figure>
+    </section>
+  );
+}
 function Brand() {
   return (
     <a href="#welcome" className="landing-brand" aria-label="Oftly home">
@@ -169,7 +220,7 @@ export default function Landing() {
   }
   const labels = ["Try a card", "Your studies", "Your method", "Daily time"];
   return (
-    <div className="setup-page">
+    <div className={`setup-page ${flow.step === 0 ? "setup-welcome" : ""}`}>
       <header className="setup-header">
         <Brand />
         <a href="#account">
@@ -180,12 +231,15 @@ export default function Landing() {
         <div className="setup-screen" key={flow.step}>
           {flow.step === 0 && (
             <>
-              <h1 ref={heading} tabIndex={-1}>
-                Try one card.
-              </h1>
-              <p className="setup-lead">
-                Flashcards that adapt to what you remember.
-              </p>
+              <div className="welcome-intro">
+                <h1 ref={heading} tabIndex={-1}>
+                  One card.
+                  <br />A longer-lasting memory.
+                </h1>
+                <p className="setup-lead">
+                  Flashcards that adapt to what you remember.
+                </p>
+              </div>
               <div className="setup-demo">
                 <span className="setup-sample-label">Sample card</span>
                 <p className="setup-question">
@@ -224,30 +278,26 @@ export default function Landing() {
                         </div>
                       </>
                     ) : (
-                      <div className="setup-feedback" role="status">
-                        {flow.demo === "again" ? (
-                          <TimerReset size={22} aria-hidden="true" />
-                        ) : (
-                          <CalendarDays size={22} aria-hidden="true" />
-                        )}
-                        <p>
-                          {flow.demo === "again"
-                            ? "Oftly brings missed cards back sooner."
-                            : "As recall gets stronger, Oftly spaces reviews further apart."}
-                        </p>
-                      </div>
+                      <p className="setup-response">
+                        {flow.demo === "again"
+                          ? "Your response: I missed it"
+                          : "Your response: I remembered"}
+                      </p>
                     )}
                   </>
                 )}
               </div>
               {(flow.demo === "again" || flow.demo === "good") && (
-                <button
-                  className="primary setup-next"
-                  onClick={() => update({ step: 1 })}
-                >
-                  Set up my study plan{" "}
-                  <ArrowRight size={17} aria-hidden="true" />
-                </button>
+                <>
+                  <RecallStory missed={flow.demo === "again"} />
+                  <button
+                    className="primary setup-next"
+                    onClick={() => update({ step: 1 })}
+                  >
+                    Set up my study plan{" "}
+                    <ArrowRight size={17} aria-hidden="true" />
+                  </button>
+                </>
               )}
             </>
           )}
