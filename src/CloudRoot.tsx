@@ -13,7 +13,6 @@ import {
   SignIn,
   useAccount,
 } from "./lib/cloud/auth";
-import { readCollection } from "./lib/browser/storage";
 import { subscribeSync, syncSnapshot } from "./lib/cloud/sync";
 import "./pages/landing.css";
 const Landing = lazy(() => import("./pages/Landing"));
@@ -72,9 +71,7 @@ function Privacy() {
 }
 function Content() {
   const { session, ready, error } = useAccount(),
-    [route, setRoute] = useState(location.hash.slice(1)),
-    [checked, setChecked] = useState(false),
-    [hasCards, setHasCards] = useState(false);
+    [route, setRoute] = useState(location.hash.slice(1));
   const sync = useSyncExternalStore(subscribeSync, syncSnapshot);
   useEffect(() => {
     const fn = () => {
@@ -84,24 +81,7 @@ function Content() {
     window.addEventListener("hashchange", fn);
     return () => window.removeEventListener("hashchange", fn);
   }, []);
-  useEffect(() => {
-    if (!ready) return;
-    let live = true;
-    void readCollection()
-      .then((s) => {
-        if (live) {
-          setHasCards(s.notes.length > 0);
-          setChecked(true);
-        }
-      })
-      .catch(() => {
-        if (live) setChecked(true);
-      });
-    return () => {
-      live = false;
-    };
-  }, [ready, session?.user.id]);
-  if (!ready || !checked)
+  if (!ready)
     return (
       <main className="loading-account" role="status">
         Opening your study space…
@@ -129,7 +109,7 @@ function Content() {
         <a href="#account">Request a new link</a>
       </main>
     );
-  if (route === "welcome" || (!route && !session && !hasCards))
+  if (route === "welcome" || (!route && !session))
     return (
       <Suspense
         fallback={<main className="loading-account">Opening Oftly…</main>}

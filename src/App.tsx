@@ -498,7 +498,7 @@ function AppContent({ account }: { account?: ReactNode }) {
                 <div>
                   <strong>
                     {data.stats.recallRate === null
-                      ? "—"
+                      ? "N/A"
                       : data.stats.recallRate + "%"}
                   </strong>
                   <span>recall on review cards · 30 days</span>

@@ -8,10 +8,10 @@ Overall: **Good** within the tested scope. The task is straightforward daily ret
 
 ## Improvements completed
 
-- **Medium — error recovery.** Import errors now receive focus and scroll into view while preserving drafts. A browser test verifies a failed edited answer, correction and successful retry. `feedback.md › Best practices`: “Make sure all feedback is accessible.” [Reference](https://github.com/dickwu/apple-design-skill/blob/main/references/hig/feedback.md)
-- **Medium — field-aware guidance.** Explicit missing-index fallback preserves an Answer field at index zero. A browser fixture verifies it. This is an implementation finding, not an Apple-specific rule.
-- **Medium — larger text and touch.** Rating descriptions wrap; coarse-pointer icon buttons and checkbox labels have 44 CSS-pixel minimum targets. Tests double root text size on mobile Settings and an imported-note editor without overflow. CSS pixels are web measurements, not native point equivalence. `accessibility.md › Vision`: “Support larger text sizes.” [Reference](https://github.com/dickwu/apple-design-skill/blob/main/references/hig/accessibility.md)
-- **Low — high contrast.** Forced-color mode preserves borders and focus using system colors. Reduced-motion support already disables nonessential transitions.
+- **Medium: error recovery.** Import errors now receive focus and scroll into view while preserving drafts. A browser test verifies a failed edited answer, correction and successful retry. `feedback.md › Best practices`: “Make sure all feedback is accessible.” [Reference](https://github.com/dickwu/apple-design-skill/blob/main/references/hig/feedback.md)
+- **Medium: field-aware guidance.** Explicit missing-index fallback preserves an Answer field at index zero. A browser fixture verifies it. This is an implementation finding, not an Apple-specific rule.
+- **Medium: larger text and touch.** Rating descriptions wrap; coarse-pointer icon buttons and checkbox labels have 44 CSS-pixel minimum targets. Tests double root text size on mobile Settings and an imported-note editor without overflow. CSS pixels are web measurements, not native point equivalence. `accessibility.md › Vision`: “Support larger text sizes.” [Reference](https://github.com/dickwu/apple-design-skill/blob/main/references/hig/accessibility.md)
+- **Low: high contrast.** Forced-color mode preserves borders and focus using system colors. Reduced-motion support already disables nonessential transitions.
 
 ## What works
 
@@ -30,7 +30,7 @@ Read references: accessibility, layout, typography, color, designing-for-iOS, cr
 Measured contrast on white: muted #53685b 6.00:1; pine #174c3c 9.83:1. Other surfaces were covered by the automated checks.
 
 
-## Supplied Apple Design skill — queue refinement, 10 November 2026
+## Supplied Apple Design skill: queue refinement, 10 November 2026
 
 Applied the user's supplied Apple Design skill to the current Oftly interface. The earlier review above describes the pre-brand version. The current brief remains a quiet, Anki-like study tool.
 

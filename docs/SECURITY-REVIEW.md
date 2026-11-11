@@ -1,4 +1,4 @@
-# Publication review — 10 November 2026
+# Publication review: 10 November 2026
 
 Scope: repository contents/history, dependencies, imported HTML/media, compressed packages, browser persistence and public hosting. This is an engineering review with regression checks, not a guarantee that every vulnerability has been found.
 
@@ -40,7 +40,7 @@ npm run build:web
 npm run test:web
 ```
 
-## Account extension — 10 November 2026
+## Account extension: 10 November 2026
 
 Supabase provides PKCE Google/email-link authentication. The browser includes only a publishable key, never an administrator or service-role key. Database tables use per-user row-level security; authenticated reads are restricted to the caller, direct writes are revoked, and two authenticated RPCs enforce account ownership, size limits and revision-checked transactions. Anonymous access is rejected. Media is private, content-hashed and immutable, under a caller-owned path. Requests are bound to the initiating account token to prevent account-switch races.
 

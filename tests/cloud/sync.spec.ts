@@ -135,6 +135,53 @@ test("private RPC, optimistic writes, immutable media and account isolation", as
     ).error,
   ).toBeTruthy();
 });
+test("signed-out home opens the landing even with guest cards; signed-in home opens decks", async ({
+  page,
+  browser,
+}) => {
+  await page.goto("/#account");
+  await page
+    .getByRole("button", { name: "Continue on this device without an account" })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "Decks", exact: true }),
+  ).toBeVisible();
+  await importText(page, "Saved guest cards");
+  const before = (await localState(page)).collection;
+  expect(before.notes.length).toBeGreaterThan(0);
+  await page.goto("/");
+  await expect(
+    page.getByRole("heading", {
+      name: /One card\.\s*A longer-lasting memory\./,
+    }),
+  ).toBeVisible();
+  await page.reload();
+  await expect(
+    page.getByRole("heading", {
+      name: /One card\.\s*A longer-lasting memory\./,
+    }),
+  ).toBeVisible();
+  expect((await localState(page)).collection).toEqual(before);
+  await page.getByRole("link", { name: "Sign in", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Continue on this device without an account" })
+    .click();
+  await expect(
+    page.getByText("Saved guest cards", { exact: true }),
+  ).toBeVisible();
+  expect((await localState(page)).collection).toEqual(before);
+
+  const a = await account();
+  const context = await browser.newContext();
+  await login(context, a.session);
+  const signedIn = await context.newPage();
+  await signedIn.goto("/");
+  await expect(
+    signedIn.getByRole("heading", { name: "Decks", exact: true }),
+  ).toBeVisible();
+  await context.close();
+});
+
 test("guided setup retains answers and supports an eight-hour day", async ({
   page,
 }) => {

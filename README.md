@@ -99,6 +99,6 @@ Issues and pull requests are welcome. Keep the core flow small, preserve card id
 
 Created by [@vivantaneja](https://github.com/vivantaneja) and [@MilesatAshvantAnand](https://github.com/MilesatAshvantAnand). Thanks to [Anki](https://apps.ankiweb.net/), the spaced-repetition research community and [Anki Star](https://github.com/MilesatAshvantAnand/anki-star).
 
-**AGPL-3.0-or-later** — see [LICENSE](LICENSE). Vendored Anki Star modules retain their MIT licence. [Third-party notices](THIRD-PARTY-NOTICES.md).
+**AGPL-3.0-or-later**. See [LICENSE](LICENSE). Vendored Anki Star modules retain their MIT licence. [Third-party notices](THIRD-PARTY-NOTICES.md).
 
 Independent project; not affiliated with or endorsed by Anki, Quizlet or Apple.

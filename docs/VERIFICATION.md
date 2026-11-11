@@ -14,7 +14,7 @@ Verified on 10 November 2026, macOS Apple Silicon, Node 24.12, Python 3.11, Anki
 All integration/browser tests use temporary collections. The running app uses its own `.data` collection, separate from an existing Anki desktop profile. No real user Anki/Quizlet export was supplied; compatibility was exercised with native-engine-generated packages and representative text fixtures. Add-on-dependent decks and the renderer exclusions documented in README.md remain outside the tested compatibility claim.
 
 
-## Final publication checks — 10 November 2026
+## Final publication checks: 10 November 2026
 
 - Production build passed (about 97 KB gzipped JavaScript).
 - 12 native integration tests passed, covering Anki Star mixed notes, literal-text safety, duplicate handling, injected rollback, source/ID preservation, template cleanup, APKG round-trip, typed answer presentation, FSRS/undo and preferences.
@@ -24,7 +24,7 @@ All integration/browser tests use temporary collections. The running app uses it
 - GitHub Actions will run the same build/native/browser checks on Ubuntu. Local results above are macOS evidence; hosted CI status is tracked separately.
 
 
-## Folder hierarchy extension — 10 November 2026
+## Folder hierarchy extension: 10 November 2026
 
 - Production build, 13 native integration tests and 6 browser journeys passed.
 - New native coverage checks nested creation, folder aggregate counts, parent-folder study, duplicate/missing-parent errors, persistent empty folders and unchanged card identities/review logs after reopening the collection.
@@ -35,7 +35,7 @@ All integration/browser tests use temporary collections. The running app uses it
 - Independent Impeccable review returned `ship` for the folder extension with no material fixes. Advisory: indentation is capped after four levels to protect narrow layouts; opening a folder resets the visible depth and breadcrumbs preserve its ancestry.
 
 
-## Oftly brand redesign — 10 November 2026
+## Oftly brand redesign: 10 November 2026
 
 - Implemented the supplied brand guide across Today, study, folders, authoring, imports, progress and settings. Typography is self-hosted; the logo and favicon are SVG.
 - Production build passed. JavaScript is approximately 98 KB gzipped; CSS approximately 7 KB. Five local WOFF2 files total approximately 302 KB and carry their OFL licences.
@@ -47,7 +47,7 @@ All integration/browser tests use temporary collections. The running app uses it
 - Restarted the updated local service and verified unchanged deck IDs, card count and completed-review count.
 
 
-## Quieter interface — 10 November 2026
+## Quieter interface: 10 November 2026
 
 - Replaced the dark rail and dashboard hero with a light top navigation and one deck list. Moved weekly activity to Progress; reduced headlines, filled panels and decorative feedback. Study cards use plain question/answer content, compact ratings and an expandable rating guide. Import help and advanced options are collapsed by default.
 - Native and browser production builds passed. All 6 native browser journeys and 7 browser-only journeys passed, covering imports, folders, study, keyboard shortcuts, backup, persistence, offline reload and HTML safety. The scheduling/storage implementations are unchanged.
@@ -55,14 +55,14 @@ All integration/browser tests use temporary collections. The running app uses it
 - Updated the design contract and public screenshots to match the quieter interface. Screenshot content is synthetic.
 
 
-## Queue counts and repeat countdown — 10 November 2026
+## Queue counts and repeat countdown: 10 November 2026
 
 - Added New / Learning / Due counts to deck rows, deck/folder summaries and study. Learning includes pending intraday steps without making them available early. The session tally counts answers marked Again; undo removes the reverted answer. The countdown uses the selected deck/folder's actual next learning time.
 - Native regression covers parent/child aggregation, waiting vs ready, unrelated decks, due reviews, suspension and undo. It exposed and fixed native deck-selection operations displacing the answer targeted by Undo.
 - Browser regression covers Again, undo, scoped counts, the live countdown reaching zero, reopening the repeat, visible mobile session totals and enlarged text. All 16 native tests, 6 native browser journeys and 8 browser-only journeys passed. Final checks also cover mobile tally visibility, larger text and automatic study-button availability when a repeat becomes due.
 - Queue terminology follows the [Anki study overview](https://docs.ankiweb.net/manual/studying). Counts are cards, not remaining repetitions or a claim of mastery.
 
-## Public introduction and optional accounts — 10 November 2026
+## Public introduction and optional accounts: 10 November 2026
 
 - Both production builds pass. Final local suites: 16 native integration tests, 6 native browser journeys, 8 browser-only journeys and 10 account/landing tests. npm audit reports zero vulnerabilities; the local database schema linter reports no errors.
 - The new tests use a disposable localhost Supabase stack. They cover anonymous rejection, account and media isolation, direct-write rejection, revision conflicts, immutable uploads, two-device FSRS review/history/media sync, same-filename media replacement, offline edits, sign-out isolation, a queued save during an identity change, email-link PKCE, conflict recovery and authenticated account deletion.
@@ -74,7 +74,7 @@ All integration/browser tests use temporary collections. The running app uses it
 - This records local and provider verification. GitHub CI is checked separately after pushing. No Vercel deployment command was run. Provider quotas, session expiry while offline and retained device copies are described in the account guide.
 
 
-## Compact guided setup — 11 November 2026
+## Compact guided setup: 11 November 2026
 
 - Replaced the tall scroll introduction with a gated sample-card trial, study setting, current method, hours/minutes, a short plan and optional sign-in. Removed subject lists, card counts, goal horizons and scroll-only calls to action. Daily time accepts 5 minutes through 24 hours; the result is a disclosed starting allocation, not an enforced study limit or efficacy prediction.
 - Browser production build passed. Removed Motion and its dependencies; the landing JavaScript chunk is approximately 9.74 KB (3.53 KB gzip). The existing brand tokens and assets are preserved.
@@ -84,7 +84,7 @@ All integration/browser tests use temporary collections. The running app uses it
 - Fresh independent Impeccable review returned `ship` for this user-directed refinement after inspecting all eight captures, relevant implementation and persisted scope; no material fixes were identified. Dependency audit reports zero vulnerabilities.
 
 
-## Original landing character, guided path — 11 November 2026
+## Original landing character, guided path: 11 November 2026
 
 - Restored the original centered headline, paper sample card and ink-and-gold recall illustration in response to the user's preference for the earlier style. Kept the active sample-card gate, three short questions, hours/minutes input and account/guest handoff. The explanation appears after the response; no scroll-only controls or long marketing chapters return.
 - Browser production build and all 11 local account/landing tests passed. Three focused visual/flow tests passed again after final label and large-text fixes. Coverage includes both rating-dependent illustrations, finite animation, reduced motion, viewport fit at 320/390/800/1440px, automated accessibility, the eight-hour path, persistence and account integration.
@@ -93,7 +93,7 @@ All integration/browser tests use temporary collections. The running app uses it
 - Fresh independent Impeccable review returned `ship` for the refinement after checking all eleven current captures against the original landing reference and latest scope. It identified no material fixes.
 
 
-## Horizontal scroll journey restored — 11 November 2026
+## Horizontal scroll journey restored: 11 November 2026
 
 - Restored the explicitly requested across-page scroll animation: a pinned ink chapter carries the same card left to right through encounter, recall/rating and return. Vertical scroll directly controls card translation, the drawn curve and the active stage; reversing scroll reverses them. The chapter is available before answering the optional sample. Its final button advances to the three-question setup.
 - Browser production build and all 12 local cloud/onboarding tests passed. An initial test run stalled in the application startup screen before the landing mounted; the isolated test and a complete repeat both passed without a source workaround. Four focused visual/flow tests passed after the final large-text adjustment.
@@ -101,3 +101,10 @@ All integration/browser tests use temporary collections. The running app uses it
 - Reduced motion and content taller than the viewport show an unpinned complete illustration. Large-text phase labels now stack so they stay inside the ink field; bounds are checked at 320px with a 30px root size. Automated accessibility, regular 320/390/800/1440px checks and the eight-hour setup/account journeys pass.
 - Motion uses a passive scroll listener with event-batched animation frames and updates React only at stage boundaries. No motion library was added. The single detector run produced 31 advisories and no primary findings. Existing brand assets and tokens are preserved.
 - Fresh independent Impeccable review returned `ship` after comparing the original reference and current desktop/phone start, middle and end captures, source scroll coupling and accessible fallbacks. No material fixes were identified.
+
+
+## Home routing and rephrasing: 11 November 2026
+
+- The site home now chooses the landing page from sign-in status, regardless of saved guest cards. Signed-in visitors open their decks; explicit guest continuation and study links remain available. Removed the unnecessary collection read that previously gated the initial route.
+- Regression coverage creates a guest library, opens and reloads home, verifies the landing page and unchanged cards, returns through guest continuation, and checks signed-in home. All 13 local cloud/onboarding tests, the focused entry regression and 8 browser-only journeys passed.
+- Updated the browser title to “Oftly - Your daily practice”, clarified the unavailable recall value and rephrased punctuation in project copy and documentation. Browser production build and formatting checks pass.
