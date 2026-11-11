@@ -9,3 +9,5 @@ STORY: Compare immediate and delayed retrieval results → scroll through spaced
 FIRST VIEWPORT: Compact brand/back header, clear research title, a short introduction and an interactive study result with three time horizons. Source and study limits sit immediately below the graphic.
 FORM: Code-led extension of existing research content and landing interaction language; seed: none (user-pinned world and visual explanation brief). No new identity, marketing metrics or raster assets. Scroll-linked diagram movement stops at rest; reduced motion shows complete static diagrams.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+
+The user’s 11 November graph refinement makes the review curve visibly more durable over time: later dips are shallower, declines flatter and review gaps longer. Keep it explicitly illustrative rather than a plot of actual FSRS due-time thresholds.

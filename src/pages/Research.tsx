@@ -142,25 +142,25 @@ function SpacingFigure() {
       <svg
         viewBox="0 0 960 260"
         role="img"
-        aria-label="Illustration: recall falls between reviews. Successful retrieval restores it, and later reviews can be spaced further apart."
+        aria-label="Illustration: successful reviews make memory more durable. Later dips are shallower and the gaps between reviews grow."
       >
         <path className="spacing-guide" d="M20 240H940" />
         <path
           className="spacing-forgetting"
-          d="M20 25C70 80 90 215 210 227S700 237 940 237"
+          d="M20 25C40 70 65 150 110 175C160 215 200 227 300 233S750 239 940 239"
         />
         <path
           ref={line}
           className="spacing-return"
           pathLength="1"
-          d="M20 25C45 55 70 115 110 155L110 25C160 55 210 140 290 155L290 25C390 60 490 135 620 155L620 25C710 45 830 95 940 120"
+          d="M20 25C40 70 65 150 110 175L110 25C160 55 220 100 300 115L300 25C385 45 485 70 590 75L590 25C705 29 835 46 940 50"
         />
         <circle
           ref={marker}
           className="spacing-marker"
           r="7"
           cx="940"
-          cy="120"
+          cy="50"
         />
       </svg>
       <div className="spacing-labels" aria-hidden="true">
@@ -170,8 +170,8 @@ function SpacingFigure() {
         <span>A longer gap</span>
       </div>
       <figcaption>
-        Illustrative curves, not measured recall probabilities or prescribed
-        intervals.
+        Memory can last longer between successful reviews. Illustrative curves,
+        not measured recall probabilities or prescribed intervals.
       </figcaption>
     </figure>
   );

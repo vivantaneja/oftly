@@ -306,13 +306,15 @@ Light and Dark are appearances of the same quiet tool. The public research page 
 
 ## Colors
 
-Ink carries readable text and the single primary action. Warm canvas is the dominant surface; paper is reserved for subtle hover and selected-rating states. Leaf remains the focus/success color. Marigold remains in the brand mark and text selection, not large study buttons. Semantic error colors remain distinct.
+Ink carries readable text and the single primary action. Warm canvas is the dominant surface; paper is reserved for subtle hover and selected-rating states. Leaf remains the success color; keyboard focus uses ink. Marigold remains in the brand mark and text selection, not large study buttons. Semantic error colors remain distinct.
 
 There is no dark navigation rail, filled dashboard panel or colored numeric badge. Queue counts use aligned numerals: ink for New, muted red for Learning and leaf for Due, always with labels. Avoid decorative category colors.
 
 ### Appearance roles
 
-The unprefixed palette records Light; `dark-*` records the matching values from `public/theme.css`. The dark canvas and layered slate surfaces carry warm light text, a pale primary action and a lighter leaf focus/success color. Marigold is shared across appearances. `story-ground` and `story-ink` keep the recall illustrations distinct in either palette. Semantic danger, error, warning, chart and scrollbar roles change with the palette; imported images and Google artwork retain their original colors. The outlined wordmark uses its existing paper asset in Dark.
+The unprefixed palette records Light; `dark-*` records the matching values from `public/theme.css`. The dark canvas and layered slate surfaces carry warm light text, a pale primary action and a lighter leaf success color. Keyboard focus uses the active ink color. Marigold is shared across appearances. `story-ground` and `story-ink` keep the recall illustrations distinct in either palette. Semantic danger, error, warning, chart and scrollbar roles change with the palette; imported images and Google artwork retain their original colors. The outlined wordmark uses its existing paper asset in Dark.
+
+Clicked text fields use their existing one-pixel border in ink, without an extra outer frame. Keyboard-focused buttons, links, selects and disclosures use a two-pixel ink outline with a two-pixel offset. The touch-wheel frame uses the same keyboard indicator.
 
 **The Semantic Pair Rule.** Pair an action background with `on-action`, body surfaces with `ink`, and a story ground with `story-ink`. Use the active CSS roles rather than inverting an entire page or assuming an action always has light text.
 
@@ -376,7 +378,7 @@ Desktop number fields retain visible Hours and Minutes labels. Hours step by one
 
 `src/pages/Research.tsx` and `src/pages/research.css` extend the existing world as specified in `.impeccable/surfaces/research.md`. Keep chapter headings, readable paragraphs, direct source links and figure captions together. The published retrieval result uses labeled horizontal bars, three time-horizon buttons with an explicit pressed state, and a nearby statement of the experiment’s limits. Its values come from Roediger & Karpicke (2006), Experiment 1; it is not an app comparison.
 
-The spacing figure uses the established ink-and-marigold story palette, a solid review curve and a dashed no-review curve. It is an illustration, not measured recall probabilities or a prescribed interval. Its drawing responds to native page scroll within the figure’s visible passage, reverses with scrolling and stops at rest; it does not pin or intercept the page. Reduced motion shows the complete static curve and removes the result-bar transition. The published results, code-drawn diagram, native answer disclosure and isolated scheduler demonstration use no new shipping raster imagery.
+The spacing figure uses the established ink-and-marigold story palette, a solid review curve and a dashed no-review curve. Progressively shallower dips and flatter curves make the accumulating benefit of successful practice visible as the gaps grow. It is an illustration, not measured recall probabilities or a prescribed interval. Its drawing responds to native page scroll within the figure’s visible passage, reverses with scrolling and stops at rest; it does not pin or intercept the page. Reduced motion shows the complete static curve and removes the result-bar transition. The published results, code-drawn diagram, native answer disclosure and isolated scheduler demonstration use no new shipping raster imagery.
 
 The scheduler demonstration uses four neutral ratings, a reset control and the actual browser FSRS-6 scheduler with default parameters. Its displayed state is separate from the learner’s cards. Keep the desired-retention target, simulation label and evidence limits visible: Oftly shares the FSRS family with modern Anki, and no head-to-head study establishes superiority. Subtle citations open the supporting papers or Anki manual; the full research notes remain linked on GitHub.
 
@@ -387,7 +389,7 @@ The scheduler demonstration uses four neutral ratings, a reset control and the a
 - Preserve keyboard access, focus indication, touch targets and enlarged-text wrapping.
 - Use disclosure for help and optional settings, not essential questions or answers.
 - Keep scheduling, imports, IDs and learner data behavior unchanged.
-- Do use semantic foreground/background pairs in both appearances and retain a visible leaf focus ring.
+- Do use semantic foreground/background pairs in both appearances and retain a visible, restrained ink focus indicator.
 - Do choose study-time wheels by coarse-pointer capability, preserve exact existing minute values and keep native page scrolling.
 - Do keep research figures labeled, sources adjacent and reduced-motion alternatives complete.
 - Don't tint imported media or Google artwork with a page-wide dark-mode filter.

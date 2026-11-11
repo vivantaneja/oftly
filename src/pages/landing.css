@@ -304,8 +304,8 @@
   display: none;
 }
 .time-wheel-frame:has(:focus-visible) {
-  outline: 3px solid var(--leaf);
-  outline-offset: 3px;
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
   border-radius: 5px;
 }
 .time-wheel:focus-visible {
@@ -407,10 +407,6 @@
 .setup-page a:hover {
   text-decoration: underline;
   text-underline-offset: 4px;
-}
-.setup-page :is(a, button, input, summary):focus-visible {
-  outline: 2px solid var(--leaf);
-  outline-offset: 4px;
 }
 .setup-page input {
   caret-color: var(--ink);
