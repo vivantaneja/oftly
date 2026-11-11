@@ -36,72 +36,47 @@ export function useRecallStory(missed: boolean) {
       return measurePath.getTotalLength();
     });
     const peaks = lengths.slice(0, -1).map((length) => length / lengths[2]);
-    const visited = new Set<number>();
+    // Give each review a short stretch of scroll to breathe. The page keeps
+    // moving natively; only the illustration dwells, with zero speed on arrival
+    // and departure so it never feels like hitting a scroll barrier.
+    const dwell = 0.1;
+    const progressAt = (position: number) => {
+      let scrollStart = 0,
+        pathStart = 0;
+      for (let i = 0; i <= peaks.length; i++) {
+        const pathEnd = peaks[i] ?? 1;
+        const movingEnd = pathEnd * (1 - dwell * peaks.length) + dwell * i;
+        if (position <= movingEnd) {
+          const t = Math.max(
+            0,
+            Math.min(1, (position - scrollStart) / (movingEnd - scrollStart)),
+          );
+          const eased = t * t * t * (t * (6 * t - 15) + 10);
+          return pathStart + (pathEnd - pathStart) * eased;
+        }
+        if (position <= movingEnd + dwell) return pathEnd;
+        scrollStart = movingEnd + dwell;
+        pathStart = pathEnd;
+      }
+      return 1;
+    };
     let frame = 0,
-      timer = 0,
-      currentStage = -1;
-    let oversized = false,
-      stationary = false,
-      inputDriven = false;
-    let start = 0,
-      distance = 1,
-      previousY = scrollY;
-    let held: number | null = null;
-    let touchY: number | null = null;
-
-    const release = () => {
-      clearTimeout(timer);
-      held = null;
-      delete root.dataset.paused;
-    };
-    const cancelInput = () => {
-      release();
-      inputDriven = false;
-    };
-    const peakY = (index: number) =>
-      Math.round(start + distance * peaks[index]);
-    const request = () => {
-      if (!frame) frame = requestAnimationFrame(paint);
-    };
-    const pause = (index: number) => {
-      held = index;
-      visited.add(index);
-      root.dataset.paused = "true";
-      window.scrollTo({ top: peakY(index), behavior: "instant" });
-      previousY = scrollY;
-      timer = window.setTimeout(() => {
-        release();
-        request();
-      }, 1000);
-    };
-    const crossing = (from: number, to: number) =>
-      peaks.findIndex(
-        (_, i) => !visited.has(i) && from <= peakY(i) && to >= peakY(i),
-      );
-    function paint() {
+      currentStage = -1,
+      oversized = false;
+    const paint = () => {
       frame = 0;
       const contentHeight = stageElement.offsetHeight;
       // Keep the large-text fallback stable when its wider card changes height.
       oversized ||= contentHeight > innerHeight - 32;
-      stationary = motion.matches || oversized;
+      const stationary = motion.matches || oversized;
       root.dataset.stationary = String(stationary);
       root.style.setProperty("--story-height", `${contentHeight}px`);
-      start = scrollY + root.getBoundingClientRect().top - 16;
-      distance = Math.max(1, root.offsetHeight - contentHeight);
-      if (stationary) cancelInput();
-      if (scrollY < start - 8) visited.clear();
-
-      if (held !== null)
-        window.scrollTo({ top: peakY(held), behavior: "instant" });
-      previousY = scrollY;
-      let progress = stationary
-        ? 1
-        : Math.max(0, Math.min(1, (scrollY - start) / distance));
-      // Preserve an exact stroke endpoint despite whole-pixel scroll rounding.
-      const atPeak = peaks.findIndex(
-        (_, i) => Math.abs(scrollY - peakY(i)) < 1,
+      const distance = Math.max(1, root.offsetHeight - contentHeight);
+      const position = Math.max(
+        0,
+        Math.min(1, (16 - root.getBoundingClientRect().top) / distance),
       );
-      if (!stationary && atPeak !== -1) progress = peaks[atPeak];
+      const progress = stationary ? 1 : progressAt(position);
       const travel = Math.max(
         0,
         track.current!.clientWidth - card.current!.offsetWidth,
@@ -119,122 +94,26 @@ export function useRecallStory(missed: boolean) {
         currentStage = nextStage;
         setStage(nextStage);
       }
-    }
-
-    const advance = (delta: number, event: Event) => {
-      if (stationary || !delta) return;
-      if (delta < 0) {
-        cancelInput();
-        return;
-      }
-      inputDriven = true;
-      if (held !== null) {
-        event.preventDefault();
-        return;
-      }
-      const index = crossing(scrollY, scrollY + delta);
-      if (index !== -1) {
-        event.preventDefault();
-        pause(index);
-        request();
-      }
     };
-    const wheel = (event: WheelEvent) => {
-      if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY))
-        return;
-      const unit =
-        event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1;
-      advance(event.deltaY * unit, event);
-    };
-    const touchStart = (event: TouchEvent) => {
-      touchY = event.touches.length === 1 ? event.touches[0].clientY : null;
-      if (touchY === null) cancelInput();
-    };
-    const touchMove = (event: TouchEvent) => {
-      if (touchY === null || event.touches.length !== 1) {
-        cancelInput();
-        return;
-      }
-      const nextY = event.touches[0].clientY;
-      advance(touchY - nextY, event);
-      touchY = nextY;
-    };
-    const keyboard = (event: KeyboardEvent) => {
-      if (event.key === "Escape" || event.key === "Tab") {
-        cancelInput();
-        return;
-      }
-      if (
-        event.ctrlKey ||
-        event.metaKey ||
-        event.altKey ||
-        (event.target instanceof Element &&
-          event.target.closest(
-            "button, a, input, select, textarea, [contenteditable]",
-          ))
-      )
-        return;
-      const delta =
-        event.key === "ArrowDown"
-          ? 40
-          : event.key === "ArrowUp"
-            ? -40
-            : event.key === "PageDown" || (event.key === " " && !event.shiftKey)
-              ? innerHeight * 0.85
-              : event.key === "PageUp" ||
-                  event.key === "Home" ||
-                  (event.key === " " && event.shiftKey)
-                ? -innerHeight
-                : event.key === "End"
-                  ? document.documentElement.scrollHeight
-                  : 0;
-      advance(delta, event);
-    };
-    const scrollEnd = () => {
-      inputDriven = false;
-    };
-    const scroll = () => {
-      // Handle momentum before scrollend clears the gesture, rather than
-      // deferring this decision until the next animation frame.
-      if (inputDriven && !stationary && held === null && scrollY > previousY) {
-        const index = crossing(previousY, scrollY);
-        if (index !== -1) pause(index);
-      }
-      previousY = scrollY;
-      request();
+    const request = () => {
+      if (!frame) frame = requestAnimationFrame(paint);
     };
     const remeasure = () => {
       oversized = false;
-      cancelInput();
       request();
     };
     const resize = new ResizeObserver(request);
     resize.observe(stageElement);
     resize.observe(track.current!);
     resize.observe(card.current!);
-    window.addEventListener("scroll", scroll, { passive: true });
-    window.addEventListener("scrollend", scrollEnd);
-    window.addEventListener("wheel", wheel, { passive: false });
-    window.addEventListener("touchstart", touchStart, { passive: true });
-    window.addEventListener("touchmove", touchMove, { passive: false });
-    window.addEventListener("keydown", keyboard);
-    window.addEventListener("focusin", cancelInput);
-    window.addEventListener("blur", cancelInput);
+    window.addEventListener("scroll", request, { passive: true });
     window.addEventListener("resize", remeasure);
     motion.addEventListener("change", remeasure);
     paint();
     return () => {
-      cancelInput();
       cancelAnimationFrame(frame);
       resize.disconnect();
-      window.removeEventListener("scroll", scroll);
-      window.removeEventListener("scrollend", scrollEnd);
-      window.removeEventListener("wheel", wheel);
-      window.removeEventListener("touchstart", touchStart);
-      window.removeEventListener("touchmove", touchMove);
-      window.removeEventListener("keydown", keyboard);
-      window.removeEventListener("focusin", cancelInput);
-      window.removeEventListener("blur", cancelInput);
+      window.removeEventListener("scroll", request);
       window.removeEventListener("resize", remeasure);
       motion.removeEventListener("change", remeasure);
     };
