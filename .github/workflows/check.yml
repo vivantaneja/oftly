@@ -27,8 +27,8 @@ jobs:
         run: npm run build
       - name: Native engine tests
         run: npm test
-      - name: Install browser
-        run: npx playwright install --with-deps chrome
+      - name: Prepare test browser
+        run: node scripts/prepare-ci-browser.mjs
       - name: Browser journeys
         run: npm run test:e2e
       - name: Browser-only production build
@@ -49,7 +49,8 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
-      - run: npx playwright install --with-deps chrome
+      - name: Prepare test browser
+        run: node scripts/prepare-ci-browser.mjs
       - name: Start disposable Supabase
         run: |
           npx supabase start --runtime native --exclude realtime,studio,analytics,pooler --eager

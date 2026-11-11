@@ -143,3 +143,5 @@ Added browser journeys cover Light/Dark/System selection, first-paint styling, p
 Desktop minute arrows advance in tens while typed integer minutes still work. Chromium touch emulation exercises the hour/minute wheels with actual touch events, snapping, taps, keyboard limits, reloads, validation, tablet layout and enlarged text. An outside-wheel swipe verifies that page scrolling remains available. This is not a physical iPad/Safari device test.
 
 The public research journey checks the published delayed-recall values, citation and GitHub links, answer reveal, live FSRS interval changes, reset and an unchanged guest library. Responsive and reduced-motion checks cover native scroll drawing, static curves, dark appearance and enlarged text. Simulated reviews remain in component memory only.
+
+CI first verifies that the runner’s existing Chrome can launch headlessly and logs its version. Only an unavailable browser triggers the Playwright browser/dependency installer. This avoids unnecessary Ubuntu package downloads while retaining installation as a fallback; no test jobs are skipped.
